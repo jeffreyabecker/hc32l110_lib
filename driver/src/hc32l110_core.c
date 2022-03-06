@@ -57,7 +57,7 @@
  * Include files
  ******************************************************************************/
 #include "hc32l110_core.h"
-#include "core_cm0plus.h"
+#include "hc32l110_system.h"
 /**
  * @addtogroup hc32l110_DDL_Driver
  * @{
@@ -86,32 +86,21 @@
 /*******************************************************************************
  * Local function prototypes ('static')
  ******************************************************************************/
-#if (DDL_PRINT_ENABLE == DDL_ON)
-static ddl_core_set_uart_baudrate(M0P_USART_TypeDef *USARTx, uint32_t baud_rate);
-#endif
+
 
 /*******************************************************************************
  * Local variable definitions ('static')
  ******************************************************************************/
-/**
- * @defgroup UTILITY_Local_Variables UTILITY Local Variables
- * @{
- */
 
 static uint32_t tick_increment_step = 0ul;
 __IO static uint32_t current_tick_count = 0ul;
 
-/**
- * @}
- */
+
 
 /*******************************************************************************
  * Function implementation - global ('extern') and local ('static')
  ******************************************************************************/
-/**
- * @defgroup UTILITY_Global_Functions UTILITY Global Functions
- * @{
- */
+
 
 /**
  * @brief Delay function, delay 1ms approximately
@@ -232,19 +221,7 @@ __WEAKDEF void systick_enable(void)
 
 
 
-/**
- * @}
- */
 
-
-
-/**
- * @}
- */
-
-/**
- * @}
- */
 
 /*******************************************************************************
  * EOF (not truncated)

@@ -53,6 +53,7 @@
 /* Include files                                                              */
 /******************************************************************************/
 #include "hc32l110_system.h"
+#include "hc32_common.h"
 
 #define M0P_CLOCK_RCH                               (*((volatile uint32_t*)(0x4000200Cul)))
 #define CLOCK_RCH_Mask                              (0x0000007FFul)
@@ -65,7 +66,7 @@ uint32_t core_system_clock_frequency;
 
 
 //add clock source.
-void core_system_clock_frequency_update (void) // Update core_system_clock_frequency variable
+__WEAKDEF void core_system_clock_frequency_update (void) // Update core_system_clock_frequency variable
 {
     core_system_clock_frequency = 4000000;
 }
@@ -78,7 +79,7 @@ void core_system_clock_frequency_update (void) // Update core_system_clock_frequ
  ** \param  none
  ** \return none
  ******************************************************************************/
-void core_system_init(void)
+__WEAKDEF void core_system_init(void)
 {
     // TODO load trim from flash
     //hcr 4MHz manual trim.
