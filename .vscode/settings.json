@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "system_hc32l110.h": "c",
+        "stdint.h": "c",
+        "core_cm0plus.h": "c",
+        "hc32l110b.h": "c",
+        "hc32l110_core.h": "c",
+        "hc32l110_registers.h": "c",
+        "hc32l110_system.h": "c"
+    }
+}
