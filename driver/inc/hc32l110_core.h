@@ -65,80 +65,62 @@ extern "C"
 
 #include "hc32l110_registers.h"
 
-/**
- * @addtogroup hc32l110_DDL_Driver
- * @{
- */
 
-/**
- * @addtogroup DDL_CORE
- * @{
- */
-
-
-
-/*******************************************************************************
- * Global type definitions ('typedef')
- ******************************************************************************/
-
-/*******************************************************************************
- * Global pre-processor symbols/macros ('#define')
- ******************************************************************************/
-
-/*******************************************************************************
- * Global variable definitions ('extern')
- ******************************************************************************/
-
-/*******************************************************************************
- * Global function prototypes (definition in C source)
- ******************************************************************************/
-/**
- * @addtogroup CORE_Global_Functions Core Functions
- * @{
- */
-
-/* Imprecise delay */
-void ddl_inaccurate_spin_delay(uint32_t approx_milliseconds);
 
 /* Systick functions */
-en_result_t systick_init(uint32_t tick_frequency);
+uint8_t systick_init(uint32_t tick_frequency);
 void systick_delay(uint32_t delay_ticks);
 void systick_increment_ticks(void);
 uint32_t systick_get_tick(void);
 void systick_disable(void);
 void systick_enable(void);
+typedef enum
+{
+    port_p01 = 1,
+    port_p02 = 2,
+    port_p03 = 3,
+    port_p14 = 14,
+    port_p15 = 15,
+    port_p23 = 23,
+    port_p24 = 24,
+    port_p25 = 25,
+    port_p26 = 26,
+    port_p27 = 27,
 
-/* You can add your own assert functions by implement the function DDL_AssertHandler
-   definition follow the function DDL_AssertHandler declaration */
-#ifdef __DEBUG
-    #define DDL_ASSERT(x)                                                      \
-    do{                                                                        \
-        ((x) ? (void)0 : DDL_AssertHandler((uint8_t *)__FILE__, __LINE__));    \
-    }while(0)
-    /* Exported function */
-    void DDL_AssertHandler(const uint8_t *file, int16_t line);
-#else
-    #define DDL_ASSERT(x)               ((void)0u)
-#endif /* __DEBUG */
-
-#if (DDL_PRINT_ENABLE == DDL_ON)
-#include <stdio.h>
-
-en_result_t ddl_uart_init(void);
-#endif
-
-/**
- * @}
- */
+    port_p31 = 31,
+    port_p32 = 32,
+    port_p33 = 33,
+    port_p34 = 34,
+    port_p35 = 35,
+    port_p36 = 36,
+} port_number_t;
 
 
-/**
- * @}
- */
+void ports_set_function(port_number_t port, uint8_t function);
+typedef struct
+{
+    uint8_t p01 :3;
+    uint8_t p02 :3;
+    uint8_t p03 :3;
+    uint8_t p14 :3;
+    uint8_t p15 :3;
+    uint8_t p23 :3;
+    uint8_t p24 :3;
+    uint8_t p25 :3;
+    uint8_t p26 :3;
+    uint8_t p27 :3;
 
-/**
- * @}
- */
+    uint8_t p31 :3;
+    uint8_t p32 :3;
+    uint8_t p33 :3;
+    uint8_t p34 :3;
+    uint8_t p35 :3;
+    uint8_t p36 :3;
+} port_configuration_t;
+void ports_configure(port_configuration_t cfg);
+uint8_t ports_get_function(port_number_t port);
+
+
 
 #ifdef __cplusplus
 }

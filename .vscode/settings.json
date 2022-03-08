@@ -6,6 +6,9 @@
         "hc32l110b.h": "c",
         "hc32l110_core.h": "c",
         "hc32l110_registers.h": "c",
-        "hc32l110_system.h": "c"
-    }
+        "hc32l110_system.h": "c",
+        "hc32_common.h": "c",
+        "hc32l110_platform.h": "c"
+    },
+    "C_Cpp.dimInactiveRegions": false
 }

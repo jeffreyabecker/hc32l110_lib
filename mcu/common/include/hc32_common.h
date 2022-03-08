@@ -10,10 +10,9 @@
    2020-01-20       Yangjp          Modify the macro definition of CLEAR_REG.
    2020-02-14       Zhangxl         Sync 'Compiler Macro Definitions' with other
                                     series.
-   2020-02-17       Yangjp          Merge hc32l110, HC32F4A0, HC32M120, HC32M423
+   2020-02-17       Yangjp          Merge HC32F120, HC32F4A0, HC32M120, HC32M423
                                     series chips.
    2020-09-07       Yangjp          Add the precompiled configuration of ARM compiler V6
-   2022-03-05       jbecker         adapted for hc32l110 series
  @endverbatim
  *******************************************************************************
  * Copyright (C) 2016, Huada Semiconductor Co., Ltd. All rights reserved.
@@ -70,8 +69,8 @@ extern "C"
  * Include files
  ******************************************************************************/
 #include <stddef.h>
+#include "cmsis_compiler.h"
 
-#include <stdint.h>
 /**
  * @addtogroup CMSIS
  * @{
@@ -95,46 +94,6 @@ extern "C"
 
 
 /**
- * @brief Functional state
- */
-typedef enum
-{
-    Disable = 0U,
-    Enable  = 1U,
-} en_functional_state_t;
-
-/* Check if it is a functional state */
-#define IS_FUNCTIONAL_STATE(state)      (((state) == Disable) || ((state) == Enable))
-
-/**
- * @brief Flag status
- */
-typedef enum
-{
-    Reset = 0U,
-    Set   = 1U,
-} en_flag_status_t, en_int_status_t;
-
-/**
- * @brief Generic error codes
- */
-typedef enum
-{
-    Ok                       = 0U,   /*!< No error */
-    Error                    = 1U,   /*!< Non-specific error code */
-    ErrorAddressAlignment    = 2U,   /*!< Address alignment does not match */
-    ErrorAccessRights        = 3U,   /*!< Wrong mode (e.g. user/system) mode is set */
-    ErrorInvalidParameter    = 4U,   /*!< Provided parameter is not valid */
-    ErrorOperationInProgress = 5U,   /*!< A conflicting or requested operation is still in progress */
-    ErrorInvalidMode         = 6U,   /*!< Operation not allowed in current mode */
-    ErrorUninitialized       = 7U,   /*!< Module (or part of it) was not initialized properly */
-    ErrorBufferFull          = 8U,   /*!< Circular buffer can not be written because the buffer is full */
-    ErrorTimeout             = 9U,   /*!< Time Out error occurred (e.g. I2C arbitration lost, Flash time-out, etc.) */
-    ErrorNotReady            = 10U,  /*!< A requested final state is not reached */
-    OperationInProgress      = 11U,  /*!< Indicator for operation in progress (e.g. ADC conversion not finished, DMA channel used, etc.) */
-} en_result_t;
-
-/**
  * @}
  */
 
@@ -154,9 +113,6 @@ typedef enum
 #endif /* __UNUSED */
 
 #if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-  #ifndef __WEAKDEF
-    #define __WEAKDEF                   __attribute__((weak))
-  #endif /* __WEAKDEF */
   #ifndef __ALIGN_BEGIN
     #define __ALIGN_BEGIN               __attribute__((aligned(4)))
   #endif /* __ALIGN_BEGIN */
@@ -171,9 +127,7 @@ typedef enum
     #define __NO_INIT
   #endif /* __NO_INIT */
 #elif defined ( __GNUC__ ) && !defined (__CC_ARM) /*!< GNU Compiler */
-  #ifndef __WEAKDEF
-    #define __WEAKDEF                   __attribute__((weak))
-  #endif /* __WEAKDEF */
+
   #ifndef __ALIGN_BEGIN
     #define __ALIGN_BEGIN               __attribute__((aligned (4)))
   #endif /* __ALIGN_BEGIN */
@@ -188,9 +142,6 @@ typedef enum
     #define __NO_INIT                   __attribute__((section(".noinit")))
   #endif /* __NO_INIT */
 #elif defined (__ICCARM__)                /*!< IAR Compiler */
-  #ifndef __WEAKDEF
-    #define __WEAKDEF                   __weak
-  #endif /* __WEAKDEF */
   #ifndef __ALIGN_BEGIN
     #define __ALIGN_BEGIN               _Pragma("data_alignment=4")
   #endif /* __ALIGN_BEGIN */
@@ -204,9 +155,6 @@ typedef enum
     #define __NO_INIT                   __no_init
 #endif /* __NO_INIT */
 #elif defined (__CC_ARM)                /*!< ARM Compiler */
-  #ifndef __WEAKDEF
-    #define __WEAKDEF                   __attribute__((weak))
-  #endif /* __WEAKDEF */
   #ifndef __ALIGN_BEGIN
     #define __ALIGN_BEGIN               __align(4)
   #endif /* __ALIGN_BEGIN */
@@ -284,25 +232,10 @@ typedef enum
 #define MODIFY_REG8(REGS, CLEARMASK, SETMASK)   (WRITE_REG8((REGS), (((READ_REG8((REGS))) & ((uint8_t)(~((uint8_t)(CLEARMASK))))) | ((uint8_t)(SETMASK) & (uint8_t)(CLEARMASK)))))
 #define MODIFY_REG16(REGS, CLEARMASK, SETMASK)  (WRITE_REG16((REGS), (((READ_REG16((REGS))) & ((uint16_t)(~((uint16_t)(CLEARMASK))))) | ((uint16_t)(SETMASK) & (uint16_t)(CLEARMASK)))))
 #define MODIFY_REG32(REGS, CLEARMASK, SETMASK)  (WRITE_REG32((REGS), (((READ_REG32((REGS))) & ((uint32_t)(~((uint32_t)(CLEARMASK))))) | ((uint32_t)(SETMASK) & (uint32_t)(CLEARMASK)))))
-
-
 /**
  * @}
  */
 
-/**
- * @defgroup Ddl_Config_Macro_Definitions Device Driver Library Config Macro definitions
- * @{
- */
-/* Midware module on-off define */
-#define MW_ON                                       (1u)
-#define MW_OFF                                      (0u)
-/* Chip module on-off define */
-#define DDL_ON                                      (1u)
-#define DDL_OFF                                     (0u)
-/**
- * @}
- */
 /**
  * @}
  */

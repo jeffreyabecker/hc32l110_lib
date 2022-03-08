@@ -1,5 +1,4 @@
-/**
- *******************************************************************************
+/*********************************************************************************
  * @file  hc32l110_utility.c
  * @brief This file provides utility functions for DDL.
  @verbatim
@@ -101,49 +100,72 @@ __IO static uint32_t current_tick_count = 0ul;
  * Function implementation - global ('extern') and local ('static')
  ******************************************************************************/
 
-
-/**
- * @brief Delay function, delay 1ms approximately
- * @param [in] u32Cnt                   ms
- * @retval None
- */
-void ddl_inaccurate_spin_delay(uint32_t approx_milliseconds)
-{
-    __IO uint32_t i = 0ul;
-    uint32_t spin_counter = 0ul;
-
-    spin_counter = core_system_clock_frequency;
-    spin_counter = spin_counter / 10000ul;
-    while (approx_milliseconds-- > 0ul)
+void ports_set_function(port_number_t port, uint8_t function){
+    switch (port)
     {
-        i = spin_counter;
-        while (i-- > 0ul)
-        {
-            ;
-        }
+
+        case port_p01: M0P_GPIO->P01_SEL = function; return;
+        case port_p02: M0P_GPIO->P02_SEL = function; return;
+        case port_p03: M0P_GPIO->P03_SEL = function; return;
+        case port_p14: M0P_GPIO->P14_SEL = function; return;
+        case port_p15: M0P_GPIO->P15_SEL = function; return;
+        case port_p23: M0P_GPIO->P23_SEL = function; return;
+        case port_p24: M0P_GPIO->P24_SEL = function; return;
+        case port_p25: M0P_GPIO->P25_SEL = function; return;
+        case port_p26: M0P_GPIO->P26_SEL = function; return;
+        case port_p27: M0P_GPIO->P27_SEL = function; return;
+        case port_p31: M0P_GPIO->P31_SEL = function; return;
+        case port_p32: M0P_GPIO->P32_SEL = function; return;
+        case port_p33: M0P_GPIO->P33_SEL = function; return;
+        case port_p34: M0P_GPIO->P34_SEL = function; return;
+        case port_p35: M0P_GPIO->P35_SEL = function; return;
+        case port_p36: M0P_GPIO->P36_SEL = function; return;
+    default:
+        break;
+    }
+}
+void ports_configure(port_configuration_t cfg);
+uint8_t ports_get_function(port_number_t port){
+    switch (port)
+    {
+        case port_p01: return M0P_GPIO->P01_SEL;
+        case port_p02: return M0P_GPIO->P02_SEL;
+        case port_p03: return M0P_GPIO->P03_SEL;
+        case port_p14: return M0P_GPIO->P14_SEL;
+        case port_p15: return M0P_GPIO->P15_SEL;
+        case port_p23: return M0P_GPIO->P23_SEL;
+        case port_p24: return M0P_GPIO->P24_SEL;
+        case port_p25: return M0P_GPIO->P25_SEL;
+        case port_p26: return M0P_GPIO->P26_SEL;
+        case port_p27: return M0P_GPIO->P27_SEL;
+        case port_p31: return M0P_GPIO->P31_SEL;
+        case port_p32: return M0P_GPIO->P32_SEL;
+        case port_p33: return M0P_GPIO->P33_SEL;
+        case port_p34: return M0P_GPIO->P34_SEL;
+        case port_p35: return M0P_GPIO->P35_SEL;
+        case port_p36: return M0P_GPIO->P36_SEL;
+    default:
+        return 0;
     }
 }
 
 /**
  * @brief This function Initializes the interrupt frequency of the SysTick.
- * @param [in] tick_frequency                  SysTick interrupt frequency (1 to 1000).
- * @retval An en_result_t enumeration value:
+ * @details Initializes the systick frequency to (1/tick_frequency)s
+ * @param [in] tick_frequency                  SysTick interrupt frequency (1 to 0xFFFFFF).
+ * @retval An uint8_t e:
  *           - Ok: SysTick Initializes succeed
  *           - Error: SysTick Initializes failed
  */
-__WEAKDEF en_result_t systick_init(uint32_t tick_frequency)
+uint8_t systick_init(uint32_t tick_frequency)
 {
-    if ((0ul != tick_frequency) && (tick_frequency <= 1000ul))
+    if ((1UL <= tick_frequency) && (tick_frequency <= 0XFFFFFFUL))
     {
-        tick_increment_step = 1000ul / tick_frequency;
-        /* Configure the SysTick interrupt */
-        if (0ul == SysTick_Config(core_system_clock_frequency / tick_frequency))
-        {
-            return Ok;
-        }
+        tick_increment_step = 1000UL / tick_frequency;
+        SysTick_Config(SystemCoreClock / tick_frequency);
+        return 1;
     }
-
-    return Error;
+    return 0;
 }
 
 /**
@@ -151,7 +173,7 @@ __WEAKDEF en_result_t systick_init(uint32_t tick_frequency)
  * @param [in] delay_ticks                 Delay specifies the delay time.
  * @retval None
  */
-__WEAKDEF void systick_delay(uint32_t delay_ticks)
+void systick_delay(uint32_t delay_ticks)
 {
     const uint32_t tick_start = systick_get_tick();
     uint32_t tick_end;
@@ -182,17 +204,17 @@ __WEAKDEF void systick_delay(uint32_t delay_ticks)
  * @param None
  * @retval None
  */
-__WEAKDEF void systick_increment_ticks(void)
+void systick_increment_ticks(void)
 {
     current_tick_count += tick_increment_step;
 }
 
 /**
- * @brief Provides a tick value in millisecond.
+ * @brief Provides a tick value 
  * @param None
  * @retval Tick value
  */
-__WEAKDEF uint32_t systick_get_tick(void)
+uint32_t systick_get_tick(void)
 {
     return current_tick_count;
 }
@@ -202,10 +224,10 @@ __WEAKDEF uint32_t systick_get_tick(void)
  * @param None
  * @retval None
  */
-__WEAKDEF void systick_disable(void)
+void systick_disable(void)
 {
     /* Disable SysTick Interrupt */
-    SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
+    CLEAR_REG32_BIT(SysTick->CTRL, SysTick_CTRL_TICKINT_Pos);
 }
 
 /**
@@ -213,15 +235,10 @@ __WEAKDEF void systick_disable(void)
  * @param None
  * @retval None
  */
-__WEAKDEF void systick_enable(void)
+void systick_enable(void)
 {
-    /* Enable SysTick Interrupt */
-    SysTick->CTRL  |= SysTick_CTRL_TICKINT_Msk;
+     SET_REG32_BIT(SysTick->CTRL, SysTick_CTRL_TICKINT_Pos);
 }
-
-
-
-
 
 /*******************************************************************************
  * EOF (not truncated)

@@ -42,21 +42,21 @@
 ;/
 */
 /*****************************************************************************/
-/*  File        hc32f120x6_flash.ld                                          */
-/*  Abstract    Linker script for HC32F120x6 Device with                     */
+/*  File        hc32l110x6_flash.ld                                          */
+/*  Abstract    Linker script for HC32L110x6 Device with                     */
 /*              32KByte FLASH, 4KByte RAM                                    */
 /*  Version     V1.0                                                         */
-/*  Date        2019-03-13                                                   */
+/*  Date        2022-03-07                                                   */
 /*****************************************************************************/
 
 /* Use contiguous memory regions for simple. */
 MEMORY
 {
-    FLASH  (rx): ORIGIN = 0x00000000, LENGTH = 32K
-    RAM   (rwx): ORIGIN = 0x20000000, LENGTH = 4K
+    FLASH  (rx): ORIGIN = 0x00000000, LENGTH = 16K
+    RAM   (rwx): ORIGIN = 0x20000000, LENGTH = 2K
 }
 
-ENTRY(Reset_Handler)
+ENTRY(nvic_handle_reset)
 
 SECTIONS
 {
