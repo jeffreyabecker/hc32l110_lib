@@ -46,10 +46,62 @@
 extern "C"
 {
 #endif
-#include "hc32l110_platform.h"
-#include "hc32_common.h"
-#include <stdint.h>
 
+
+#include <stdint.h>
+/******************************************************************************
+ * Configuration of the Cortex-M0P Processor and Core Peripherals
+ ******************************************************************************/
+#define __MPU_PRESENT 0          /* No MPU                                       */
+#define __NVIC_PRIO_BITS 2       /* M0P uses 2 Bits for the Priority Levels      */
+#define __Vendor_SysTickConfig 0 /* Set to 1 if different SysTick Config is used */
+
+    /******************************************************************************
+     * Interrupt Number Definition
+     ******************************************************************************/
+
+    typedef enum IRQn
+    {
+
+        irq_nmi = -14,        /*  2 Non Maskable*/
+        irq_hard_fault = -13, /*  3 Hard Fault*/
+        irq_svc = -5,         /* 11 SV Call*/
+        irq_pend_sv = -2,     /* 14 Pend SV*/
+        irq_sys_tick = -1,    /* 15 System Tick*/
+        irq_port_0 = 0,
+        irq_port_1 = 1,
+        irq_port_2 = 2,
+        irq_port_3 = 3,
+        irq_user_0 = 4,
+        irq_user_1 = 5,
+        irq_uart_0 = 6,
+        irq_uart_1 = 7,
+        irq_lpuart = 8,
+        irq_user_2 = 9,
+        irq_spi = 10,
+        irq_user_3 = 11,
+        irq_i2c = 12,
+        irq_user_4 = 13,
+        irq_timer_0 = 14,
+        irq_timer_1 = 15,
+        irq_timer_2 = 16,
+        irq_low_power_timer = 17,
+        irq_timer_4 = 18,
+        irq_timer_5 = 19,
+        irq_timer_6 = 20,
+        irq_pca = 21,
+        irq_watchdog_timer = 22,
+        irq_realtime_clock = 23,
+        irq_analog_digital_converter = 24,
+        irq_user_5 = 25,
+        irq_voltage_comparitor_0 = 26,
+        irq_voltage_comparitor_1 = 27,
+        irq_low_voltage = 28,
+        irq_ef_ram = 30,
+        irq_clock_trim = 31,
+    } IRQn_Type;
+
+#include "core_cm0plus.h"
 #define SUCCESS (0)
 #define ERROR (-1)
 
@@ -841,16 +893,8 @@ extern "C"
     __IO uint32_t TICK : 1;
   } stc_clock_debug_active_field_t;
 
-  typedef struct
-  {
-    __IO uint32_t RESULT : 16;
-    __IO uint32_t FLAG : 1;
-  } stc_crc_result_field_t;
 
-  typedef struct
-  {
-    __IO uint32_t DATA : 32;
-  } stc_crc_data_field_t;
+
 
   typedef struct
   {
@@ -1980,7 +2024,13 @@ extern "C"
 
   typedef struct
   {
-    __IO uint32_t ALMWEEK : 7;
+    __IO uint8_t SUNDAY:1;
+    __IO uint8_t MONDAY:1;
+    __IO uint8_t TUESDAY:1;
+    __IO uint8_t WEDNESDAY:1;
+    __IO uint8_t THURSDAY:1;
+    __IO uint8_t FRIDAY:1;
+    __IO uint8_t SATURDAY:1;
   } stc_rtc_almweek_field_t;
 
   typedef struct
@@ -2544,16 +2594,13 @@ extern "C"
   typedef struct
   {
     uint8_t RESERVED0[4];
-    union
-    {
       __IO uint32_t RESULT;
-      stc_crc_result_field_t RESULT_f;
-    };
     uint8_t RESERVED1[120];
     union
     {
-      __IO uint32_t DATA;
-      stc_crc_data_field_t DATA_f;
+      __IO uint32_t DATA32;
+      __IO uint16_t DATA16;
+      __IO uint8_t DATA8;
     };
   } M0P_CRC_TypeDef;
 

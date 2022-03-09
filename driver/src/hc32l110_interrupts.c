@@ -63,7 +63,7 @@ void nvic_interrupt_clear(nivc_irq_number_t irq_number){
     NVIC_ClearPendingIRQ(irq_number);
 }
 
-void nvic_handle_nmi(void)
+void NMI_Handler(void)
 {
     if (nvic_indirection_table[0].handler != NULL)
     {
@@ -71,7 +71,7 @@ void nvic_handle_nmi(void)
     }
     NVIC_ClearPendingIRQ(irq_nmi);
 }
-void nvic_handle_hard_fault(void)
+void HardFault_Handler(void)
 {
     if (nvic_indirection_table[1].handler != NULL)
     {
@@ -79,7 +79,7 @@ void nvic_handle_hard_fault(void)
     }
     NVIC_ClearPendingIRQ(irq_hard_fault);
 }
-void nvic_handle_svc(void)
+void SVC_Handler(void)
 {
     if (nvic_indirection_table[2].handler != NULL)
     {
@@ -87,7 +87,7 @@ void nvic_handle_svc(void)
     }
     NVIC_ClearPendingIRQ(irq_svc);
 }
-void nvic_handle_pend_sv(void)
+void PendSV_Handler(void)
 {
     if (nvic_indirection_table[3].handler != NULL)
     {
@@ -95,7 +95,7 @@ void nvic_handle_pend_sv(void)
     }
     NVIC_ClearPendingIRQ(irq_pend_sv);
 }
-void nvic_handle_sys_tick(void)
+void SysTick_Handler(void)
 {
     systick_increment_ticks();
     if (nvic_indirection_table[4].handler != NULL)
@@ -104,7 +104,7 @@ void nvic_handle_sys_tick(void)
     }
     NVIC_ClearPendingIRQ(irq_sys_tick);
 }
-void nvic_handle_port_0(void)
+void GpioPort0_Handler(void)
 {
     if (nvic_indirection_table[5].handler != NULL)
     {
@@ -112,7 +112,7 @@ void nvic_handle_port_0(void)
     }
     NVIC_ClearPendingIRQ(irq_port_0);
 }
-void nvic_handle_port_1(void)
+void GpioPort1_Handler(void)
 {
     if (nvic_indirection_table[6].handler != NULL)
     {
@@ -120,7 +120,7 @@ void nvic_handle_port_1(void)
     }
     NVIC_ClearPendingIRQ(irq_port_1);
 }
-void nvic_handle_port_2(void)
+void GpioPort2_Handler(void)
 {
     if (nvic_indirection_table[7].handler != NULL)
     {
@@ -128,7 +128,7 @@ void nvic_handle_port_2(void)
     }
     NVIC_ClearPendingIRQ(irq_port_2);
 }
-void nvic_handle_port_3(void)
+void GpioPort3_Handler(void)
 {
     if (nvic_indirection_table[8].handler != NULL)
     {
@@ -136,7 +136,7 @@ void nvic_handle_port_3(void)
     }
     NVIC_ClearPendingIRQ(irq_port_3);
 }
-void nvic_handle_user_0(void)
+void UserInterrupt0_Handler(void)
 {
     if (nvic_indirection_table[9].handler != NULL)
     {
@@ -144,7 +144,7 @@ void nvic_handle_user_0(void)
     }
     NVIC_ClearPendingIRQ(irq_user_0);
 }
-void nvic_handle_user_1(void)
+void UserInterrupt1_Handler(void)
 {
     if (nvic_indirection_table[10].handler != NULL)
     {
@@ -152,7 +152,7 @@ void nvic_handle_user_1(void)
     }
     NVIC_ClearPendingIRQ(irq_user_1);
 }
-void nvic_handle_uart_0(void)
+void Uart0_Handler(void)
 {
     if (nvic_indirection_table[11].handler != NULL)
     {
@@ -160,7 +160,7 @@ void nvic_handle_uart_0(void)
     }
     NVIC_ClearPendingIRQ(irq_uart_0);    
 }
-void nvic_handle_uart_1(void)
+void Uart1_Handler(void)
 {
     if (nvic_indirection_table[12].handler != NULL)
     {
@@ -168,7 +168,7 @@ void nvic_handle_uart_1(void)
     }
     NVIC_ClearPendingIRQ(irq_uart_1);
 }
-void nvic_handle_lpuart(void)
+void LpUart_Handler(void)
 {
     if (nvic_indirection_table[13].handler != NULL)
     {
@@ -176,7 +176,7 @@ void nvic_handle_lpuart(void)
     }
     NVIC_ClearPendingIRQ(irq_lpuart);
 }
-void nvic_handle_user_2(void)
+void UserInterrupt2_Handler(void)
 {
     if (nvic_indirection_table[14].handler != NULL)
     {
@@ -184,7 +184,7 @@ void nvic_handle_user_2(void)
     }
     NVIC_ClearPendingIRQ(irq_user_2);
 }
-void nvic_handle_spi(void)
+void SPI_Handler(void)
 {
     if (nvic_indirection_table[15].handler != NULL)
     {
@@ -192,7 +192,7 @@ void nvic_handle_spi(void)
     }
     NVIC_ClearPendingIRQ(irq_spi);
 }
-void nvic_handle_user_3(void)
+void UserInterrupt3_Handler(void)
 {
     if (nvic_indirection_table[16].handler != NULL)
     {
@@ -200,7 +200,7 @@ void nvic_handle_user_3(void)
     }
     NVIC_ClearPendingIRQ(irq_user_3);
 }
-void nvic_handle_i2c(void)
+void I2C_Handler(void)
 {
     if (nvic_indirection_table[17].handler != NULL)
     {
@@ -208,7 +208,7 @@ void nvic_handle_i2c(void)
     }
     NVIC_ClearPendingIRQ(irq_i2c);
 }
-void nvic_handle_user_4(void)
+void UserInterrupt4_Handler(void)
 {
     if (nvic_indirection_table[18].handler != NULL)
     {
@@ -216,7 +216,7 @@ void nvic_handle_user_4(void)
     }
     NVIC_ClearPendingIRQ(irq_user_4);
 }
-void nvic_handle_timer_0(void)
+void Timer0_Handler(void)
 {
     if (nvic_indirection_table[19].handler != NULL)
     {
@@ -224,7 +224,7 @@ void nvic_handle_timer_0(void)
     }
     NVIC_ClearPendingIRQ(irq_timer_0);
 }
-void nvic_handle_timer_1(void)
+void Timer1_Handler(void)
 {
     if (nvic_indirection_table[20].handler != NULL)
     {
@@ -232,7 +232,7 @@ void nvic_handle_timer_1(void)
     }
     NVIC_ClearPendingIRQ(irq_timer_1);
 }
-void nvic_handle_timer_2(void)
+void Timer2_Handler(void)
 {
     if (nvic_indirection_table[21].handler != NULL)
     {
@@ -240,7 +240,7 @@ void nvic_handle_timer_2(void)
     }
     NVIC_ClearPendingIRQ(irq_timer_2);
 }
-void nvic_handle_low_power_timer(void)
+void LpTimer_Handler(void)
 {
     if (nvic_indirection_table[22].handler != NULL)
     {
@@ -248,7 +248,7 @@ void nvic_handle_low_power_timer(void)
     }
     NVIC_ClearPendingIRQ(irq_low_power_timer);
 }
-void nvic_handle_timer_4(void)
+void Timer4_Handler(void)
 {
     if (nvic_indirection_table[23].handler != NULL)
     {
@@ -256,7 +256,7 @@ void nvic_handle_timer_4(void)
     }
     NVIC_ClearPendingIRQ(irq_timer_4);
 }
-void nvic_handle_timer_5(void)
+void Timer5_Handler(void)
 {
     if (nvic_indirection_table[24].handler != NULL)
     {
@@ -264,7 +264,7 @@ void nvic_handle_timer_5(void)
     }
     NVIC_ClearPendingIRQ(irq_timer_5);
 }
-void nvic_handle_timer_6(void)
+void Timer6_Handler(void)
 {
     if (nvic_indirection_table[25].handler != NULL)
     {
@@ -272,7 +272,7 @@ void nvic_handle_timer_6(void)
     }
     NVIC_ClearPendingIRQ(irq_timer_6);
 }
-void nvic_handle_pca(void)
+void PCA_Handler(void)
 {
     if (nvic_indirection_table[26].handler != NULL)
     {
@@ -280,7 +280,7 @@ void nvic_handle_pca(void)
     }
     NVIC_ClearPendingIRQ(irq_pca);
 }
-void nvic_handle_watchdog_timer(void)
+void WatchDogTimer_Handler(void)
 {
     if (nvic_indirection_table[27].handler != NULL)
     {
@@ -288,7 +288,7 @@ void nvic_handle_watchdog_timer(void)
     }
     NVIC_ClearPendingIRQ(irq_watchdog_timer);
 }
-void nvic_handle_realtime_clock(void)
+void RTC_Handler(void)
 {
     if (nvic_indirection_table[28].handler != NULL)
     {
@@ -296,7 +296,7 @@ void nvic_handle_realtime_clock(void)
     }
     NVIC_ClearPendingIRQ(irq_realtime_clock);
 }
-void nvic_handle_analog_digital_converter(void)
+void ADC_Handler(void)
 {
     if (nvic_indirection_table[29].handler != NULL)
     {
@@ -304,7 +304,7 @@ void nvic_handle_analog_digital_converter(void)
     }
     NVIC_ClearPendingIRQ(irq_analog_digital_converter);
 }
-void nvic_handle_user_5(void)
+void UserInterrupt5_Handler(void)
 {
     if (nvic_indirection_table[30].handler != NULL)
     {
@@ -312,7 +312,7 @@ void nvic_handle_user_5(void)
     }
     NVIC_ClearPendingIRQ(irq_user_5);
 }
-void nvic_handle_voltage_comparitor_0(void)
+void VC0_Handler(void)
 {
     if (nvic_indirection_table[31].handler != NULL)
     {
@@ -320,7 +320,7 @@ void nvic_handle_voltage_comparitor_0(void)
     }
     NVIC_ClearPendingIRQ(irq_voltage_comparitor_0);
 }
-void nvic_handle_voltage_comparitor_1(void)
+void VC1_Handler(void)
 {
     if (nvic_indirection_table[32].handler != NULL)
     {
@@ -328,7 +328,7 @@ void nvic_handle_voltage_comparitor_1(void)
     }
     NVIC_ClearPendingIRQ(irq_voltage_comparitor_1);
 }
-void nvic_handle_low_voltage(void)
+void LVD_Handler(void)
 {
     if (nvic_indirection_table[33].handler != NULL)
     {
@@ -336,7 +336,7 @@ void nvic_handle_low_voltage(void)
     }
     NVIC_ClearPendingIRQ(irq_low_voltage);
 }
-void nvic_handle_ef_ram(void)
+void EfRam_Handler(void)
 {
     if (nvic_indirection_table[34].handler != NULL)
     {
@@ -344,7 +344,7 @@ void nvic_handle_ef_ram(void)
     }
     NVIC_ClearPendingIRQ(irq_ef_ram);
 }
-void nvic_handle_clock_trim(void)
+void ClockTrim_Handler(void)
 {
     if (nvic_indirection_table[35].handler != NULL)
     {

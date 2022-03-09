@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include <core_cm0plus.h>
+#include <cmsis_compiler.h>
 #ifdef __cplusplus
 extern "C"
 {
@@ -8,44 +8,44 @@ extern "C"
     extern uint32_t __INITIAL_SP;
     extern void main();
 
-    void nvic_handle_reset(void) __WEAK __NO_RETURN;
-    void nvic_handle_nmi(void) __WEAK;
-    void nvic_handle_hard_fault(void) __WEAK;
-    void nvic_handle_svc(void) __WEAK;
-    void nvic_handle_pend_sv(void) __WEAK;
-    void nvic_handle_sys_tick(void) __WEAK;
-    void nvic_handle_port_0(void) __WEAK;
-    void nvic_handle_port_1(void) __WEAK;
-    void nvic_handle_port_2(void) __WEAK;
-    void nvic_handle_port_3(void) __WEAK;
-    void nvic_handle_user_0(void) __WEAK;
-    void nvic_handle_user_1(void) __WEAK;
-    void nvic_handle_uart_0(void) __WEAK;
-    void nvic_handle_uart_1(void) __WEAK;
-    void nvic_handle_lpuart(void) __WEAK;
-    void nvic_handle_user_2(void) __WEAK;
-    void nvic_handle_spi(void) __WEAK;
-    void nvic_handle_user_3(void) __WEAK;
-    void nvic_handle_i2c(void) __WEAK;
-    void nvic_handle_user_4(void) __WEAK;
-    void nvic_handle_timer_0(void) __WEAK;
-    void nvic_handle_timer_1(void) __WEAK;
-    void nvic_handle_timer_2(void) __WEAK;
-    void nvic_handle_low_power_timer(void) __WEAK;
-    void nvic_handle_timer_4(void) __WEAK;
-    void nvic_handle_timer_5(void) __WEAK;
-    void nvic_handle_timer_6(void) __WEAK;
-    void nvic_handle_pca(void) __WEAK;
-    void nvic_handle_watchdog_timer(void) __WEAK;
-    void nvic_handle_realtime_clock(void) __WEAK;
-    void nvic_handle_analog_digital_converter(void) __WEAK;
-    void nvic_handle_user_5(void) __WEAK;
-    void nvic_handle_voltage_comparitor_0(void) __WEAK;
-    void nvic_handle_voltage_comparitor_1(void) __WEAK;
-    void nvic_handle_low_voltage(void) __WEAK;
-    void nvic_handle_user_6(void) __WEAK;
-    void nvic_handle_ef_ram(void) __WEAK;
-    void nvic_handle_clock_trim(void) __WEAK;
+    void Reset_Handler(void) __WEAK __NO_RETURN;
+    void NMI_Handler(void) __WEAK;
+    void HardFault_Handler(void) __WEAK;
+    void SVC_Handler(void) __WEAK;
+    void PendSV_Handler(void) __WEAK;
+    void SysTick_Handler(void) __WEAK;
+    void GpioPort0_Handler(void) __WEAK;
+    void GpioPort1_Handler(void) __WEAK;
+    void GpioPort2_Handler(void) __WEAK;
+    void GpioPort3_Handler(void) __WEAK;
+    void UserInterrupt0_Handler(void) __WEAK;
+    void UserInterrupt1_Handler(void) __WEAK;
+    void Uart0_Handler(void) __WEAK;
+    void Uart1_Handler(void) __WEAK;
+    void LpUart_Handler(void) __WEAK;
+    void UserInterrupt2_Handler(void) __WEAK;
+    void SPI_Handler(void) __WEAK;
+    void UserInterrupt3_Handler(void) __WEAK;
+    void I2C_Handler(void) __WEAK;
+    void UserInterrupt4_Handler(void) __WEAK;
+    void Timer0_Handler(void) __WEAK;
+    void Timer1_Handler(void) __WEAK;
+    void Timer2_Handler(void) __WEAK;
+    void LpTimer_Handler(void) __WEAK;
+    void Timer4_Handler(void) __WEAK;
+    void Timer5_Handler(void) __WEAK;
+    void Timer6_Handler(void) __WEAK;
+    void PCA_Handler(void) __WEAK;
+    void WatchDogTimer_Handler(void) __WEAK;
+    void RTC_Handler(void) __WEAK;
+    void ADC_Handler(void) __WEAK;
+    void UserInterrupt5_Handler(void) __WEAK;
+    void VC0_Handler(void) __WEAK;
+    void VC1_Handler(void) __WEAK;
+    void LVD_Handler(void) __WEAK;
+    void UserInterrupt6_Handler(void) __WEAK;
+    void EfRam_Handler(void) __WEAK;
+    void ClockTrim_Handler(void) __WEAK;
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpedantic"
@@ -53,9 +53,9 @@ extern "C"
     extern const irq_handler_t __VECTOR_TABLE[48];
     const irq_handler_t __VECTOR_TABLE[48] __attribute__((used, section(".vectors"))) = {
         (irq_handler_t)(&__INITIAL_SP), /*     Initial Stack Pointer */
-        nvic_handle_reset,
-        nvic_handle_nmi,
-        nvic_handle_hard_fault,
+        Reset_Handler,
+        NMI_Handler,
+        HardFault_Handler,
         0, // Reserved
         0, // Reserved
         0, // Reserved
@@ -63,43 +63,43 @@ extern "C"
         0, // Reserved
         0, // Reserved
         0, // Reserved
-        nvic_handle_svc,
+        SVC_Handler,
         0, // Reserved
         0, // Reserved
-        nvic_handle_pend_sv,
-        nvic_handle_sys_tick,
-        nvic_handle_port_0,
-        nvic_handle_port_1,
-        nvic_handle_port_2,
-        nvic_handle_port_3,
-        nvic_handle_user_0,
-        nvic_handle_user_1,
-        nvic_handle_uart_0,
-        nvic_handle_uart_1,
-        nvic_handle_lpuart,
-        nvic_handle_user_2,
-        nvic_handle_spi,
-        nvic_handle_user_3,
-        nvic_handle_i2c,
-        nvic_handle_user_4,
-        nvic_handle_timer_0,
-        nvic_handle_timer_1,
-        nvic_handle_timer_2,
-        nvic_handle_low_power_timer,
-        nvic_handle_timer_4,
-        nvic_handle_timer_5,
-        nvic_handle_timer_6,
-        nvic_handle_pca,
-        nvic_handle_watchdog_timer,
-        nvic_handle_realtime_clock,
-        nvic_handle_analog_digital_converter,
-        nvic_handle_user_5,
-        nvic_handle_voltage_comparitor_0,
-        nvic_handle_voltage_comparitor_1,
-        nvic_handle_low_voltage,
-        nvic_handle_user_6,
-        nvic_handle_ef_ram,
-        nvic_handle_clock_trim,
+        PendSV_Handler,
+        SysTick_Handler,
+        GpioPort0_Handler,
+        GpioPort1_Handler,
+        GpioPort2_Handler,
+        GpioPort3_Handler,
+        UserInterrupt0_Handler,
+        UserInterrupt1_Handler,
+        Uart0_Handler,
+        Uart1_Handler,
+        LpUart_Handler,
+        UserInterrupt2_Handler,
+        SPI_Handler,
+        UserInterrupt3_Handler,
+        I2C_Handler,
+        UserInterrupt4_Handler,
+        Timer0_Handler,
+        Timer1_Handler,
+        Timer2_Handler,
+        LpTimer_Handler,
+        Timer4_Handler,
+        Timer5_Handler,
+        Timer6_Handler,
+        PCA_Handler,
+        WatchDogTimer_Handler,
+        RTC_Handler,
+        ADC_Handler,
+        UserInterrupt5_Handler,
+        VC0_Handler,
+        VC1_Handler,
+        LVD_Handler,
+        UserInterrupt6_Handler,
+        EfRam_Handler,
+        ClockTrim_Handler,
     };
 
 #pragma GCC diagnostic pop
@@ -127,7 +127,7 @@ extern "C"
     Reset Handler called on controller reset
     *----------------------------------------------------------------------------*/
 
-    __WEAK void nvic_handle_reset(void)
+    __WEAK void Reset_Handler(void)
     {
         SystemInit(); /* CMSIS System Initialization */
 
@@ -153,52 +153,52 @@ extern "C"
             __WFI();
         }
     }
-    __WEAK void nvic_handle_nmi(void)
+    __WEAK void NMI_Handler(void)
     {
         // this interrupt isnt actually implemented in the chip and will never be called
     }
-    __WEAK void nvic_handle_hard_fault(void)
+    __WEAK void HardFault_Handler(void)
     {
         while (1)
         {
             __WFI();
         }
     }
-    __WEAK void nvic_handle_svc(void) {}
-    __WEAK void nvic_handle_pend_sv(void) {}
-    __WEAK void nvic_handle_sys_tick(void) {}
-    __WEAK void nvic_handle_port_0(void) {}
-    __WEAK void nvic_handle_port_1(void) {}
-    __WEAK void nvic_handle_port_2(void) {}
-    __WEAK void nvic_handle_port_3(void) {}
-    __WEAK void nvic_handle_user_0(void) {}
-    __WEAK void nvic_handle_user_1(void) {}
-    __WEAK void nvic_handle_uart_0(void) {}
-    __WEAK void nvic_handle_uart_1(void) {}
-    __WEAK void nvic_handle_lpuart(void) {}
-    __WEAK void nvic_handle_user_2(void) {}
-    __WEAK void nvic_handle_spi(void) {}
-    __WEAK void nvic_handle_user_3(void) {}
-    __WEAK void nvic_handle_i2c(void) {}
-    __WEAK void nvic_handle_user_4(void) {}
-    __WEAK void nvic_handle_timer_0(void) {}
-    __WEAK void nvic_handle_timer_1(void) {}
-    __WEAK void nvic_handle_timer_2(void) {}
-    __WEAK void nvic_handle_low_power_timer(void) {}
-    __WEAK void nvic_handle_timer_4(void) {}
-    __WEAK void nvic_handle_timer_5(void) {}
-    __WEAK void nvic_handle_timer_6(void) {}
-    __WEAK void nvic_handle_pca(void) {}
-    __WEAK void nvic_handle_watchdog_timer(void) {}
-    __WEAK void nvic_handle_realtime_clock(void) {}
-    __WEAK void nvic_handle_analog_digital_converter(void) {}
-    __WEAK void nvic_handle_user_5(void) {}
-    __WEAK void nvic_handle_voltage_comparitor_0(void) {}
-    __WEAK void nvic_handle_voltage_comparitor_1(void) {}
-    __WEAK void nvic_handle_low_voltage(void) {}
-    __WEAK void nvic_handle_user_6(void) {}
-    __WEAK void nvic_handle_ef_ram(void) {}
-    __WEAK void nvic_handle_clock_trim(void) {}
+    __WEAK void SVC_Handler(void) {}
+    __WEAK void PendSV_Handler(void) {}
+    __WEAK void SysTick_Handler(void) {}
+    __WEAK void GpioPort0_Handler(void) {}
+    __WEAK void GpioPort1_Handler(void) {}
+    __WEAK void GpioPort2_Handler(void) {}
+    __WEAK void GpioPort3_Handler(void) {}
+    __WEAK void UserInterrupt0_Handler(void) {}
+    __WEAK void UserInterrupt1_Handler(void) {}
+    __WEAK void Uart0_Handler(void) {}
+    __WEAK void Uart1_Handler(void) {}
+    __WEAK void LpUart_Handler(void) {}
+    __WEAK void UserInterrupt2_Handler(void) {}
+    __WEAK void SPI_Handler(void) {}
+    __WEAK void UserInterrupt3_Handler(void) {}
+    __WEAK void I2C_Handler(void) {}
+    __WEAK void UserInterrupt4_Handler(void) {}
+    __WEAK void Timer0_Handler(void) {}
+    __WEAK void Timer1_Handler(void) {}
+    __WEAK void Timer2_Handler(void) {}
+    __WEAK void LpTimer_Handler(void) {}
+    __WEAK void Timer4_Handler(void) {}
+    __WEAK void Timer5_Handler(void) {}
+    __WEAK void Timer6_Handler(void) {}
+    __WEAK void PCA_Handler(void) {}
+    __WEAK void WatchDogTimer_Handler(void) {}
+    __WEAK void RTC_Handler(void) {}
+    __WEAK void ADC_Handler(void) {}
+    __WEAK void UserInterrupt5_Handler(void) {}
+    __WEAK void VC0_Handler(void) {}
+    __WEAK void VC1_Handler(void) {}
+    __WEAK void LVD_Handler(void) {}
+    __WEAK void UserInterrupt6_Handler(void) {}
+    __WEAK void EfRam_Handler(void) {}
+    __WEAK void ClockTrim_Handler(void) {}
 
     uint32_t SystemCoreClock;
 

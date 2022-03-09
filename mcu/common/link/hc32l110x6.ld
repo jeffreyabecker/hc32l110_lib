@@ -56,7 +56,7 @@ MEMORY
     RAM   (rwx): ORIGIN = 0x20000000, LENGTH = 4K
 }
 
-ENTRY(nvic_handle_reset)
+ENTRY(Reset_Handler)
 
 SECTIONS
 {

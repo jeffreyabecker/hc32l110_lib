@@ -6,7 +6,6 @@
 void ports_set_function(port_number_t port, uint8_t function){
     switch (port)
     {
-
         case port_p01: M0P_GPIO->P01_SEL = function; return;
         case port_p02: M0P_GPIO->P02_SEL = function; return;
         case port_p03: M0P_GPIO->P03_SEL = function; return;
