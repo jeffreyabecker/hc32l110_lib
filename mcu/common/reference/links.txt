@@ -1,0 +1,4 @@
+how to write a bootloader https://developer.arm.com/documentation/ka002218/latest
+zero to main https://interrupt.memfault.com/blog/zero-to-main-1
+startup in gcc: https://github.com/NordicSemiconductor/nrfx/tree/293f553ed9551c1fdfd05eac48e75bbdeb4e7290/mdk
+compiler to assembly explorer https://gcc.godbolt.org/

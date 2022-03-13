@@ -8,7 +8,11 @@
         "hc32l110_registers.h": "c",
         "hc32l110_system.h": "c",
         "hc32_common.h": "c",
-        "hc32l110_platform.h": "c"
+        "hc32l110_platform.h": "c",
+        "cmsis_compiler.h": "c",
+        "cmsis_gcc.h": "c",
+        "hc32l110_registers_cmsis.h": "c",
+        "cmsis_version.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

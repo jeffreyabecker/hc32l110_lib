@@ -1,0 +1,94 @@
+#ifndef __HC32L110_REGISTERS_BASIC_TIMERS_H__
+#define __HC32L110_REGISTERS_BASIC_TIMERS_H__
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+#if defined(__CC_ARM)
+#pragma anon_unions
+#endif
+
+#include "hc32l110_registers_cmsis.h"
+
+  typedef enum
+  {
+    timer_prescaler_1_to_1 = 0,
+    timer_prescaler_2_to_1 = 1,
+    timer_prescaler_4_to_1 = 2,
+    timer_prescaler_8_to_1 = 3,
+    timer_prescaler_16_to_1 = 4,
+    timer_prescaler_32_to_1 = 5,
+    timer_prescaler_64_to_1 = 6,
+    timer_prescaler_256_to_1 = 7,
+  } stc_basic_timer_prescaler_t;
+
+  typedef enum
+  {
+    lptimer_clock_pclk = 0,
+    lptimer_clock_xtl = 2,
+    lptimer_clock_rcl = 3
+  } stc_lp_timer_clock_select_t;
+
+  typedef enum
+  {
+    basic_timer_source_internal = 0,
+    basic_timer_source_external = 1,
+  } basic_timer_source_t;
+
+  typedef struct
+  {
+    __IO uint32_t timer_running : 1;           // TR
+    __IO uint32_t mode : 1;                    // MD
+    __IO basic_timer_source_t tick_source : 1; // CT
+    __IO uint32_t enable_inverted_output : 1;  // TOG_EN
+    union
+    {
+      __IO stc_basic_timer_prescaler_t prescaler : 4; // PRS
+      struct
+      {
+        __IO stc_lp_timer_clock_select_t clock_source : 3; // TCK_SEL
+        __IO uint32_t write_syncronizing : 1;              // WT_FLAG
+      } low_power;
+    };
+    __IO uint32_t enable_gate : 1;       // GATE
+    __IO uint32_t gate_polarity : 1;     // GATE_P
+    __IO uint32_t interrupt_enabled : 1; // IE
+  } stc_basic_timer_cr_field_t;
+
+  typedef struct
+  {
+    __IO uint32_t auto_reload; // ARR
+    __IO uint32_t count_16; // CNT
+    __IO uint32_t count_32; // CNT32
+    stc_basic_timer_cr_field_t control; //CR
+    __I uint32_t interrupt_flag; // IFR
+    __O uint32_t interrupt_clear; // ICLR
+  } M0P_BasicTimer_TypeDef;
+
+  typedef struct
+  {
+
+    __IO uint32_t count_16; // CNT
+    __IO uint32_t auto_reload; // ARR
+    uint32_t RESERVED;
+    stc_basic_timer_cr_field_t control; // CR
+    __I uint32_t interrupt_flag; // IFR
+    __O uint32_t interrupt_clear; // ICLR
+  } M0P_LPTIMER_TypeDef;
+
+
+#define TIMER_0_ADDRESS 0x40000C00UL
+#define TIMER_1_ADDRESS 0x40000C20UL
+#define TIMER_2_ADDRESS 0x40000C40UL
+#define LPTIMER_ADDRESS 0x40000C60UL
+
+#define M0P_TIMER0 ((M0P_BasicTimer_TypeDef *)TIMER_0_ADDRESS)
+#define M0P_TIMER1 ((M0P_BasicTimer_TypeDef *)TIMER_1_ADDRESS)
+#define M0P_TIMER2 ((M0P_BasicTimer_TypeDef *)TIMER_2_ADDRESS)
+#define M0P_LPTIMER ((M0P_LPTIMER_TypeDef *)LPTIMER_ADDRESS)
+#ifdef __cplusplus
+}
+#endif
+
+#endif

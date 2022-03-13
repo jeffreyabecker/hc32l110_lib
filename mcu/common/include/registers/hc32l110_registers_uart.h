@@ -1,0 +1,58 @@
+#ifndef __HC32L110_REGISTERS_UART_H__
+#define __HC32L110_REGISTERS_UART_H__
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+#if defined(__CC_ARM)
+#pragma anon_unions
+#endif
+
+#include "hc32l110_registers_cmsis.h"
+
+    typedef struct
+    {
+        uint32_t rx_interrupt_enabled : 1;
+        uint32_t tx_interrupt_enabled : 1;
+        uint32_t data_recieved : 1;
+        uint32_t transmit_data : 1;
+        uint32_t rx_enabled : 1;
+        uint32_t multi_host_enabled : 1;
+        uint32_t mode : 2;
+        uint32_t tx_buffer_empty_interrupt_enabled : 1;
+        uint32_t double_baud_rate : 1;
+        uint32_t low_power_mode : 1;
+        uint32_t clock_select : 2;
+        uint32_t prescaler : 3;
+    } stc_uart_scon_field_t;
+
+    typedef struct
+    {
+        uint32_t rx_complete_flag : 1;
+        uint32_t tx_complete_flag : 1;
+        uint32_t frame_error_flag : 1;
+        uint32_t tx_empty_flag : 1;
+    } stc_uart_isr_field_t;
+
+    typedef struct
+    {
+        __IO uint8_t buffer;
+        uint8_t RESERVED1[3];
+        __IO stc_uart_scon_field_t control;
+        __IO uint8_t peripheral_address;
+        uint8_t RESERVED2[3];
+        __IO uint8_t peripheral_address_mask;
+        uint8_t RESERVED3[3];
+        __I stc_uart_isr_field_t ISR;
+        __O stc_uart_isr_field_t ICR;
+    } M0P_UART_TypeDef;
+
+#define M0P_LPUART ((M0P_UART_TypeDef *)0x40000200UL)
+#define M0P_UART0 ((M0P_UART_TypeDef *)0x40000000UL)
+#define M0P_UART1 ((M0P_UART_TypeDef *)0x40000100UL)
+#ifdef __cplusplus
+}
+#endif
+
+#endif
