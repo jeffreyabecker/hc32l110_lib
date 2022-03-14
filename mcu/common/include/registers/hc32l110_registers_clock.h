@@ -110,12 +110,20 @@ extern "C"
     __IO uint32_t FLASH : 1;
   } stc_clock_peri_clken_field_t;
 
+  typedef enum{
+    systick_clock_source_external_low = 0,
+    systick_clock_source_internal_low = 1,
+    systick_clock_source_system_clock_div_8 = 2,
+    systick_clock_source_external_high = 2
+  } systick_clock_source_t;
+
+
   typedef struct
   {
     __IO uint32_t STCALIB : 24;
     __IO uint32_t SKEW : 1;
     __IO uint32_t NOREF : 1;
-    __IO uint32_t CLK_SEL : 2;
+    __IO systick_clock_source_t clock_source : 2;
   } stc_clock_systick_cr_field_t;
 
   typedef struct
@@ -143,9 +151,12 @@ extern "C"
     stc_clock_rcl_cr_field_t RCL_CR;
     stc_clock_xtl_cr_field_t XTL_CR;
     uint8_t RESERVED7[4];
-    stc_clock_peri_clken_field_t PERI_CLKEN;
+    union{
+      uint32_t peripheral_clock_enable;
+      stc_clock_peri_clken_field_t peripheral_clock_enable_f;
+    };
     uint8_t RESERVED8[16];
-    stc_clock_systick_cr_field_t SYSTICK_CR_f;
+    stc_clock_systick_cr_field_t SYSTICK_CR;
     stc_clock_debug_active_field_t DEBUG_ACTIVE;
   } M0P_CLOCK_TypeDef;
 #define M0P_CLOCK ((M0P_CLOCK_TypeDef *)0x40002000UL)

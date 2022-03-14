@@ -1,10 +1,10 @@
 /**
  *******************************************************************************
- * @file  hc32l110_ports.h
+ * @file  hc32l110_crc.h
  * @brief This file contains all the functions prototypes of the DDL crc calculation module.
  */
-#ifndef __hc32l110_PORTS_H__
-#define __hc32l110_PORTS_H__
+#ifndef __hc32l110_CRC_H__
+#define __hc32l110_CRC_H__
 
 #ifdef __cplusplus
 extern "C"
@@ -47,6 +47,7 @@ extern "C"
         }
         return M0P_CRC->RESULT;
     }
+
 
 #ifdef __cplusplus
 }

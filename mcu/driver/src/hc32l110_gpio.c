@@ -1,6 +1,6 @@
 #include "hc32l110_core.h"
 #include "hc32l110_system.h"
-#include "hc32l110_ports.h"
+
 #include "hc32l110_gpio.h"
 
 void gpio_set_config(port_number_t port, gpio_port_config_t cfg)
@@ -454,3 +454,86 @@ gpio_port_config_t gpio_get_config(port_number_t port)
         return cfg;
     }
 }
+
+uint8_t gpio_digital_read(port_number_t port)
+{
+    switch (port)
+    {
+    case port_p01:
+        return M0P_GPIO->P0IN.P01;
+    case port_p02:
+        return M0P_GPIO->P0IN.P02;
+    case port_p03:
+        return M0P_GPIO->P0IN.P03;
+    case port_p14:
+        return M0P_GPIO->P1IN.P14;
+    case port_p15:
+        return M0P_GPIO->P1IN.P15;
+    case port_p23:
+        return M0P_GPIO->P2IN.P23;
+    case port_p24:
+        return M0P_GPIO->P2IN.P24;
+    case port_p25:
+        return M0P_GPIO->P2IN.P25;
+    case port_p26:
+        return M0P_GPIO->P2IN.P26;
+    case port_p27:
+        return M0P_GPIO->P2IN.P27;
+    case port_p31:
+        return M0P_GPIO->P3IN.P31;
+    case port_p32:
+        return M0P_GPIO->P3IN.P32;
+    case port_p33:
+        return M0P_GPIO->P3IN.P33;
+    case port_p34:
+        return M0P_GPIO->P3IN.P34;
+    case port_p35:
+        return M0P_GPIO->P3IN.P35;
+    case port_p36:
+        return M0P_GPIO->P3IN.P36;
+    default:
+        return 0xFF;
+    }
+}
+void gpio_digital_write(port_number_t port, uint8_t value)
+{
+    switch (port)
+    {
+    case port_p01:
+        M0P_GPIO->P0OUT.P01 = value;
+    case port_p02:
+        M0P_GPIO->P0OUT.P02 = value;
+    case port_p03:
+        M0P_GPIO->P0OUT.P03 = value;
+    case port_p14:
+        M0P_GPIO->P1OUT.P14 = value;
+    case port_p15:
+        M0P_GPIO->P1OUT.P15 = value;
+    case port_p23:
+        M0P_GPIO->P2OUT.P23 = value;
+    case port_p24:
+        M0P_GPIO->P2OUT.P24 = value;
+    case port_p25:
+        M0P_GPIO->P2OUT.P25 = value;
+    case port_p26:
+        M0P_GPIO->P2OUT.P26 = value;
+    case port_p27:
+        M0P_GPIO->P2OUT.P27 = value;
+    case port_p31:
+        M0P_GPIO->P3OUT.P31 = value;
+    case port_p32:
+        M0P_GPIO->P3OUT.P32 = value;
+    case port_p33:
+        M0P_GPIO->P3OUT.P33 = value;
+    case port_p34:
+        M0P_GPIO->P3OUT.P34 = value;
+    case port_p35:
+        M0P_GPIO->P3OUT.P35 = value;
+    case port_p36:
+        M0P_GPIO->P3OUT.P36 = value;
+    default:
+        break;
+    }
+}
+
+

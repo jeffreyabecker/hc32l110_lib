@@ -236,6 +236,8 @@ extern "C"
  * @}
  */
 
+typedef uint8_t      uint1_t;
+
 /**
  * @}
  */

@@ -14,5 +14,6 @@
         "hc32l110_registers_cmsis.h": "c",
         "cmsis_version.h": "c"
     },
-    "C_Cpp.dimInactiveRegions": false
+    "C_Cpp.dimInactiveRegions": false,
+    "cmake.configureOnOpen": false
 }
