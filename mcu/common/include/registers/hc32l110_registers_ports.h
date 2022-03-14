@@ -207,7 +207,7 @@ extern "C"
     gpio_output = 0,
     gpio_input = 1
   } gpio_direction_t;
-    typedef enum
+  typedef enum
   {
     gpio_digital = 0,
     gpio_analog = 1
@@ -255,7 +255,6 @@ extern "C"
     gpio_interrupt_falling_disable = 0,
     gpio_interrupt_falling_enable = 1,
   } gpio_interrupt_falling_t;
-  
 
   typedef struct
   {
@@ -289,7 +288,6 @@ extern "C"
     __IO gpio_analog_digital_t P03 : 1;
   } stc_gpio_p0ads_field_t;
 
-
   typedef struct
   {
     uint32_t RESERVED0 : 1;
@@ -321,8 +319,6 @@ extern "C"
     __IO gpio_mode_t P02 : 1;
     __IO gpio_mode_t P03 : 1;
   } stc_gpio_p0od_field_t;
-
-
 
   typedef struct
   {
