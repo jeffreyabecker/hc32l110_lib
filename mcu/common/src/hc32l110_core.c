@@ -33,56 +33,56 @@ uint16_t __core_calculate_clock_trim(core_system_config_t config)
 {
     if (config.clock_source == core_clock_source_internal_high_speed)
     {
-        if (mhz4 <= config.clock_frequency && config.clock_frequency <= mhz24)
+        if (mhz4 <= config.clock_frequency_hz && config.clock_frequency_hz <= mhz24)
         {
-            if (mhz4 == config.clock_frequency)
+            if (mhz4 == config.clock_frequency_hz)
             {
                 return clock_trim_high_4mhz;
             }
-            else if (config.clock_frequency < mhz8)
+            else if (config.clock_frequency_hz < mhz8)
             {
-                return __clock_interpolate(config.clock_frequency, mhz4, mhz8, clock_trim_high_4mhz, clock_trim_high_8mhz);
+                return __clock_interpolate(config.clock_frequency_hz, mhz4, mhz8, clock_trim_high_4mhz, clock_trim_high_8mhz);
             }
-            else if (config.clock_frequency == mhz8)
+            else if (config.clock_frequency_hz == mhz8)
             {
                 return clock_trim_high_8mhz;
             }
-            else if (config.clock_frequency < mhz16)
+            else if (config.clock_frequency_hz < mhz16)
             {
-                return __clock_interpolate(config.clock_frequency, mhz8, mhz16, clock_trim_high_8mhz, clock_trim_high_16mhz);
+                return __clock_interpolate(config.clock_frequency_hz, mhz8, mhz16, clock_trim_high_8mhz, clock_trim_high_16mhz);
             }
-            else if (config.clock_frequency == mhz16)
+            else if (config.clock_frequency_hz == mhz16)
             {
                 return clock_trim_high_16mhz;
             }
-            else if (config.clock_frequency < mhz22_12)
+            else if (config.clock_frequency_hz < mhz22_12)
             {
-                return __clock_interpolate(config.clock_frequency, mhz16, mhz22_12, clock_trim_high_16mhz, clock_trim_high_22_12mhz);
+                return __clock_interpolate(config.clock_frequency_hz, mhz16, mhz22_12, clock_trim_high_16mhz, clock_trim_high_22_12mhz);
             }
-            else if (config.clock_frequency == mhz22_12)
+            else if (config.clock_frequency_hz == mhz22_12)
             {
                 return clock_trim_high_22_12mhz;
             }
-            else if (config.clock_frequency < mhz24)
+            else if (config.clock_frequency_hz < mhz24)
             {
-                return __clock_interpolate(config.clock_frequency, mhz22_12, mhz24, clock_trim_high_22_12mhz, clock_trim_high_24mhz);
+                return __clock_interpolate(config.clock_frequency_hz, mhz22_12, mhz24, clock_trim_high_22_12mhz, clock_trim_high_24mhz);
             }
             return clock_trim_high_22_12mhz;
         }
     }
     else if (config.clock_source == core_clock_source_internal_low_speed)
     {
-        if (khz32_8 == config.clock_frequency)
+        if (khz32_8 == config.clock_frequency_hz)
         {
             return clock_trim_low_32_8_khz;
         }
-        if (khz38_4 == config.clock_frequency)
+        if (khz38_4 == config.clock_frequency_hz)
         {
             return clock_trim_low_38_4_khz;
         }
-        if (khz32_8 < config.clock_frequency && config.clock_frequency < khz38_4)
+        if (khz32_8 < config.clock_frequency_hz && config.clock_frequency_hz < khz38_4)
         {
-            return __clock_interpolate(config.clock_frequency, khz32_8, khz38_4, clock_trim_low_32_8_khz, clock_trim_low_32_8_khz);
+            return __clock_interpolate(config.clock_frequency_hz, khz32_8, khz38_4, clock_trim_low_32_8_khz, clock_trim_low_32_8_khz);
         }
     }
     return 0;
@@ -183,19 +183,19 @@ void core_system_clock_config(core_system_config_t config)
     __core_clock_config_unlock();
     M0P_CLOCK->SYSCTRL0.PCLK_PRS = config.peripheral_clock_prescaler;
 
-    SystemCoreClock = config.clock_frequency / (0x01 << config.system_clock_prescaler);
+    SystemCoreClock = config.clock_frequency_hz / (0x01 << config.system_clock_prescaler);
     PeripheralCoreClock = SystemCoreClock / (0x01 << config.peripheral_clock_prescaler);
     if (config.enable_systick)
     {
         peripheral_set_enabled(peripheral_get_enabled() | peripheral_systick);
-        SysTick_Config(PeripheralCoreClock / config.systick_frequency);
+        SysTick_Config(PeripheralCoreClock / config.systick_frequency_hz);
         core_systick_enable();
     }
 }
 
 /**
- * @brief This function provides minimum delay (in milliseconds).
- * @param [in] delay_ticks                 Delay specifies the delay time.
+ * @brief This function provides minimum delay in ticks.
+ * @param [in] delay_ticks Delay specifies the delay time.
  * @retval None
  */
 void core_systick_delay(uint32_t delay_ticks)

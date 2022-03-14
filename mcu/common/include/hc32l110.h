@@ -7,6 +7,7 @@ extern "C"
 #endif
 
 #include "hc32l110_registers.h"
+#include "hc32l110_system.h"
 
 
 

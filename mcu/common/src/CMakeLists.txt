@@ -1,4 +1,6 @@
 set(hc32l110_driver_SOURCES)
+list(APPEND hc32l110_driver_SOURCES hc32l110_boot.s)
+list(APPEND hc32l110_driver_SOURCES hc32l110_system.c)
 if(USE_DDL)
     list(APPEND hc32l110_driver_SOURCES hc32l110_core.c)
     if(USE_DDL_ALL OR USE_DDL_PORTS)
@@ -16,9 +18,7 @@ if(USE_DDL)
     if(USE_DDL_ALL OR USE_DDL_RTC)
         list(APPEND hc32l110_driver_SOURCES hc32l110_rtc.c)
     endif()          
-    if(USE_DDL_ALL OR USE_DDL_BASIC_TIMER)
-        list(APPEND hc32l110_driver_SOURCES hc32l110_basic_timer.c)
-    endif()          
+      
 endif(USE_DDL)
 add_library(hc32l110_driver static ${hc32l110_driver_SOURCES})
 

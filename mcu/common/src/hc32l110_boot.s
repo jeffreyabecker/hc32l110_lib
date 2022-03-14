@@ -1,13 +1,13 @@
-    /**C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\arm-none-eabi\bin\as.exe hc32l110_boot.s */
+
     .syntax unified
     .arch armv6-m
     .section .stack
     .align 3    
-    .section .isr_vector
+    .section .vectors
     .align 2
     .globl __isr_vector
 __isr_vector:
-    .long   __INITIAL_SP                  /* Top of Stack */
+    .long   __StackTop                  /* Top of Stack */
     .long Reset_Handler
     .long NMI_Handler
     .long HardFault_Handler

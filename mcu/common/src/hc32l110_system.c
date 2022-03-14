@@ -1,11 +1,11 @@
 #include <stdint.h>
 #include "cmsis_compiler.h"
+#include "hc32l110_system.h"
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-    __WEAK void SystemInit();
-
+    
  
     uint32_t SystemCoreClock;
     uint32_t PeripheralCoreClock;
