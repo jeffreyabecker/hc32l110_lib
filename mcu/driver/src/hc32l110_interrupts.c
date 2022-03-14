@@ -14,31 +14,6 @@ static nvic_interrupt_table_entry_t nvic_indirection_table[36] = {NULL};
                                                                                            : irq_number == irq_hard_fault ? 1 \
                                                                                                                           : 0)
 
-// uint32_t __nvic_table_index(nivc_irq_number_t irq_number)
-// {
-//     if ((int32_t)irq_number >= 0)
-//     {
-//         return (int32_t)irq_number + 5;
-//     }
-//     else if (irq_number == irq_sys_tick)
-//     {
-//         return 4;
-//     }
-//     else if (irq_number == irq_pend_sv)
-//     {
-//         return 3;
-//     }
-//     else if (irq_number == irq_svc)
-//     {
-//         return 2;
-//     }
-//     else if (irq_number == irq_hard_fault)
-//     {
-//         return 1;
-//     }
-//     else
-//         return 0;
-// }
 
 void nvic_interrupt_set_handler(nivc_irq_number_t irq_number, nvic_interrupt_handler_t handler, void *data)
 {
@@ -104,7 +79,7 @@ void PendSV_Handler(void)
 }
 void SysTick_Handler(void)
 {
-    systick_increment_ticks();
+    core_systick_increment_ticks();
     _nvic_invoke_irq(irq_sys_tick);
 }
 void GpioPort0_Handler(void)

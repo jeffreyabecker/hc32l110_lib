@@ -8,10 +8,11 @@ extern "C"
 
  
     uint32_t SystemCoreClock;
+    uint32_t PeripheralCoreClock;
 
     __WEAK void SystemCoreClockUpdate(void) // Update core_system_clock_frequency variable
     {
-        SystemCoreClock = 4000000;
+        PeripheralCoreClock = SystemCoreClock = 4000000;
     }
 
     __WEAK void SystemInit(void)

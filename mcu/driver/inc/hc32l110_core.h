@@ -9,12 +9,55 @@ extern "C"
 
 #include "hc32l110_registers.h"
 
-  uint8_t systick_init(uint32_t tick_frequency);
-  void systick_delay(uint32_t delay_ticks);
-  void systick_increment_ticks(void);
-  uint32_t systick_get_tick(void);
-  void systick_disable(void);
-  void systick_enable(void);
+  typedef enum
+  {
+    core_clock_source_internal_high_speed = 0,
+    core_clock_source_external_high_speed = 1,
+    core_clock_source_internal_low_speed = 2,
+    core_clock_source_external_low_speed = 3
+  } core_clock_source_t;
+
+  typedef enum
+  {
+    core_system_clock_divider_0 = 0,
+    core_system_clock_divider_2 = 1,
+    core_system_clock_divider_4 = 2,
+    core_system_clock_divider_8 = 3,
+    core_system_clock_divider_16 = 4,
+    core_system_clock_divider_32 = 5,
+    core_system_clock_divider_64 = 6,
+    core_system_clock_divider_128 = 7,
+  } core_system_clock_divider_t;
+  typedef enum
+  {
+    core_peripheral_clock_divider_0 = 0,
+    core_peripheral_clock_divider_2 = 1,
+    core_peripheral_clock_divider_4 = 2,
+    core_peripheral_clock_divider_8 = 3,
+  } core_peripheral_clock_divider_t;
+
+  typedef struct
+  {
+    core_clock_source_t clock_source : 2;
+    core_system_clock_divider_t system_clock_prescaler : 3;
+    core_peripheral_clock_divider_t peripheral_clock_prescaler : 2;
+    uint8_t enable_systick : 1;
+    uint32_t clock_frequency;
+    uint32_t systick_frequency;
+  } core_system_config_t;
+
+  extern uint32_t SystemCoreClock;
+  extern uint32_t PeripheralCoreClock;
+
+  void core_system_clock_config(core_system_config_t config);
+  __STATIC_FORCEINLINE uint32_t core_get_system_clock_frequency() { return SystemCoreClock; };
+  __STATIC_FORCEINLINE uint32_t core_get_peripheral_clock_frequency() { return PeripheralCoreClock; };
+
+  void core_systick_delay(uint32_t delay_ticks);
+  void core_systick_increment_ticks(void);
+  uint32_t core_systick_get_tick(void);
+  void core_systick_disable(void);
+  void core_systick_enable(void);
 
   typedef enum
   {
@@ -36,9 +79,9 @@ extern "C"
     port_p36 = 36,
   } port_number_t;
 
-  void ports_set_function(port_number_t port, uint8_t function);
+  void core_ports_set_function(port_number_t port, uint8_t function);
 
-  uint8_t ports_get_function(port_number_t port);
+  uint8_t core_ports_get_function(port_number_t port);
 
   typedef enum
   {
@@ -61,11 +104,11 @@ extern "C"
     peripheral_gpio = 0x10000000UL,
     peripheral_flash = 0x80000000UL,
   } peripheral_t;
-  __STATIC_INLINE void peripheral_set_enabled(peripheral_t enabled)
+  __STATIC_INLINE void core_peripheral_set_enabled(peripheral_t enabled)
   {
-    M0P_CLOCK->peripheral_clock_enable = enabled;
+    M0P_CLOCK->peripheral_clock_enable = (uint32_t)enabled;
   }
-  __STATIC_INLINE peripheral_t peripheral_get_enabled()
+  __STATIC_INLINE peripheral_t core_peripheral_get_enabled()
   {
     return (peripheral_t)M0P_CLOCK->peripheral_clock_enable;
   }

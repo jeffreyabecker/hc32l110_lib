@@ -110,12 +110,6 @@ extern "C"
     __IO uint32_t FLASH : 1;
   } stc_clock_peri_clken_field_t;
 
-  typedef enum{
-    systick_clock_source_external_low = 0,
-    systick_clock_source_internal_low = 1,
-    systick_clock_source_system_clock_div_8 = 2,
-    systick_clock_source_external_high = 2
-  } systick_clock_source_t;
 
 
   typedef struct
@@ -123,7 +117,7 @@ extern "C"
     __IO uint32_t STCALIB : 24;
     __IO uint32_t SKEW : 1;
     __IO uint32_t NOREF : 1;
-    __IO systick_clock_source_t clock_source : 2;
+    __IO uint32_t CLK_SEL : 2;
   } stc_clock_systick_cr_field_t;
 
   typedef struct

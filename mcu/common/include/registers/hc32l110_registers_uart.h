@@ -47,10 +47,12 @@ extern "C"
         __I stc_uart_isr_field_t ISR;
         __O stc_uart_isr_field_t ICR;
     } M0P_UART_TypeDef;
-
-#define M0P_LPUART ((M0P_UART_TypeDef *)0x40000200UL)
+#define LPUART_ADDRESS 0x40000200UL
+#define UART00_ADDRESS 0x40000000UL
+#define UART01_ADDRESS 0x40000100UL
 #define M0P_UART0 ((M0P_UART_TypeDef *)0x40000000UL)
 #define M0P_UART1 ((M0P_UART_TypeDef *)0x40000100UL)
+#define M0P_LPUART ((M0P_UART_TypeDef *)LPUART_ADDRESS)
 #ifdef __cplusplus
 }
 #endif
