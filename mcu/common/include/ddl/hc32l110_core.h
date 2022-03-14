@@ -115,15 +115,15 @@ extern "C"
     peripheral_gpio = 0x10000000UL,
     peripheral_flash = 0x80000000UL,
   } peripheral_t;
-  __STATIC_INLINE void core_peripheral_set_enabled(peripheral_t enabled)
+  __STATIC_FORCEINLINE void core_peripheral_set_enabled(peripheral_t enabled)
   {
     M0P_CLOCK->peripheral_clock_enable = (uint32_t)enabled;
   }
-  __STATIC_INLINE peripheral_t core_peripheral_get_enabled()
+  __STATIC_FORCEINLINE peripheral_t core_peripheral_get_enabled()
   {
     return (peripheral_t)M0P_CLOCK->peripheral_clock_enable;
   }
-  __STATIC_INLINE peripheral_t core_peripheral_is_enabled(peripheral_t enabled)
+  __STATIC_FORCEINLINE peripheral_t core_peripheral_is_enabled(peripheral_t enabled)
   {
     return enabled & M0P_CLOCK->peripheral_clock_enable > 0 ? 1 : 0;
   }
