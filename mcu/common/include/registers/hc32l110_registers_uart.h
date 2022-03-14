@@ -15,8 +15,8 @@ extern "C"
     {
         uint32_t rx_interrupt_enabled : 1;
         uint32_t tx_interrupt_enabled : 1;
-        uint32_t data_recieved : 1;
-        uint32_t transmit_data : 1;
+        uint32_t recieve_parity_bit : 1;
+        uint32_t transmit_parity_bit : 1;
         uint32_t rx_enabled : 1;
         uint32_t multi_host_enabled : 1;
         uint32_t mode : 2;
@@ -47,9 +47,10 @@ extern "C"
         __I stc_uart_isr_field_t ISR;
         __O stc_uart_isr_field_t ICR;
     } M0P_UART_TypeDef;
-#define LPUART_ADDRESS 0x40000200UL
+
 #define UART00_ADDRESS 0x40000000UL
 #define UART01_ADDRESS 0x40000100UL
+#define LPUART_ADDRESS 0x40000200UL
 #define M0P_UART0 ((M0P_UART_TypeDef *)0x40000000UL)
 #define M0P_UART1 ((M0P_UART_TypeDef *)0x40000100UL)
 #define M0P_LPUART ((M0P_UART_TypeDef *)LPUART_ADDRESS)
