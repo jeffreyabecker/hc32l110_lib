@@ -5,7 +5,7 @@
     .align 3    
     .section .vectors
     .align 2
-    .globl __isr_vector
+    .global __isr_vector
 __isr_vector:
     .long   __StackTop                  /* Top of Stack */
     .long Reset_Handler
@@ -62,8 +62,16 @@ __isr_vector:
     .thumb
     .thumb_func
     .align 1
-
-    .globl Reset_Handler
+    .equ INITIAL_CLOCK_FREQUENCY, 0x003D0900 
+    .equ INITIAL_CLOCK_TRIM_ADDRESS, 0x00100C08
+    .equ HCL_CLOCK_TRIM_REGISTER_ADDRESS, 0x4000200C
+    .global SystemCoreClock
+    .size SystemCoreClock, 4
+    .type SystemCoreClock, %object
+    .global PeripheralCoreClock
+    .size PeripheralCoreClock, 4
+    .type PeripheralCoreClock, %object
+    .global Reset_Handler
     .type Reset_Handler, %function
 Reset_Handler:
     /*reset NVIC if in rom debug*/
@@ -80,8 +88,17 @@ RamCode:
     /* ; reset Vector table address.*/
     ldr     R0, =0xE000ED08 
     str     R2, [R0]
-    ldr     R0, =SystemInit
-    blx     R0
+
+    /* set a stable clock frequency */  
+    ldr r0, =INITIAL_CLOCK_FREQUENCY
+    ldr r1, =SystemCoreClock
+    ldr r2, =PeripheralCoreClock
+    str r0, [r1]
+    str r0, [r2]
+    ldr r0, =INITIAL_CLOCK_TRIM_ADDRESS
+    ldr r1, =HCL_CLOCK_TRIM_REGISTER_ADDRESS
+    ldr r2, [r0]
+    str r2, [r1]
 
     ldr r1, =__etext
     ldr r2, =__data_start__
@@ -117,7 +134,6 @@ RamCode:
     ldr     R0, = main
     bx      R0
 
-
     .weak   NMI_Handler
     .type   NMI_Handler, %function
 NMI_Handler:
@@ -146,7 +162,7 @@ SysTick_Handler:
     .weak   GpioPort0_Handler
     .type   GpioPort0_Handler, %function
 
-    .globl  Default_Handler
+    .global  Default_Handler
     .type   Default_Handler, %function
 Default_Handler:
     b       .

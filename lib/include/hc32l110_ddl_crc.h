@@ -5,7 +5,7 @@
  */
 #ifndef __hc32l110_CRC_H__
 #define __hc32l110_CRC_H__
-
+#if defined(DDL_USE_ALL) || ( defined(DDL_USE_CORE) && defined(DDL_USE_CRC))
 #ifdef __cplusplus
 extern "C"
 {
@@ -20,7 +20,7 @@ extern "C"
         crc_word_size_32 = 2,
     } crc_word_size_t;
 
-    __INLINE uint16_t crc_calculate(crc_word_size_t word_size, uint16_t word_count, const void *data)
+    uint16_t crc_calculate(crc_word_size_t word_size, uint16_t word_count, const void *data)
     {
         uint32_t i = 0;
         M0P_CRC->RESULT = 0xFFFF;
@@ -53,4 +53,5 @@ extern "C"
 }
 #endif
 
+#endif
 #endif

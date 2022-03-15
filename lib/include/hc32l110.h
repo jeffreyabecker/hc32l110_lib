@@ -8,14 +8,10 @@ extern "C"
 
 #include "hc32l110_registers.h"
 #include "hc32l110_system.h"
-
-
-
-
-
+#include "hc32l110_ddl.h"
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif 
+#endif
