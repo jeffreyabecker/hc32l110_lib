@@ -361,3 +361,10 @@ uint8_t core_ports_get_function(port_number_t port)
         return 0;
     }
 }
+
+#ifndef USE_DDL_INTERRUPTS
+void SysTick_Handler(void)
+{
+    core_systick_increment_ticks();
+}
+#endif
