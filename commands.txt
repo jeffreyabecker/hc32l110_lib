@@ -3,4 +3,9 @@ C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-as.exe .\mcu\hc3
 
 C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-dumpelf
 
-C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-ld.exe .\mcu\hc32l110_boot.o .\mcu\main.o -o my_rom.elf
+C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-ld.exe .\mcu\hc32l110_boot.o  .\mcu\main.o -o my_rom.elf
+
+C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-as.exe .\mcu\libaeabi_cortexm0.s -mcpu=cortex-m0 -mthumb -o .\mcu\libaeabi_cortexm0.o
+
+
+__aeabi_uidiv
