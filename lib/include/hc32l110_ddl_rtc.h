@@ -73,11 +73,11 @@ extern "C"
     } rtc_configuration_t;
 
     void rtc_configure(rtc_configuration_t cfg);
-    __INLINE void rtc_set_enabled(rtc_enabled_t enabled)
+    __FORCE_INLINE void rtc_set_enabled(rtc_enabled_t enabled)
     {
         M0P_RTC->control.START = enabled;
     }
-    __INLINE void rtc_alarm_interrupt_enable(rtc_enabled_t enabled)
+    __FORCE_INLINE void rtc_alarm_interrupt_enable(rtc_enabled_t enabled)
     {
         M0P_RTC->control.alarm_interrupt_enabled = enabled;
     }
@@ -129,8 +129,8 @@ extern "C"
         M0P_RTC->control.WAIT = 0;
         return result;
     }
-    __STATIC_FORCEINLINE uint8_t LOW_DIGIT(uint8_t x){ return (((((x) / 10U) << 4U) + ((x) % 10U))) % 10; }
-    __STATIC_FORCEINLINE uint8_t HIGH_DIGIT(uint8_t x){ return (((((x) / 10U) << 4U) + ((x) % 10U))) / 10; }
+    __FORCE_INLINE static uint8_t LOW_DIGIT(uint8_t x){ return (((((x) / 10U) << 4U) + ((x) % 10U))) % 10; }
+    __FORCE_INLINE static uint8_t HIGH_DIGIT(uint8_t x){ return (((((x) / 10U) << 4U) + ((x) % 10U))) / 10; }
 
     void rtc_time_set(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second)
     {

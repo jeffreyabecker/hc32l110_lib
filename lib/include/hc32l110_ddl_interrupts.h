@@ -7,16 +7,13 @@ extern "C"
 #endif
 
 #include "hc32l110_registers.h"
-#include "hc32l110_core.h"
+#include "hc32l110_ddl_core.h"
 
-#define nivc_irq_number_t IRQn_Type
 
     typedef void (*nvic_interrupt_handler_t)(nivc_irq_number_t irq_number, void *data);
 
     void nvic_interrupt_set_handler(nivc_irq_number_t irq_number, nvic_interrupt_handler_t handler, void *data);
-    void nvic_interrupt_set_enabled(nivc_irq_number_t irq_number, uint8_t enabled, uint8_t priority);
-    void nvic_interrupt_set_priority(nivc_irq_number_t irq_number, uint8_t priority);
-    uint8_t nvic_interrupt_get_priority(nivc_irq_number_t irq_number);
+    void nvic_interrupt_set_enabled(nivc_irq_number_t irq_number, uint8_t enabled);
     void nvic_interrupt_raise(nivc_irq_number_t irq_number);
     void nvic_interrupt_clear(nivc_irq_number_t irq_number);
     typedef struct
@@ -31,14 +28,14 @@ extern "C"
                                                                                            : irq_number == irq_svc        ? 2 \
                                                                                            : irq_number == irq_hard_fault ? 1 \
                                                                                                                           : 0)
-    __STATIC_FORCEINLINE void _nvic_invoke_irq(nivc_irq_number_t irq_number)
+    static inline void _nvic_invoke_irq(nivc_irq_number_t irq_number)
     {
         uint32_t idx = __nvic_table_index(irq_number);
         if (nvic_indirection_table[idx].handler != NULL)
         {
             nvic_indirection_table[idx].handler(irq_nmi, nvic_indirection_table[idx].data);
         }
-        NVIC_ClearPendingIRQ(irq_number);
+        nvic_clear_pending_irq(irq_number);
     }
     void nvic_interrupt_set_handler(nivc_irq_number_t irq_number, nvic_interrupt_handler_t handler, void *data)
     {
@@ -46,34 +43,29 @@ extern "C"
         nvic_indirection_table[index].handler = handler;
         nvic_indirection_table[index].data = data;
     }
-    void nvic_interrupt_set_enabled(nivc_irq_number_t irq_number, uint8_t enabled, uint8_t priority)
+    void nvic_interrupt_set_enabled(nivc_irq_number_t irq_number, uint8_t enabled)
     {
-        NVIC_ClearPendingIRQ(irq_number);
-        NVIC_SetPriority(irq_number, priority);
+        nvic_clear_pending_irq(irq_number);
         if (enabled == 0)
         {
-            NVIC_DisableIRQ(irq_number);
+            nvic_disable_irq(irq_number);
         }
         else
         {
-            NVIC_EnableIRQ(irq_number);
+            nvic_enable_irq(irq_number);
         }
     }
-    void nvic_interrupt_set_priority(nivc_irq_number_t irq_number, uint8_t priority)
-    {
-        NVIC_SetPriority(irq_number, priority);
-    }
-    uint8_t nvic_interrupt_get_priority(nivc_irq_number_t irq_number)
-    {
-        return (uint8_t)NVIC_GetPriority(irq_number);
-    }
+    
     void nvic_interrupt_raise(nivc_irq_number_t irq_number)
     {
-        NVIC_SetPendingIRQ(irq_number);
+        if ((int32_t)(irq_number) >= 0)
+        {
+            NVIC->ISPR[0U] = (uint32_t)(1UL << (((uint32_t)irq_number) & 0x1FUL));
+        }
     }
     void nvic_interrupt_clear(nivc_irq_number_t irq_number)
     {
-        NVIC_ClearPendingIRQ(irq_number);
+        nvic_clear_pending_irq(irq_number);
     }
 
     void NMI_Handler(void)

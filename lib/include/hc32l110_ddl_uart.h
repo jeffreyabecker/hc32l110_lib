@@ -10,17 +10,17 @@ extern "C"
 #include "hc32l110_core.h"
 #include "hc32l110_basic_timers.h"
 
-    __STATIC_FORCEINLINE uint8_t uart_get_rx_complete_flag(M0P_UART_TypeDef *uart)
+    static inline uint8_t uart_get_rx_complete_flag(M0P_UART_TypeDef *uart)
     {
         return uart->ISR.rx_complete_flag;
     }
-    __STATIC_FORCEINLINE void uart_clear_rx_complete_flag(M0P_UART_TypeDef *uart) { uart->ICR.rx_complete_flag = 0; }
-    __STATIC_FORCEINLINE uint8_t uart_get_tx_complete_flag(M0P_UART_TypeDef *uart) { return uart->ISR.tx_complete_flag; }
-    __STATIC_FORCEINLINE void uart_clear_tx_complete_flag(M0P_UART_TypeDef *uart) { uart->ICR.tx_complete_flag = 0; }
-    __STATIC_FORCEINLINE uint8_t uart_get_frame_error_flag(M0P_UART_TypeDef *uart) { return uart->ISR.frame_error_flag; }
-    __STATIC_FORCEINLINE void uart_clear_frame_error_flag(M0P_UART_TypeDef *uart) { uart->ICR.frame_error_flag = 0; }
-    __STATIC_FORCEINLINE uint8_t uart_get_tx_empty_flag(M0P_UART_TypeDef *uart) { return uart->ISR.tx_empty_flag; }
-    __STATIC_FORCEINLINE void uart_clear_tx_empty_flag(M0P_UART_TypeDef *uart) { uart->ICR.tx_empty_flag = 0; }
+    static inline void uart_clear_rx_complete_flag(M0P_UART_TypeDef *uart) { uart->ICR.rx_complete_flag = 0; }
+    static inline uint8_t uart_get_tx_complete_flag(M0P_UART_TypeDef *uart) { return uart->ISR.tx_complete_flag; }
+    static inline void uart_clear_tx_complete_flag(M0P_UART_TypeDef *uart) { uart->ICR.tx_complete_flag = 0; }
+    static inline uint8_t uart_get_frame_error_flag(M0P_UART_TypeDef *uart) { return uart->ISR.frame_error_flag; }
+    static inline void uart_clear_frame_error_flag(M0P_UART_TypeDef *uart) { uart->ICR.frame_error_flag = 0; }
+    static inline uint8_t uart_get_tx_empty_flag(M0P_UART_TypeDef *uart) { return uart->ISR.tx_empty_flag; }
+    static inline void uart_clear_tx_empty_flag(M0P_UART_TypeDef *uart) { uart->ICR.tx_empty_flag = 0; }
 
     typedef enum
     {
@@ -67,12 +67,12 @@ extern "C"
     uart_operation_result_t uart_send(M0P_UART_TypeDef *uart, uint8_t *data, size_t length);
     uart_operation_result_t uart_recieve(M0P_UART_TypeDef *uart, uint8_t *data, size_t length);
 
-    __STATIC_INLINE uint8_t __uart_get_index(M0P_UART_TypeDef *uart)
+    static inline uint8_t __uart_get_index(M0P_UART_TypeDef *uart)
     {
         return (LPUART_ADDRESS - ((uint32_t)uart)) / 256;
     }
 
-    __STATIC_INLINE M0P_BasicTimer_TypeDef *__uart_get_timer(M0P_UART_TypeDef *uart)
+    static inline M0P_BasicTimer_TypeDef *__uart_get_timer(M0P_UART_TypeDef *uart)
     {
         return ((uint32_t)uart) == UART00_ADDRESS   ? M0P_TIMER0
                : ((uint32_t)uart) == UART01_ADDRESS ? M0P_TIMER1
@@ -92,7 +92,7 @@ extern "C"
         }
     }
     static uart_parity_t __uart_parity[3] = {uart_parity_even, uart_parity_even, uart_parity_even};
-    __STATIC_INLINE uint8_t __uart_get_index(M0P_UART_TypeDef *uart)
+    static inline uint8_t __uart_get_index(M0P_UART_TypeDef *uart)
     {
         return (LPUART_ADDRESS - ((uint32_t)uart)) / 256;
     }
@@ -139,7 +139,7 @@ extern "C"
         }
         return count == 0 ? 0 : 1;
     }
-    __STATIC_INLINE M0P_BasicTimer_TypeDef *__uart_get_timer(M0P_UART_TypeDef *uart)
+    static inline M0P_BasicTimer_TypeDef *__uart_get_timer(M0P_UART_TypeDef *uart)
     {
         return ((uint32_t)uart) == UART00_ADDRESS   ? M0P_TIMER0
                : ((uint32_t)uart) == UART01_ADDRESS ? M0P_TIMER1

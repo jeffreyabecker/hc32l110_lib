@@ -9,23 +9,23 @@ extern "C"
 #pragma anon_unions
 #endif
 
-#include "hc32l110_registers_cmsis.h"
+#include "hc32l110_registers_platform.h"
   typedef struct
   {
     uint8_t RESERVED0[4];
-    __IO uint32_t RESULT;
+    volatile uint32_t RESULT;
     uint8_t RESERVED1[120];
     union
     {
-      __IO uint32_t DATA32;
-      __IO uint16_t DATA16;
-      __IO uint8_t DATA8;
+      volatile uint32_t DATA32;
+      volatile uint16_t DATA16;
+      volatile uint8_t DATA8;
     };
   } M0P_CRC_TypeDef;
   typedef struct
   {
-    __IO uint32_t BGR_EN : 1;
-    __IO uint32_t TS_EN : 1;
+    volatile uint32_t BGR_EN : 1;
+    volatile uint32_t TS_EN : 1;
   } stc_bgr_cr_field_t;
 
   typedef struct

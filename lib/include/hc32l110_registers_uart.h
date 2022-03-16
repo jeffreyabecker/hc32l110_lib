@@ -9,7 +9,7 @@ extern "C"
 #pragma anon_unions
 #endif
 
-#include "hc32l110_registers_cmsis.h"
+#include "hc32l110_registers_platform.h"
 
     typedef struct
     {
@@ -37,15 +37,15 @@ extern "C"
 
     typedef struct
     {
-        __IO uint8_t buffer;
+        volatile uint8_t buffer;
         uint8_t RESERVED1[3];
-        __IO stc_uart_scon_field_t control;
-        __IO uint8_t peripheral_address;
+        volatile stc_uart_scon_field_t control;
+        volatile uint8_t peripheral_address;
         uint8_t RESERVED2[3];
-        __IO uint8_t peripheral_address_mask;
+        volatile uint8_t peripheral_address_mask;
         uint8_t RESERVED3[3];
         __I stc_uart_isr_field_t ISR;
-        __O stc_uart_isr_field_t ICR;
+        volatile stc_uart_isr_field_t ICR;
     } M0P_UART_TypeDef;
 
 #define UART00_ADDRESS 0x40000000UL

@@ -1,12 +1,12 @@
 
 #ifndef __hc32l110_CORE_H__
 #define __hc32l110_CORE_H__
-#if defined(DDL_USE_ALL) ||  defined(DDL_USE_CORE) 
+#if defined(DDL_USE_ALL) || defined(DDL_USE_CORE)
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
+#include "hc32_common.h"
 #include "hc32l110_registers.h"
 #include "hc32l110_system.h"
 
@@ -47,27 +47,107 @@ extern "C"
     uint32_t systick_frequency_hz;
   } core_system_config_t;
 
-  __STATIC_INLINE core_system_config_t default_system_config()
-  {
-    core_system_config_t result = {
+  
+  __read_only_data core_system_config_t default_system_config = {
         .clock_source = core_clock_source_internal_high_speed,
         .system_clock_prescaler = 0,
         .peripheral_clock_prescaler = 0,
         .enable_systick = 1,
         .clock_frequency_hz = 4000000,
         .systick_frequency_hz = 100000};
-    return result;
-  }
   void core_system_clock_config(core_system_config_t config);
-  __STATIC_FORCEINLINE uint32_t core_get_system_clock_frequency() { return SystemCoreClock; };
-  __STATIC_FORCEINLINE uint32_t core_get_peripheral_clock_frequency() { return PeripheralCoreClock; };
+  __FORCE_INLINE uint32_t core_get_system_clock_frequency() { return SystemCoreClock; };
+  __FORCE_INLINE uint32_t core_get_peripheral_clock_frequency() { return PeripheralCoreClock; };
 
   void core_systick_delay(uint32_t delay_ticks);
   void core_systick_increment_ticks(void);
   uint32_t core_systick_get_tick(void);
   void core_systick_disable(void);
   void core_systick_enable(void);
+  /**
+    \brief   Enable Interrupt
+    \details Enables a device specific interrupt in the NVIC interrupt controller.
+    \param [in]      irq_number  Device specific interrupt number.
+    \note    irq_number must not be negative.
+   */
+  inline void nvic_enable_irq(nivc_irq_number_t irq_number)
+  {
+    if ((int32_t)(irq_number) >= 0)
+    {
+      NVIC->ISER[0U] = (uint32_t)(1UL << (((uint32_t)irq_number) & 0x1FUL));
+    }
+  }
 
+  /**
+    \brief   Get Interrupt Enable status
+    \details Returns a device specific interrupt enable status from the NVIC interrupt controller.
+    \param [in]      irq_number  Device specific interrupt number.
+    \return             0  Interrupt is not enabled.
+    \return             1  Interrupt is enabled.
+    \note    irq_number must not be negative.
+   */
+  inline uint32_t nvic_is_irq_enabled(nivc_irq_number_t irq_number)
+  {
+    if ((int32_t)(irq_number) >= 0)
+    {
+      return ((uint32_t)(((NVIC->ISER[0U] & (1UL << (((uint32_t)irq_number) & 0x1FUL))) != 0UL) ? 1UL : 0UL));
+    }
+    else
+    {
+      return (0U);
+    }
+  }
+
+  /**
+    \brief   Disable Interrupt
+    \details Disables a device specific interrupt in the NVIC interrupt controller.
+    \param [in]      irq_number  Device specific interrupt number.
+    \note    irq_number must not be negative.
+   */
+  inline void nvic_disable_irq(nivc_irq_number_t irq_number)
+  {
+    if ((int32_t)(irq_number) >= 0)
+    {
+      NVIC->ICER[0U] = (uint32_t)(1UL << (((uint32_t)irq_number) & 0x1FUL));
+      __DSB();
+      __ISB();
+    }
+  }
+
+  /**
+    \brief   Get Pending Interrupt
+    \details Reads the NVIC pending register and returns the pending bit for the specified device specific interrupt.
+    \param [in]      irq_number  Device specific interrupt number.
+    \return             0  Interrupt status is not pending.
+    \return             1  Interrupt status is pending.
+    \note    irq_number must not be negative.
+   */
+  inline uint32_t nvic_get_pending_irq(nivc_irq_number_t irq_number)
+  {
+    if ((int32_t)(irq_number) >= 0)
+    {
+      return ((uint32_t)(((NVIC->ISPR[0U] & (1UL << (((uint32_t)irq_number) & 0x1FUL))) != 0UL) ? 1UL : 0UL));
+    }
+    else
+    {
+      return (0U);
+    }
+  }
+
+  /**
+    \brief   Clear Pending Interrupt
+    \details Clears the pending bit of a device specific interrupt in the NVIC pending register.
+    \param [in]      irq_number  Device specific interrupt number.
+    \note    irq_number must not be negative.
+   */
+  inline void nvic_clear_pending_irq(nivc_irq_number_t irq_number)
+  {
+    if ((int32_t)(irq_number) >= 0)
+    {
+      NVIC->ICPR[0U] = (uint32_t)(1UL << (((uint32_t)irq_number) & 0x1FUL));
+    }
+  }
+#define systick_max_reload_value 0xFFFFFFUL
   typedef enum
   {
     port_p01 = 1,
@@ -113,17 +193,17 @@ extern "C"
     peripheral_gpio = 0x10000000UL,
     peripheral_flash = 0x80000000UL,
   } peripheral_t;
-  __STATIC_FORCEINLINE void core_peripheral_set_enabled(peripheral_t enabled) { M0P_CLOCK->peripheral_clock_enable = (uint32_t)enabled; }
-  __STATIC_FORCEINLINE peripheral_t core_peripheral_get_enabled()
+  static inline void core_peripheral_set_enabled(peripheral_t enabled) { M0P_CLOCK->peripheral_clock_enable = (uint32_t)enabled; }
+  static inline peripheral_t core_peripheral_get_enabled()
   {
     return (peripheral_t)M0P_CLOCK->peripheral_clock_enable;
   }
-  __STATIC_FORCEINLINE peripheral_t core_peripheral_is_enabled(peripheral_t enabled)
+  static inline peripheral_t core_peripheral_is_enabled(peripheral_t enabled)
   {
     return enabled & M0P_CLOCK->peripheral_clock_enable > 0 ? 1 : 0;
   }
   static uint32_t tick_increment_step = 0ul;
-  __IO static uint32_t current_tick_count = 0ul;
+  volatile static uint32_t current_tick_count = 0ul;
 
 #define clock_trim_high_24mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C00ul))) * 1000)
 #define clock_trim_high_22_12mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C02ul))) * 1000)
@@ -141,16 +221,32 @@ extern "C"
 #define mhz22_12 22120000
 #define mhz24 24000000
 #define sub_4mhz_scale_factor 8000
-  __STATIC_FORCEINLINE uint32_t __clock_interpolate(uint32_t clock_frequency, uint32_t low_freqency, uint32_t high_frequency, uint32_t low_trim, uint32_t high_trim)
+  __FORCE_INLINE static uint32_t __clock_interpolate(uint32_t clock_frequency, uint32_t low_freqency, uint32_t high_frequency, uint32_t low_trim, uint32_t high_trim)
   {
     return (low_trim + ((clock_frequency - low_freqency) * ((high_trim - low_trim) / (high_frequency - low_freqency)))) / 1000;
   }
-  __STATIC_FORCEINLINE void __core_clock_config_unlock(void)
+  __FORCE_INLINE static void __core_clock_config_unlock(void)
   {
     M0P_CLOCK->SYSCTRL2 = 0x5A5A;
     M0P_CLOCK->SYSCTRL2 = 0xA5A5;
   }
 
+  /**
+    \brief   System Reset
+    \details Initiates a system reset request to reset the MCU.
+   */
+  void core_system_reset(void)
+  {
+    __DSB(); /* Ensure all outstanding memory accesses included
+                buffered write are completed before reset */
+    SCB->AIRCR = 0x05FA0004UL;
+    __DSB(); /* Ensure completion of memory access */
+
+    for (;;) /* wait until reset */
+    {
+      __NOP();
+    }
+  }
   uint16_t __core_calculate_clock_trim(core_system_config_t config)
   {
     if (config.clock_source == core_clock_source_internal_high_speed)
@@ -313,9 +409,18 @@ extern "C"
     PeripheralCoreClock = SystemCoreClock / (0x01 << config.peripheral_clock_prescaler);
     if (config.enable_systick)
     {
-      peripheral_set_enabled(peripheral_get_enabled() | peripheral_systick);
-      SysTick_Config(PeripheralCoreClock / config.systick_frequency_hz);
-      core_systick_enable();
+      core_peripheral_set_enabled(core_peripheral_get_enabled() | peripheral_systick);
+      uint32_t ticks = PeripheralCoreClock / config.systick_frequency_hz;
+      if ((ticks - 1UL) > systick_max_reload_value)
+      {
+        return; /* Reload value impossible */
+      }
+
+      SysTick->LOAD = (uint32_t)(ticks - 1UL); /* set reload register */
+      SysTick->VAL = 0UL;                      /* Load the SysTick Counter Value */
+      SysTick->CTRL_f.clock_source = 1;
+      SysTick->CTRL_f.interrupt_enable = 1;
+      SysTick->CTRL_f.enable = 1;
     }
   }
 
@@ -326,7 +431,7 @@ extern "C"
    */
   void core_systick_delay(uint32_t delay_ticks)
   {
-    const uint32_t tick_start = systick_get_tick();
+    const uint32_t tick_start = core_systick_get_tick();
     uint32_t tick_end;
     uint32_t tickMax;
 
@@ -343,7 +448,7 @@ extern "C"
         tick_end = delay_ticks + tick_increment_step;
       }
 
-      while ((systick_get_tick() - tick_start) < tick_end)
+      while ((core_systick_get_tick() - tick_start) < tick_end)
       {
       }
     }
@@ -355,7 +460,7 @@ extern "C"
    * @param None
    * @retval None
    */
-  void core_systick_increment_ticks(void)
+  __FORCE_INLINE void core_systick_increment_ticks(void)
   {
     current_tick_count += tick_increment_step;
   }
@@ -365,20 +470,18 @@ extern "C"
    * @param None
    * @retval Tick value
    */
-  uint32_t core_systick_get_tick(void)
-  {
-    return current_tick_count;
-  }
+  __FORCE_INLINE uint32_t core_systick_get_tick(void) { return current_tick_count; }
 
   /**
    * @brief Suspend SysTick increment.
    * @param None
    * @retval None
    */
-  void core_systick_disable(void)
+  __FORCE_INLINE void core_systick_disable(void)
   {
     /* Disable SysTick Interrupt */
-    CLEAR_REG32_BIT(SysTick->CTRL, SysTick_CTRL_TICKINT_Pos);
+    SysTick->CTRL_f.interrupt_enable = 0;
+    SysTick->CTRL_f.enable = 0;
   }
 
   /**
@@ -386,9 +489,10 @@ extern "C"
    * @param None
    * @retval None
    */
-  void core_systick_enable(void)
+  __FORCE_INLINE void core_systick_enable(void)
   {
-    SET_REG32_BIT(SysTick->CTRL, SysTick_CTRL_TICKINT_Pos);
+    SysTick->CTRL_f.interrupt_enable = 1;
+    SysTick->CTRL_f.enable = 1;
   }
   void core_ports_set_function(port_number_t port, uint8_t function)
   {
@@ -487,8 +591,8 @@ extern "C"
       return 0;
     }
   }
-
-#if not( defined(DDL_USE_ALL) || defined(DDL_USE_INTERRUPTS))
+#ifndef DDL_USE_ALL
+#ifndef DDL_USE_INTERRUPTS
   void SysTick_Handler(void)
   {
     core_systick_increment_ticks();
@@ -497,6 +601,8 @@ extern "C"
 #endif
 #ifdef __cplusplus
 }
+#endif
+
 #endif
 
 #endif

@@ -9,7 +9,7 @@ extern "C"
 #pragma anon_unions
 #endif
 
-#include "hc32l110_registers_cmsis.h"
+#include "hc32l110_registers_platform.h"
 
   typedef enum
   {
@@ -38,43 +38,43 @@ extern "C"
 
   typedef struct
   {
-    __IO uint32_t timer_running : 1;           // TR
-    __IO uint32_t mode : 1;                    // MD
-    __IO basic_timer_source_t tick_source : 1; // CT
-    __IO uint32_t enable_inverted_output : 1;  // TOG_EN
+    volatile uint32_t timer_running : 1;           // TR
+    volatile uint32_t mode : 1;                    // MD
+    volatile basic_timer_source_t tick_source : 1; // CT
+    volatile uint32_t enable_inverted_output : 1;  // TOG_EN
     union
     {
-      __IO stc_basic_timer_prescaler_t prescaler : 4; // PRS
+      volatile stc_basic_timer_prescaler_t prescaler : 4; // PRS
       struct
       {
-        __IO stc_lp_timer_clock_select_t clock_source : 3; // TCK_SEL
-        __IO uint32_t write_syncronizing : 1;              // WT_FLAG
+        volatile stc_lp_timer_clock_select_t clock_source : 3; // TCK_SEL
+        volatile uint32_t write_syncronizing : 1;              // WT_FLAG
       } low_power;
     };
-    __IO uint32_t enable_gate : 1;       // GATE
-    __IO uint32_t gate_polarity : 1;     // GATE_P
-    __IO uint32_t interrupt_enabled : 1; // IE
+    volatile uint32_t enable_gate : 1;       // GATE
+    volatile uint32_t gate_polarity : 1;     // GATE_P
+    volatile uint32_t interrupt_enabled : 1; // IE
   } stc_basic_timer_cr_field_t;
 
   typedef struct
   {
-    __IO uint32_t auto_reload; // ARR
-    __IO uint32_t count_16; // CNT
-    __IO uint32_t count_32; // CNT32
+    volatile uint32_t auto_reload; // ARR
+    volatile uint32_t count_16; // CNT
+    volatile uint32_t count_32; // CNT32
     stc_basic_timer_cr_field_t control; //CR
     __I uint32_t interrupt_flag; // IFR
-    __O uint32_t interrupt_clear; // ICLR
+    volatile uint32_t interrupt_clear; // ICLR
   } M0P_BasicTimer_TypeDef;
 
   typedef struct
   {
 
-    __IO uint32_t count_16; // CNT
-    __IO uint32_t auto_reload; // ARR
+    volatile uint32_t count_16; // CNT
+    volatile uint32_t auto_reload; // ARR
     uint32_t RESERVED;
     stc_basic_timer_cr_field_t control; // CR
     __I uint32_t interrupt_flag; // IFR
-    __O uint32_t interrupt_clear; // ICLR
+    volatile uint32_t interrupt_clear; // ICLR
   } M0P_LPTIMER_TypeDef;
 
 

@@ -9,48 +9,48 @@ extern "C"
 #pragma anon_unions
 #endif
 
-#include "hc32l110_registers_cmsis.h"
+#include "hc32l110_registers_platform.h"
 
   typedef struct
   {
-    __IO uint32_t TRIM_START : 1;
-    __IO uint32_t REFCLK_SEL : 3;
-    __IO uint32_t CALCLK_SEL : 2;
-    __IO uint32_t MON_EN : 1;
-    __IO uint32_t IE : 1;
+    volatile uint32_t TRIM_START : 1;
+    volatile uint32_t REFCLK_SEL : 3;
+    volatile uint32_t CALCLK_SEL : 2;
+    volatile uint32_t MON_EN : 1;
+    volatile uint32_t IE : 1;
   } stc_clk_trim_cr_field_t;
 
   typedef struct
   {
     stc_clk_trim_cr_field_t CR;
-    __IO uint32_t REFCON;
-    __IO uint32_t REFCNT;
-    __IO uint32_t CALCNT;
-    __IO uint32_t IFR;
-    __IO uint32_t ICLR;
-    __IO uint32_t CALCON;
+    volatile uint32_t REFCON;
+    volatile uint32_t REFCNT;
+    volatile uint32_t CALCNT;
+    volatile uint32_t IFR;
+    volatile uint32_t ICLR;
+    volatile uint32_t CALCON;
   } M0P_CLK_TRIM_TypeDef;
 
   typedef struct
   {
-    __IO uint32_t PRDS : 3;
-    __IO uint32_t AMPM : 1;
+    volatile uint32_t PRDS : 3;
+    volatile uint32_t AMPM : 1;
     uint32_t RESERVED1 : 1;
-    __IO uint32_t HZ1OE : 1;
-    __IO uint32_t HZ1SEL : 1;
-    __IO uint32_t START : 1;
-    __IO uint32_t PRDX : 6;
-    __IO uint32_t PRDSEL : 1;
+    volatile uint32_t HZ1OE : 1;
+    volatile uint32_t HZ1SEL : 1;
+    volatile uint32_t START : 1;
+    volatile uint32_t PRDX : 6;
+    volatile uint32_t PRDSEL : 1;
     uint32_t RESERVED2 :17;
-    __IO uint32_t WAIT : 1;
-    __IO uint32_t WAITF : 1;
+    volatile uint32_t WAIT : 1;
+    volatile uint32_t WAITF : 1;
     uint32_t RESERVED3 : 1;
-    __O uint32_t PRDF : 1;
-    __O uint32_t ALMF : 1;
+    volatile uint32_t PRDF : 1;
+    volatile uint32_t ALMF : 1;
     uint32_t RESERVED4 : 1;
-    __IO uint32_t alarm_interrupt_enabled : 1;
-    __IO uint32_t alarm_enabled : 1;
-    __IO uint32_t clock_divisor_exponent : 3;
+    volatile uint32_t alarm_interrupt_enabled : 1;
+    volatile uint32_t alarm_enabled : 1;
+    volatile uint32_t clock_divisor_exponent : 3;
     uint32_t RESERVED5 :21;    
   } stc_rtc_cr_field_t;
 
@@ -58,50 +58,50 @@ extern "C"
   
   typedef struct
   {
-    __IO uint32_t low_digit : 4;
-    __IO uint32_t high_digit : 3;
+    volatile uint32_t low_digit : 4;
+    volatile uint32_t high_digit : 3;
   } stc_rtc_sec_field_t;
 
   typedef struct
   {
-    __IO uint32_t low_digit : 4;
-    __IO uint32_t high_digit : 3;
+    volatile uint32_t low_digit : 4;
+    volatile uint32_t high_digit : 3;
   } stc_rtc_min_field_t;
 
   typedef struct
   {
-    __IO uint32_t low_digit : 4;
-    __IO uint32_t high_digit : 2;
+    volatile uint32_t low_digit : 4;
+    volatile uint32_t high_digit : 2;
   } stc_rtc_hour_field_t;
 
   typedef struct
   {
-    __IO uint32_t low_digit : 4;
-    __IO uint32_t high_digit : 2;
+    volatile uint32_t low_digit : 4;
+    volatile uint32_t high_digit : 2;
   } stc_rtc_day_field_t;
 
   typedef struct
   {
-    __IO uint32_t low_digit : 4;
-    __IO uint32_t high_digit : 4;
+    volatile uint32_t low_digit : 4;
+    volatile uint32_t high_digit : 4;
   } stc_rtc_year_field_t;
 
   typedef struct
   {
-    __IO uint8_t SUNDAY : 1;
-    __IO uint8_t MONDAY : 1;
-    __IO uint8_t TUESDAY : 1;
-    __IO uint8_t WEDNESDAY : 1;
-    __IO uint8_t THURSDAY : 1;
-    __IO uint8_t FRIDAY : 1;
-    __IO uint8_t SATURDAY : 1;
+    volatile uint8_t SUNDAY : 1;
+    volatile uint8_t MONDAY : 1;
+    volatile uint8_t TUESDAY : 1;
+    volatile uint8_t WEDNESDAY : 1;
+    volatile uint8_t THURSDAY : 1;
+    volatile uint8_t FRIDAY : 1;
+    volatile uint8_t SATURDAY : 1;
   } stc_rtc_almweek_field_t;
 
   typedef struct
   {
-    __IO uint32_t CR : 9;
+    volatile uint32_t CR : 9;
     uint32_t RESERVED9 : 6;
-    __IO uint32_t EN : 1;
+    volatile uint32_t EN : 1;
   } stc_rtc_compen_field_t;
 
   typedef struct
@@ -110,9 +110,9 @@ extern "C"
     stc_rtc_sec_field_t second;
     stc_rtc_min_field_t minute;
     stc_rtc_hour_field_t hour;
-    __IO uint32_t week;
+    volatile uint32_t week;
     stc_rtc_day_field_t day;
-    __IO uint32_t month;
+    volatile uint32_t month;
     stc_rtc_year_field_t year;
     stc_rtc_min_field_t alarm_minute;
     stc_rtc_hour_field_t alarm_hour;
@@ -121,18 +121,18 @@ extern "C"
 
   typedef struct
   {
-    __IO uint32_t WOV : 4;
-    __IO uint32_t WDTR : 1;
-    __IO uint32_t WINT_EN : 1;
+    volatile uint32_t WOV : 4;
+    volatile uint32_t WDTR : 1;
+    volatile uint32_t WINT_EN : 1;
     uint32_t RESERVED6 : 1;
-    __IO uint32_t WDINT : 1;
-    __IO uint32_t WCNTL : 8;
+    volatile uint32_t WDINT : 1;
+    volatile uint32_t WCNTL : 8;
   } stc_wdt_con_field_t;
 
   typedef struct
   {
     uint8_t RESERVED0[128];
-    __IO uint32_t RST;
+    volatile uint32_t RST;
     stc_wdt_con_field_t CON;
   } M0P_WDT_TypeDef;
 

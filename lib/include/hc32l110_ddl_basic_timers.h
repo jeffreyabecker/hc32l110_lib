@@ -12,15 +12,15 @@ extern "C"
 #endif
 
 #include "hc32l110_registers.h"
-#include "hc32l110_core.h"
-#include "hc32l110_interrupts.h"
+#include "hc32l110_ddl_core.h"
+#include "hc32l110_ddl_interrupts.h"
 
-    IRQn_Type basic_timer_get_irq(void *timer);
+    nvic_irq_number_t basic_timer_get_irq(void *timer);
     void basic_timer_set_interrupt_enabled(void *timer, uint8_t enabled);
     uint8_t basic_timer_get_interrupt_enabled(void *timer);
     void basic_timer_set_config(void *timer, stc_basic_timer_cr_field_t value);
 
-    __INLINE stc_basic_timer_cr_field_t basic_timer_get_config(void *timer)
+    inline stc_basic_timer_cr_field_t basic_timer_get_config(void *timer)
     {
 
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
@@ -33,7 +33,7 @@ extern "C"
         }
     }
 
-    __INLINE void basic_timer_set_reload(void *timer, uint16_t reload_value)
+    inline void basic_timer_set_reload(void *timer, uint16_t reload_value)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -44,7 +44,7 @@ extern "C"
             ((M0P_BasicTimer_TypeDef *)timer)->auto_reload = reload_value;
         }
     }
-    __INLINE uint16_t basic_timer_get_reload(void *timer, uint16_t reload_value)
+    inline uint16_t basic_timer_get_reload(void *timer, uint16_t reload_value)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -56,7 +56,7 @@ extern "C"
         }
     }
 
-    __INLINE void basic_timer_set_count(void *timer, uint32_t count)
+    inline void basic_timer_set_count(void *timer, uint32_t count)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -74,7 +74,7 @@ extern "C"
             }
         }
     }
-    __INLINE uint32_t basic_timer_get_count(void *timer)
+    inline uint32_t basic_timer_get_count(void *timer)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -86,7 +86,7 @@ extern "C"
         }
     }
 
-    __INLINE void basic_timer_clear_interrupt(void *timer)
+    inline void basic_timer_clear_interrupt(void *timer)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -97,7 +97,7 @@ extern "C"
             (((M0P_BasicTimer_TypeDef *)timer)->interrupt_clear) = 0;
         }
     }
-    __INLINE uint8_t basic_timer_get_interrupt(void *timer)
+    inline uint8_t basic_timer_get_interrupt(void *timer)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -109,7 +109,7 @@ extern "C"
         }
     }
 
-    __INLINE void basic_timer_set_running(void *timer, uint8_t enabled)
+    inline void basic_timer_set_running(void *timer, uint8_t enabled)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -120,7 +120,7 @@ extern "C"
             (((M0P_BasicTimer_TypeDef *)timer)->control).timer_running = enabled;
         }
     }
-    __INLINE uint8_t basic_timer_get_running(void *timer)
+    inline uint8_t basic_timer_get_running(void *timer)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -132,7 +132,7 @@ extern "C"
         }
     }
 
-    __INLINE IRQn_Type basic_timer_get_irq(void *timer)
+    inline nvic_irq_number basic_timer_get_irq(void *timer)
     {
         return irq_timer_0 + ((((uint32_t)timer) - TIMER_0_ADDRESS) / 24);
     }
@@ -140,11 +140,11 @@ extern "C"
     {
         if (enabled)
         {
-            NVIC_EnableIRQ(basic_timer_get_irq(timer));
+            nvic_interrupt_set_enabled(basic_timer_get_irq(timer));
         }
         else
         {
-            NVIC_DisableIRQ(basic_timer_get_irq(timer));
+            nvic_interrupt_set_enabled(basic_timer_get_irq(timer));
         }
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -157,7 +157,7 @@ extern "C"
     }
     uint8_t basic_timer_get_interrupt_enabled(void *timer)
     {
-        uint8_t nvic_enabled = NVIC_GetEnableIRQ(basic_timer_get_irq(timer));
+        uint8_t nvic_enabled = nvic_is_irq_enabled(basic_timer_get_irq(timer));
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
             return ((M0P_LPTIMER_TypeDef *)timer)->control.interrupt_enabled + nvic_enabled > 0 ? 1 : 0;
@@ -172,11 +172,11 @@ extern "C"
 
         if (value.interrupt_enabled)
         {
-            NVIC_EnableIRQ(basic_timer_get_irq(timer));
+            nvic_enable_irq(basic_timer_get_irq(timer));
         }
         else
         {
-            NVIC_DisableIRQ(basic_timer_get_irq(timer));
+            nvic_disable_irq(basic_timer_get_irq(timer));
         }
 
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
