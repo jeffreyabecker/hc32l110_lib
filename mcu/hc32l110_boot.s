@@ -89,6 +89,8 @@ RamCode:
     ldr     R0, =0xE000ED08 
     str     R2, [R0]
 
+    /* begin systeminit */
+    /* at this point other boot code invokes SystemInit and __main to do the following */
     /* set a stable clock frequency */  
     ldr r0, =INITIAL_CLOCK_FREQUENCY
     ldr r1, =SystemCoreClock
@@ -99,7 +101,7 @@ RamCode:
     ldr r1, =HCL_CLOCK_TRIM_REGISTER_ADDRESS
     ldr r2, [r0]
     str r2, [r1]
-
+/* initialize static ram values */  
     ldr r1, =__etext
     ldr r2, =__data_start__
     ldr r3, =__data_end__
@@ -129,7 +131,7 @@ RamCode:
     bgt .L_zero_table
 
 .L_zero_table_exit:    
-
+/* end systeminit */
 
     ldr     R0, = main
     bx      R0

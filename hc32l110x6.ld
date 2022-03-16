@@ -49,7 +49,6 @@
 /*  Date        2022-03-07                                                   */
 /*****************************************************************************/
 
-/* Use contiguous memory regions for simple. */
 MEMORY
 {
     FLASH  (rx): ORIGIN = 0x00000000, LENGTH = 32K

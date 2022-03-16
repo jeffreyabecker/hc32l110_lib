@@ -1,2 +1,4 @@
 C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-gcc.exe .\mcu\common\src\hc32l110_system.c -I C:\ode\hc32l110\mcu\CMSIS\Core\Include -mcpu=cortex-m0 -mthumb -ffreestanding -c -o hc32l110_system.bin
-C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-as.exe .\mcu\common\src\hc32l110_boot.s
+C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-as.exe .\mcu\hc32l110_boot.s -mcpu=cortex-m0 -mthumb -ffreestanding -o hc32l110_boot.bin
+
+C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-dumpelf
