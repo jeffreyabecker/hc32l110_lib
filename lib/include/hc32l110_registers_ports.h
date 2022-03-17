@@ -8,7 +8,7 @@ extern "C"
 #if defined(__CC_ARM)
 #pragma anon_unions
 #endif
-
+#include <stdint.h>
 #include "hc32l110_registers_platform.h"
   typedef enum
   {
@@ -805,7 +805,7 @@ extern "C"
 
   typedef struct
   {
-    uint8_t RESERVED0[4];
+    uint32_t RESERVED0[4];
 
     volatile uint32_t P01_SEL;
     volatile uint32_t P02_SEL;

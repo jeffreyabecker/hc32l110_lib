@@ -4,11 +4,14 @@
 
 #include <stdint.h>
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-extern uint32_t SystemCoreClock;
-extern uint32_t PeripheralCoreClock;
+    extern uint32_t SystemCoreClock;
+    extern uint32_t PeripheralCoreClock;
+
+    __attribute__((weak)) void SystemInit(void);
 #ifdef __cplusplus
 }
 #endif

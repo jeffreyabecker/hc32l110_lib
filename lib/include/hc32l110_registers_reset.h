@@ -8,7 +8,7 @@ extern "C"
 #if defined(__CC_ARM)
 #pragma anon_unions
 #endif
-
+#include <stdint.h>
 #include "hc32l110_registers_platform.h"
   typedef struct
   {

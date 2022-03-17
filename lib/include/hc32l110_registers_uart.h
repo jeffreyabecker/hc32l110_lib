@@ -5,9 +5,6 @@
 extern "C"
 {
 #endif
-#if defined(__CC_ARM)
-#pragma anon_unions
-#endif
 
 #include "hc32l110_registers_platform.h"
 

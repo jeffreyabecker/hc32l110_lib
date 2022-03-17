@@ -7,7 +7,7 @@
 #endif
 #define __O volatile  /*!< Defines 'write only' permissions */
 #define __IO volatile /*!< Defines 'read / write' permissions */
-
+#include <stdint.h>
 #ifdef __cplusplus
 extern "C"
 {

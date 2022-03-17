@@ -5,9 +5,6 @@
 extern "C"
 {
 #endif
-#if defined(__CC_ARM)
-#pragma anon_unions
-#endif
 
 #include "hc32l110_registers_platform.h"
     typedef struct
@@ -61,7 +58,7 @@ extern "C"
     } M0P_RAM_TypeDef;
 
 #define M0P_FLASH ((M0P_FLASH_TypeDef *)0x40020000UL)
-#define M0P_RAM ((M0P_RAM_TypeDef *)0x40020400UL)    
+#define M0P_RAM ((M0P_RAM_TypeDef *)0x40020400UL)
 #ifdef __cplusplus
 }
 #endif

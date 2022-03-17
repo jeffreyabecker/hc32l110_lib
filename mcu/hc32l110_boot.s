@@ -62,15 +62,7 @@ __isr_vector:
     .thumb
     .thumb_func
     .align 1
-    .equ INITIAL_CLOCK_FREQUENCY, 0x003D0900 
-    .equ INITIAL_CLOCK_TRIM_ADDRESS, 0x00100C08
-    .equ HCL_CLOCK_TRIM_REGISTER_ADDRESS, 0x4000200C
-    .global SystemCoreClock
-    .size SystemCoreClock, 4
-    .type SystemCoreClock, %object
-    .global PeripheralCoreClock
-    .size PeripheralCoreClock, 4
-    .type PeripheralCoreClock, %object
+
     .global Reset_Handler
     .type Reset_Handler, %function
 Reset_Handler:
@@ -88,53 +80,9 @@ RamCode:
     /* ; reset Vector table address.*/
     ldr     R0, =0xE000ED08 
     str     R2, [R0]
+    bl SystemInit
+    bl __main
 
-    /* begin systeminit */
-    /* at this point other boot code invokes SystemInit and __main to do the following */
-    /* set a stable clock frequency */  
-    ldr r0, =INITIAL_CLOCK_FREQUENCY
-    ldr r1, =SystemCoreClock
-    ldr r2, =PeripheralCoreClock
-    str r0, [r1]
-    str r0, [r2]
-    ldr r0, =INITIAL_CLOCK_TRIM_ADDRESS
-    ldr r1, =HCL_CLOCK_TRIM_REGISTER_ADDRESS
-    ldr r2, [r0]
-    str r2, [r1]
-/* initialize static ram values */  
-    ldr r1, =__etext
-    ldr r2, =__data_start__
-    ldr r3, =__data_end__
-
-    subs r3, r3, r2
-    ble .L_data_init_exit
-
-.L_data_init:
-    subs r3, r3, #4
-    ldr r0, [r1,r3]
-    str r0, [r2,r3]
-    bgt .L_data_init
-
-.L_data_init_exit:
-
-    ldr r1, =__bss_start__
-    ldr r2, =__bss_end__
-
-    movs r0, 0
-
-    subs r2, r2, r1 
-    ble .L_zero_table_exit 
-
-.L_zero_table:
-    subs r2, r2, #4 
-    str r0, [r1, r2] 
-    bgt .L_zero_table
-
-.L_zero_table_exit:    
-/* end systeminit */
-
-    ldr     R0, = main
-    bx      R0
 
     .weak   NMI_Handler
     .type   NMI_Handler, %function
@@ -265,133 +213,3 @@ Default_Handler:
 
     .weak ClockTrim_Handler
     .set ClockTrim_Handler, Default_Handler
-
-
-/* Runtime ABI for the ARM Cortex-M0  
- * idivmod.S: signed 32 bit division (quotient and remainder)
- *
- * Copyright (c) 2012 Jörg Mische <bobbl@gmx.de>
- *
- * Permission to use, copy, modify, and/or distribute this software for any
- * purpose with or without fee is hereby granted, provided that the above
- * copyright notice and this permission notice appear in all copies.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
- * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
- * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
- * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
- * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
- * OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- */
-
-
-@ {int quotient:r0, int remainder:r1}
-@ __aeabi_idivmod(int numerator:r0, int denominator:r1)
-@
-@ Divide r0 by r1 and return the quotient in r0 and the remainder in r1
-@
-	.thumb_func
-        .global __aeabi_idivmod
-__aeabi_idivmod:
-
-	cmp	r0, #0
-	bge	.Lnumerator_pos
-	rsbs	r0, r0, #0		@ num = -num
-	cmp	r1, #0
-	bge	.Lboth_neg
-
-	rsbs	r1, r1, #0		@ den = -den
-	push	{lr}
-	bl	__aeabi_uidivmod
-	rsbs	r1, r1, #0		@ rem = -rem
-	pop	{pc}
-
-.Lboth_neg:
-	push	{lr}
-	bl	__aeabi_uidivmod
-	rsbs	r0, r0, #0		@ quot = -quot
-	rsbs	r1, r1, #0		@ rem = -rem
-	pop	{pc}
-
-.Lnumerator_pos:
-	cmp	r1, #0
-	bge	.Luidivmod
-
-	rsbs	r1, r1, #0		@ den = -den
-	push	{lr}
-	bl	__aeabi_uidivmod
-	rsbs	r0, r0, #0		@ quot = -quot
-	pop	{pc}
-
-
-
-
-
-@ unsigned __udivsi3(unsigned num, unsigned denom)
-@
-@ libgcc wrapper: just an alias for __aeabi_uidivmod(), the remainder is ignored
-@
-	.thumb_func
-        .global __udivsi3
-__udivsi3:
-
-
-
-@ unsigned __aeabi_uidiv(unsigned num, unsigned denom)
-@
-@ Just an alias for __aeabi_uidivmod(), the remainder is ignored
-@
-	.thumb_func
-        .global __aeabi_uidiv
-__aeabi_uidiv:
-
-
-
-@ {unsigned quotient:r0, unsigned remainder:r1}
-@  __aeabi_uidivmod(unsigned numerator:r0, unsigned denominator:r1)
-@
-@ Divide r0 by r1 and return the quotient in r0 and the remainder in r1
-@
-	.thumb_func
-        .global __aeabi_uidivmod
-__aeabi_uidivmod:
-
-
-
-.Luidivmod:
-	cmp	r1, #0
-	bne	1f
-	b	__aeabi_idiv0
-1:
-
-	@ Shift left the denominator until it is greater than the numerator
-	movs	r2, #1		@ counter
-	movs	r3, #0		@ result
-	cmp	r0, r1
-	bls	.Lsub_loop
-	adds	r1, #0		@ dont shift if denominator would overflow
-	bmi	.Lsub_loop
-
-.Ldenom_shift_loop:
-	lsls	r2, #1
-	lsls	r1, #1
-	bmi	.Lsub_loop
-	cmp	r0, r1
-	bhi	.Ldenom_shift_loop
-
-.Lsub_loop:	
-	cmp	r0, r1
-	bcc	.Ldont_sub	@ if (num>denom)
-
-	subs	r0, r1		@ numerator -= denom
-	orrs	r3, r2		@ result(r3) |= bitmask(r2)
-.Ldont_sub:
-
-	lsrs	r1, #1		@ denom(r1) >>= 1
-	lsrs	r2, #1		@ bitmask(r2) >>= 1
-	bne	.Lsub_loop
-
-	mov	r1, r0		@ remainder(r1) = numerator(r0)
-	mov	r0, r3		@ quotient(r0) = result(r3)
-	bx	lr

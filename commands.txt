@@ -1,11 +1,7 @@
-C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-gcc.exe .\mcu\main.c -I C:\ode\hc32l110\lib\include -mcpu=cortex-m0 -mthumb -nostdlib -laeabi-cortexm0 -c -o .\mcu\main.o
-C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-as.exe .\mcu\hc32l110_boot.s -mcpu=cortex-m0 -mthumb -o .\mcu\hc32l110_boot.o
+C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-gcc.exe .\mcu\main.c -I C:\ode\hc32l110\lib\include -mcpu=cortex-m0 -mthumb -nostartfiles -nostdlib -ffreestanding -c -o .\mcu\main.o
+C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-gcc.exe .\mcu\hc32l110_system.c -I C:\ode\hc32l110\lib\include -mcpu=cortex-m0 -mthumb -nostartfiles -nostdlib -ffreestanding -c -o .\mcu\hc32l110_system.o
+C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-as.exe .\mcu\hc32l110_boot.s -mcpu=cortex-m0 -mthumb  -nostdlib -o .\mcu\hc32l110_boot.o
 
 C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-dumpelf
 
-C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-ld.exe .\mcu\hc32l110_boot.o  .\mcu\main.o -o my_rom.elf
-
-C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-as.exe .\mcu\libaeabi_cortexm0.s -mcpu=cortex-m0 -mthumb -o .\mcu\libaeabi_cortexm0.o
-
-
-__aeabi_uidiv
+C:\tools\gcc-arm-none-eabi-10.3-2021.10-win32\bin\arm-none-eabi-ld.exe .\mcu\hc32l110_boot.o .\mcu\hc32l110_system.o .\mcu\main.o hc32l110x6.ld -o my_rom.elf -T hc32l110x6.ld --nostartfiles -nostdlib 

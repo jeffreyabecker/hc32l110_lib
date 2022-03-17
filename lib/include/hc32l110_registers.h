@@ -7,9 +7,7 @@ extern "C"
 #endif
 
 #include <stdint.h>
-#if defined(__CC_ARM)
-#pragma anon_unions
-#endif
+
 #include "hc32l110_registers_platform.h"
 #include "hc32l110_registers_advanced_timers.h"
 #include "hc32l110_registers_analog_digital_converters.h"
