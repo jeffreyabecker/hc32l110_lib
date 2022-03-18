@@ -20,19 +20,8 @@ extern "C"
       volatile uint8_t DATA8;
     };
   } M0P_CRC_TypeDef;
-  typedef struct
-  {
-    volatile uint32_t BGR_EN : 1;
-    volatile uint32_t TS_EN : 1;
-  } stc_bgr_cr_field_t;
 
-  typedef struct
-  {
-    stc_bgr_cr_field_t CR;
-  } M0P_BGR_TypeDef;
-
-#define M0P_BGR ((M0P_BGR_TypeDef *)0x40002400UL)
-#define M0P_CRC ((M0P_CRC_TypeDef *)0x40020900UL)  
+#define M0P_CRC ((M0P_CRC_TypeDef *)0x40020900UL)
 #ifdef __cplusplus
 }
 #endif

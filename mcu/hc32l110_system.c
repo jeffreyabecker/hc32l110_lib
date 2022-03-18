@@ -41,5 +41,8 @@ void __main()
 
 __attribute__((weak)) void SystemInit(void)
 {
+    // set the clock trim for highspeed internal to the trim value for 4mhz (default)
     *((uint32_t *)0x4000200C) = (*((volatile uint16_t *)(0x00100C08)));
+    // disable all the peripherals 
+    *((uint32_t *)0x40002000UL) = 0x00000000;
 }

@@ -2,6 +2,8 @@
     "files.associations": {
         "hc32l110_system.h": "c",
         "hc32l110_ddl.h": "c",
-        "hc32l110_ddl_basic_timers.h": "c"
+        "hc32l110_ddl_basic_timers.h": "c",
+        "hc32l110_registers.h": "c",
+        "stdint.h": "c"
     }
 }

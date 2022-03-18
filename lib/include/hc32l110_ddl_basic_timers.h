@@ -15,78 +15,84 @@ extern "C"
 #include "hc32l110_ddl_core.h"
 #include "hc32l110_ddl_interrupts.h"
     typedef void (*basic_timer_handler_t)(void *timer);
-    nvic_irq_number_t basic_timer_get_irq(void *timer);
-    void basic_timer_set_interrupt_enabled(void *timer, uint8_t enabled);
-    uint8_t basic_timer_get_interrupt_enabled(void *timer);
-    void basic_timer_set_config(void *timer, stc_basic_timer_cr_field_t value);
-
-    inline stc_basic_timer_cr_field_t basic_timer_get_config(void *timer)
+    basic_timer_handler_t *__timer_handlers[4] = {NULL, NULL, NULL, NULL};
+    typedef struct
     {
-
-        if (((uint32_t)timer) == LPTIMER_ADDRESS)
+        basic_timer_mode_t mode : 1;
+        basic_timer_source_t tick_source : 1;
+        union
         {
-            return ((M0P_LPTIMER_TypeDef *)timer)->control;
-        }
-        else
+            stc_basic_timer_prescaler_t prescaler : 4;
+            stc_lp_timer_clock_select_t low_power_clock_source : 4;
+        } uint8_t enable_inverted_output : 1;
+        uint8_t enable_gate : 1;
+        uint8_t gate_polarity : 1;
+        uint8_t interrupt_enabled : 1;
+        union
         {
-            return ((M0P_BasicTimer_TypeDef *)timer)->control;
-        }
-    }
-
-    inline void basic_timer_set_reload(void *timer, uint16_t reload_value)
-    {
-        if (((uint32_t)timer) == LPTIMER_ADDRESS)
-        {
-            ((M0P_LPTIMER_TypeDef *)timer)->auto_reload = reload_value;
-        }
-        else
-        {
-            ((M0P_BasicTimer_TypeDef *)timer)->auto_reload = reload_value;
-        }
-    }
-    inline uint16_t basic_timer_get_reload(void *timer, uint16_t reload_value)
-    {
-        if (((uint32_t)timer) == LPTIMER_ADDRESS)
-        {
-            return (((M0P_LPTIMER_TypeDef *)timer)->auto_reload);
-        }
-        else
-        {
-            return (((M0P_BasicTimer_TypeDef *)timer)->control.mode) == 0 ? 0 : ((M0P_BasicTimer_TypeDef *)timer)->auto_reload;
-        }
-    }
-
-    inline void basic_timer_set_count(void *timer, uint32_t count)
-    {
-        if (((uint32_t)timer) == LPTIMER_ADDRESS)
-        {
-            (((M0P_LPTIMER_TypeDef *)timer)->count_16) = count;
-        }
-        else
-        {
-            if ((((M0P_BasicTimer_TypeDef *)timer)->control.mode) == 0)
+            uint32_t one_shot_preload;
+            struct
             {
-                ((M0P_BasicTimer_TypeDef *)timer)->count_32 = count;
+                uint16_t : preload;
+                uint16_t : reload;
+            } periodic;
+        }
+    } basic_timer_config_t;
+    static inline uint32_t __basic_timer_get_index(void *timer)
+    {
+        return ((((uint32_t)timer) - TIMER_0_ADDRESS) / 24);
+    }
+    void basic_timer_configure(void *timer, basic_timer_config_t cfg, basic_timer_handler_t *callback)
+    {
+        uint32_t index = __basic_timer_get_index(timer);
+        __timer_handlers[index] = cfg.interrupt_enabled ? callback : NULL;
+        if (((uint32_t)timer) == LPTIMER_ADDRESS)
+        {
+            core_peripheral_set_enabled(peripheral_lptimer);
+            M0P_LPTIMER_TypeDef *l = timer;
+            l->control.mode = cfg.mode;
+            l->control.low_power.clock_source = cfg.low_power_clock_source
+                                                    l->control.tick_source = cfg.tick_source;
+            l->control.enable_inverted_output = cfg.enable_inverted_output;
+            l->control.enable_gate = cfg.enable_gate;
+            l->control.gate_polarity = cfg.gate_polarity;
+            l->control.interrupt_enabled = cfg.interrupt_enabled;
+            (((M0P_BasicTimer_TypeDef *)timer)->interrupt_clear) = 0;
+            if (cfg.mode == basic_timer_mode_one_shot)
+            {
+                l->count_32 = cfg.one_shot_preload;
             }
             else
             {
-                ((M0P_BasicTimer_TypeDef *)timer)->count_16 = count;
+                l->auto_reload = cfg.periodic.reload;
+                l->count_16 = cfg.periodic.preload;
             }
-        }
-    }
-    inline uint32_t basic_timer_get_count(void *timer)
-    {
-        if (((uint32_t)timer) == LPTIMER_ADDRESS)
-        {
-            return (((M0P_LPTIMER_TypeDef *)timer)->count_16);
         }
         else
         {
-            return (((M0P_BasicTimer_TypeDef *)timer)->control.mode) == 0 ? ((M0P_BasicTimer_TypeDef *)timer)->count_32 : ((M0P_BasicTimer_TypeDef *)timer)->count_16;
+            core_peripheral_set_enabled(peripheral_base_timer);
+            M0P_BasicTimer_TypeDef *t = timer;
+            t->control.mode = cfg.mode;
+            t->control.prescaler = cfg.prescaler;
+            t->control.tick_source = cfg.tick_source;
+            t->control.enable_inverted_output = cfg.enable_inverted_output;
+            t->control.enable_gate = cfg.enable_gate;
+            t->control.gate_polarity = cfg.gate_polarity;
+            t->control.interrupt_enabled = cfg.interrupt_enabled;
+            (((M0P_BasicTimer_TypeDef *)timer)->interrupt_clear) = 0;
+            if (cfg.mode == basic_timer_mode_one_shot)
+            {
+                t->count_32 = cfg.one_shot_preload;
+            }
+            else
+            {
+                t->auto_reload = cfg.periodic.reload;
+                t->count_16 = cfg.periodic.preload;
+            }
         }
     }
 
-    inline void basic_timer_clear_interrupt(void *timer)
+    void basic_timer_interrupt_clear(void *timer)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -97,7 +103,7 @@ extern "C"
             (((M0P_BasicTimer_TypeDef *)timer)->interrupt_clear) = 0;
         }
     }
-    inline uint8_t basic_timer_get_interrupt(void *timer)
+    uint8_t basic_timer_interrupt_get(void *timer)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
@@ -108,7 +114,6 @@ extern "C"
             return (((M0P_BasicTimer_TypeDef *)timer)->interrupt_flag);
         }
     }
-
     inline void basic_timer_set_running(void *timer, uint8_t enabled)
     {
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
@@ -120,102 +125,33 @@ extern "C"
             (((M0P_BasicTimer_TypeDef *)timer)->control).timer_running = enabled;
         }
     }
-    inline uint8_t basic_timer_get_running(void *timer)
-    {
-        if (((uint32_t)timer) == LPTIMER_ADDRESS)
-        {
-            return (((M0P_LPTIMER_TypeDef *)timer)->control).timer_running;
-        }
-        else
-        {
-            return (((M0P_BasicTimer_TypeDef *)timer)->control).timer_running;
-        }
-    }
-
-    inline nvic_irq_number basic_timer_get_irq(void *timer)
-    {
-        return irq_timer_0 + ((((uint32_t)timer) - TIMER_0_ADDRESS) / 24);
-    }
-    void basic_timer_set_interrupt_enabled(void *timer, uint8_t enabled)
-    {
-        if (enabled)
-        {
-            nvic_interrupt_set_enabled(basic_timer_get_irq(timer));
-        }
-        else
-        {
-            nvic_interrupt_set_enabled(basic_timer_get_irq(timer));
-        }
-        if (((uint32_t)timer) == LPTIMER_ADDRESS)
-        {
-            ((M0P_LPTIMER_TypeDef *)timer)->control.interrupt_enabled = enabled;
-        }
-        else
-        {
-            ((M0P_BasicTimer_TypeDef *)timer)->control.interrupt_enabled = enabled;
-        }
-    }
-    uint8_t basic_timer_get_interrupt_enabled(void *timer)
-    {
-        uint8_t nvic_enabled = nvic_is_interrupt_enabled(basic_timer_get_irq(timer));
-        if (((uint32_t)timer) == LPTIMER_ADDRESS)
-        {
-            return ((M0P_LPTIMER_TypeDef *)timer)->control.interrupt_enabled + nvic_enabled > 0 ? 1 : 0;
-        }
-        else
-        {
-            return ((M0P_BasicTimer_TypeDef *)timer)->control.interrupt_enabled + nvic_enabled > 0 ? 1 : 0;
-        }
-    }
-    void basic_timer_set_config(void *timer, stc_basic_timer_cr_field_t value)
-    {
-
-        if (value.interrupt_enabled)
-        {
-            nvic_interrupt_enable(basic_timer_get_irq(timer));
-        }
-        else
-        {
-            nvic_interrupt_disable(basic_timer_get_irq(timer));
-        }
-
-        if (((uint32_t)timer) == LPTIMER_ADDRESS)
-        {
-            ((M0P_LPTIMER_TypeDef *)timer)->control = value;
-        }
-        else
-        {
-            ((M0P_BasicTimer_TypeDef *)timer)->control = value;
-        }
-    }
-    basic_timer_handler_t *timer_handlers[4] = {NULL, NULL, NULL, NULL};
 
     void Timer0_Handler(void)
     {
-        if (timer_handlers[0] != NULL)
+        if (__timer_handlers[0] != NULL)
         {
-            (*timer_handlers[0])(M0P_TIMER0);
+            (*__timer_handlers[0])(M0P_TIMER0);
         }
     }
     void Timer1_Handler(void)
     {
-        if (timer_handlers[1] != NULL)
+        if (__timer_handlers[1] != NULL)
         {
-            (*timer_handlers[1])(M0P_TIMER1);
+            (*__timer_handlers[1])(M0P_TIMER1);
         }
     }
     void Timer2_Handler(void)
     {
-        if (timer_handlers[2] != NULL)
+        if (__timer_handlers[2] != NULL)
         {
-            (*timer_handlers[2])(M0P_TIMER2);
+            (*__timer_handlers[2])(M0P_TIMER2);
         }
     }
     void LpTimer_Handler(void)
     {
-        if (timer_handlers[3] != NULL)
+        if (__timer_handlers[3] != NULL)
         {
-            (*timer_handlers[3])(M0P_LPTIMER);
+            (*__timer_handlers[3])(M0P_LPTIMER);
         }
     }
 #ifdef __cplusplus

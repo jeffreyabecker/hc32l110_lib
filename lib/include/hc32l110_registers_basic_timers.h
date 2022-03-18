@@ -34,12 +34,17 @@ extern "C"
     basic_timer_source_external = 1,
   } basic_timer_source_t;
 
+  typedef enum{
+    basic_timer_mode_one_shot = 0,
+    basic_timer_mode_periodic = 1,
+  } basic_timer_mode_t;
+
   typedef struct
   {
-    volatile uint32_t timer_running : 1;           // TR
-    volatile uint32_t mode : 1;                    // MD
+    volatile uint8_t timer_running : 1;           // TR
+    volatile basic_timer_mode_t mode : 1;                    // MD
     volatile basic_timer_source_t tick_source : 1; // CT
-    volatile uint32_t enable_inverted_output : 1;  // TOG_EN
+    volatile uint8_t enable_inverted_output : 1;  // TOG_EN
     union
     {
       volatile stc_basic_timer_prescaler_t prescaler : 4; // PRS
@@ -49,9 +54,9 @@ extern "C"
         volatile uint32_t write_syncronizing : 1;              // WT_FLAG
       } low_power;
     };
-    volatile uint32_t enable_gate : 1;       // GATE
-    volatile uint32_t gate_polarity : 1;     // GATE_P
-    volatile uint32_t interrupt_enabled : 1; // IE
+    volatile uint8_t enable_gate : 1;       // GATE
+    volatile uint8_t gate_polarity : 1;     // GATE_P
+    volatile uint8_t interrupt_enabled : 1; // IE
   } stc_basic_timer_cr_field_t;
 
   typedef struct

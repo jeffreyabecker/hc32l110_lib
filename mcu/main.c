@@ -3,11 +3,13 @@
 
 #include "hc32l110.h"
 
-
-int main(){
+int main()
+{
 
     core_system_clock_config(default_system_config);
-    while(1){
+    gpio_configure(port_p01, gpio_digital_output);
+    while (1)
+    {
         gpio_digital_write(port_p01, 1);
         core_systick_delay(1000);
         gpio_digital_write(port_p01, 0);
