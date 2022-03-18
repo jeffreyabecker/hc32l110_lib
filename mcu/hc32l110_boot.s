@@ -7,7 +7,7 @@
     .align 2
     .global __isr_vector
 __isr_vector:
-    .long   __StackTop                  /* Top of Stack */
+    .long __StackTop                  /* Top of Stack */
     .long Reset_Handler
     .long NMI_Handler
     .long HardFault_Handler

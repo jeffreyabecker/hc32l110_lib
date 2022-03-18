@@ -7,7 +7,7 @@
 #endif
 #define __O volatile  /*!< Defines 'write only' permissions */
 #define __IO volatile /*!< Defines 'read / write' permissions */
-#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -18,45 +18,85 @@ extern "C"
 #define __IM volatile const /*! Defines 'read only' structure member permissions */
 #define __OM volatile       /*! Defines 'write only' structure member permissions */
 #define __IOM volatile      /*! Defines 'read / write' structure member permissions */
+    // typedef enum 
+    // {
+    //     irq_nmi = -14,        /*  2 Non Maskable*/
+    //     irq_hard_fault = -13, /*  3 Hard Fault*/
+    //     irq_svc = -5,         /* 11 SV Call*/
+    //     irq_pend_sv = -2,     /* 14 Pend SV*/
+    //     irq_sys_tick = -1,    /* 15 System Tick*/
+    //     irq_port_0 = 0,
+    //     irq_port_1 = 1,
+    //     irq_port_2 = 2,
+    //     irq_port_3 = 3,
+    //     irq_user_0 = 4,
+    //     irq_user_1 = 5,
+    //     irq_uart_0 = 6,
+    //     irq_uart_1 = 7,
+    //     irq_lpuart = 8,
+    //     irq_user_2 = 9,
+    //     irq_spi = 10,
+    //     irq_user_3 = 11,
+    //     irq_i2c = 12,
+    //     irq_user_4 = 13,
+    //     irq_timer_0 = 14,
+    //     irq_timer_1 = 15,
+    //     irq_timer_2 = 16,
+    //     irq_low_power_timer = 17,
+    //     irq_timer_4 = 18,
+    //     irq_timer_5 = 19,
+    //     irq_timer_6 = 20,
+    //     irq_pca = 21,
+    //     irq_watchdog_timer = 22,
+    //     irq_realtime_clock = 23,
+    //     irq_analog_digital_converter = 24,
+    //     irq_user_5 = 25,
+    //     irq_voltage_comparitor_0 = 26,
+    //     irq_voltage_comparitor_1 = 27,
+    //     irq_low_voltage = 28,
+    //     irq_ef_ram = 30,
+    //     irq_clock_trim = 31,
+    // } nivc_irq_number_t;
+
     typedef enum 
     {
-        irq_nmi = -14,        /*  2 Non Maskable*/
-        irq_hard_fault = -13, /*  3 Hard Fault*/
-        irq_svc = -5,         /* 11 SV Call*/
-        irq_pend_sv = -2,     /* 14 Pend SV*/
-        irq_sys_tick = -1,    /* 15 System Tick*/
-        irq_port_0 = 0,
-        irq_port_1 = 1,
-        irq_port_2 = 2,
-        irq_port_3 = 3,
-        irq_user_0 = 4,
-        irq_user_1 = 5,
-        irq_uart_0 = 6,
-        irq_uart_1 = 7,
-        irq_lpuart = 8,
-        irq_user_2 = 9,
-        irq_spi = 10,
-        irq_user_3 = 11,
-        irq_i2c = 12,
-        irq_user_4 = 13,
-        irq_timer_0 = 14,
-        irq_timer_1 = 15,
-        irq_timer_2 = 16,
-        irq_low_power_timer = 17,
-        irq_timer_4 = 18,
-        irq_timer_5 = 19,
-        irq_timer_6 = 20,
-        irq_pca = 21,
-        irq_watchdog_timer = 22,
-        irq_realtime_clock = 23,
-        irq_analog_digital_converter = 24,
-        irq_user_5 = 25,
-        irq_voltage_comparitor_0 = 26,
-        irq_voltage_comparitor_1 = 27,
-        irq_low_voltage = 28,
-        irq_ef_ram = 30,
-        irq_clock_trim = 31,
-    } nivc_irq_number_t;
+        irq_nmi = 0,        /*  2 Non Maskable*/
+        irq_hard_fault = 1, /*  3 Hard Fault*/
+        irq_svc = 2,         /* 11 SV Call*/
+        irq_pend_sv = 3,     /* 14 Pend SV*/
+        irq_sys_tick = 4,    /* 15 System Tick*/
+        irq_port_0 = 5,
+        irq_port_1 = 6,
+        irq_port_2 = 7,
+        irq_port_3 = 8,
+        irq_user_0 = 9,
+        irq_user_1 = 10,
+        irq_uart_0 = 11,
+        irq_uart_1 = 12,
+        irq_lpuart = 13,
+        irq_user_2 = 14,
+        irq_spi = 15,
+        irq_user_3 = 16,
+        irq_i2c = 17,
+        irq_user_4 = 18,
+        irq_timer_0 = 19,
+        irq_timer_1 = 20,
+        irq_timer_2 = 21,
+        irq_low_power_timer = 22,
+        irq_timer_4 = 23,
+        irq_timer_5 = 24,
+        irq_timer_6 = 25,
+        irq_pca = 26,
+        irq_watchdog_timer = 27,
+        irq_realtime_clock = 28,
+        irq_analog_digital_converter = 29,
+        irq_user_5 = 30,
+        irq_voltage_comparitor_0 = 31,
+        irq_voltage_comparitor_1 = 32,
+        irq_low_voltage = 33,
+        irq_ef_ram = 34,
+        irq_clock_trim = 35,
+    } nivc_irq_number_t;    
     typedef union
     {
         struct
@@ -105,16 +145,16 @@ extern "C"
     } CONTROL_Type;
     typedef struct
     {
-        __IOM uint32_t ISER[1U]; /*!< Offset: 0x000 (R/W)  Interrupt Set Enable Register */
+        __IOM uint32_t SCS_SETENA; /*!< Offset: 0x000 (R/W)  Interrupt Set Enable Register */
         uint32_t RESERVED0[31U];
-        __IOM uint32_t ICER[1U]; /*!< Offset: 0x080 (R/W)  Interrupt Clear Enable Register */
+        __IOM uint32_t SCS_CLRENA; /*!< Offset: 0x080 (R/W)  Interrupt Clear Enable Register */
         uint32_t RSERVED1[31U];
-        __IOM uint32_t ISPR[1U]; /*!< Offset: 0x100 (R/W)  Interrupt Set Pending Register */
+        __IOM uint32_t SCS_SETPEND; /*!< Offset: 0x100 (R/W)  Interrupt Set Pending Register */
         uint32_t RESERVED2[31U];
-        __IOM uint32_t ICPR[1U]; /*!< Offset: 0x180 (R/W)  Interrupt Clear Pending Register */
+        __IOM uint32_t SCS_CLRPEND; /*!< Offset: 0x180 (R/W)  Interrupt Clear Pending Register */
         uint32_t RESERVED3[31U];
         uint32_t RESERVED4[64U];
-        __IOM uint32_t IP[8U]; /*!< Offset: 0x300 (R/W)  Interrupt Priority Register */
+        __IOM uint32_t SCS_IPR[8U]; /*!< Offset: 0x300 (R/W)  Interrupt Priority Register */
     } nvic_register_t;
 
     typedef struct

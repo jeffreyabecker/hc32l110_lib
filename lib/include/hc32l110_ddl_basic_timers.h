@@ -5,7 +5,7 @@
  */
 #ifndef __hc32l110_BASIC_TIMERS_H__
 #define __hc32l110_BASIC_TIMERS_H__
-#if defined(DDL_USE_ALL) || ( defined(DDL_USE_CORE) && defined(DDL_USE_BASIC_TIMERS))
+#if defined(DDL_USE_ALL) || (defined(DDL_USE_CORE) && defined(DDL_USE_BASIC_TIMERS))
 #ifdef __cplusplus
 extern "C"
 {
@@ -14,7 +14,7 @@ extern "C"
 #include "hc32l110_registers.h"
 #include "hc32l110_ddl_core.h"
 #include "hc32l110_ddl_interrupts.h"
-
+    typedef void (*basic_timer_handler_t)(void *timer);
     nvic_irq_number_t basic_timer_get_irq(void *timer);
     void basic_timer_set_interrupt_enabled(void *timer, uint8_t enabled);
     uint8_t basic_timer_get_interrupt_enabled(void *timer);
@@ -157,7 +157,7 @@ extern "C"
     }
     uint8_t basic_timer_get_interrupt_enabled(void *timer)
     {
-        uint8_t nvic_enabled = nvic_is_irq_enabled(basic_timer_get_irq(timer));
+        uint8_t nvic_enabled = nvic_is_interrupt_enabled(basic_timer_get_irq(timer));
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
         {
             return ((M0P_LPTIMER_TypeDef *)timer)->control.interrupt_enabled + nvic_enabled > 0 ? 1 : 0;
@@ -172,11 +172,11 @@ extern "C"
 
         if (value.interrupt_enabled)
         {
-            nvic_enable_irq(basic_timer_get_irq(timer));
+            nvic_interrupt_enable(basic_timer_get_irq(timer));
         }
         else
         {
-            nvic_disable_irq(basic_timer_get_irq(timer));
+            nvic_interrupt_disable(basic_timer_get_irq(timer));
         }
 
         if (((uint32_t)timer) == LPTIMER_ADDRESS)
@@ -188,7 +188,36 @@ extern "C"
             ((M0P_BasicTimer_TypeDef *)timer)->control = value;
         }
     }
+    basic_timer_handler_t *timer_handlers[4] = {NULL, NULL, NULL, NULL};
 
+    void Timer0_Handler(void)
+    {
+        if (timer_handlers[0] != NULL)
+        {
+            (*timer_handlers[0])(M0P_TIMER0);
+        }
+    }
+    void Timer1_Handler(void)
+    {
+        if (timer_handlers[1] != NULL)
+        {
+            (*timer_handlers[1])(M0P_TIMER1);
+        }
+    }
+    void Timer2_Handler(void)
+    {
+        if (timer_handlers[2] != NULL)
+        {
+            (*timer_handlers[2])(M0P_TIMER2);
+        }
+    }
+    void LpTimer_Handler(void)
+    {
+        if (timer_handlers[3] != NULL)
+        {
+            (*timer_handlers[3])(M0P_LPTIMER);
+        }
+    }
 #ifdef __cplusplus
 }
 #endif

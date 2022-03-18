@@ -12,6 +12,7 @@ extern "C"
     extern uint32_t PeripheralCoreClock;
 
     __attribute__((weak)) void SystemInit(void);
+    void __main();
 #ifdef __cplusplus
 }
 #endif

@@ -35,12 +35,12 @@ extern "C"
     typedef struct
     {
         volatile uint8_t buffer;
-        uint8_t RESERVED1[3];
+        uint8_t reserved1[3];
         volatile stc_uart_scon_field_t control;
         volatile uint8_t peripheral_address;
-        uint8_t RESERVED2[3];
+        uint8_t reserved2[3];
         volatile uint8_t peripheral_address_mask;
-        uint8_t RESERVED3[3];
+        uint8_t reserved3[3];
         __I stc_uart_isr_field_t ISR;
         volatile stc_uart_isr_field_t ICR;
     } M0P_UART_TypeDef;

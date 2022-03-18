@@ -1,49 +1,45 @@
-#include "hc32l110_system.h"
+#include <stdint.h>
+#include <hc32l110_system.h>
 uint32_t SystemCoreClock;
 uint32_t PeripheralCoreClock;
-typedef struct
-{
-    uint32_t const *src;
-    uint32_t *dest;
-    uint32_t wlen;
-} __copy_table_t;
 
-typedef struct
-{
-    uint32_t *dest;
-    uint32_t wlen;
-} __zero_table_t;
+extern uint32_t __etext;
 
-extern const __copy_table_t __copy_table_start__;
-extern const __copy_table_t __copy_table_end__;
-extern const __zero_table_t __zero_table_start__;
-extern const __zero_table_t __zero_table_end__;
+// defines start and end of .data section in RAM
+extern uint32_t __data_start__;
+extern uint32_t __data_end__;
+// defines start and end of .bss section in RAM
+extern uint32_t __bss_start__;
+extern uint32_t __bss_end__;
 extern int main(void);
-__attribute__((weak)) void SystemInit(void)
-{
-    *((uint32_t *)0x4000200C) = (*((volatile uint16_t *)(0x00100C08)));
-}
 
 void __main()
 {
-    for (__copy_table_t const *pTable = &__copy_table_start__; pTable < &__copy_table_end__; ++pTable)
+    uint32_t *src, *dst;
+
+    // copy .data area
+    src = &__etext;
+    dst = &__data_start__;
+    while (dst < &__data_end__)
     {
-        for (uint32_t i = 0u; i < pTable->wlen; ++i)
-        {
-            pTable->dest[i] = pTable->src[i];
-        }
+        *dst++ = *src++;
     }
 
-    for (__zero_table_t const *pTable = &__zero_table_start__; pTable < &__zero_table_end__; ++pTable)
+    // clear .bss area
+    dst = &__bss_start__;
+    while (dst < &__bss_end__)
     {
-        for (uint32_t i = 0u; i < pTable->wlen; ++i)
-        {
-            pTable->dest[i] = 0u;
-        }
+        *dst++ = 0;
     }
+    SystemInit();
     main();
     while (1)
     {
         __asm volatile("wfi");
     }
+}
+
+__attribute__((weak)) void SystemInit(void)
+{
+    *((uint32_t *)0x4000200C) = (*((volatile uint16_t *)(0x00100C08)));
 }

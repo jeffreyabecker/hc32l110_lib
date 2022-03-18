@@ -41,7 +41,7 @@ extern "C"
     volatile uint32_t START : 1;
     volatile uint32_t PRDX : 6;
     volatile uint32_t PRDSEL : 1;
-    uint32_t RESERVED2 :17;
+    uint32_t RESERVED2 : 17;
     volatile uint32_t WAIT : 1;
     volatile uint32_t WAITF : 1;
     uint32_t RESERVED3 : 1;
@@ -51,34 +51,26 @@ extern "C"
     volatile uint32_t alarm_interrupt_enabled : 1;
     volatile uint32_t alarm_enabled : 1;
     volatile uint32_t clock_divisor_exponent : 3;
-    uint32_t RESERVED5 :21;    
+    uint32_t RESERVED5 : 21;
   } stc_rtc_cr_field_t;
 
-
-  
   typedef struct
   {
     volatile uint32_t low_digit : 4;
     volatile uint32_t high_digit : 3;
-  } stc_rtc_sec_field_t;
-
-  typedef struct
-  {
-    volatile uint32_t low_digit : 4;
-    volatile uint32_t high_digit : 3;
-  } stc_rtc_min_field_t;
+  } stc_rtc_4_3_field_t;
 
   typedef struct
   {
     volatile uint32_t low_digit : 4;
     volatile uint32_t high_digit : 2;
-  } stc_rtc_hour_field_t;
+  } stc_rtc_4_2_field_t;
 
-  typedef struct
-  {
-    volatile uint32_t low_digit : 4;
-    volatile uint32_t high_digit : 2;
-  } stc_rtc_day_field_t;
+  // typedef struct
+  // {
+  //   volatile uint32_t low_digit : 4;
+  //   volatile uint32_t high_digit : 2;
+  // } stc_rtc_day_field_t;
 
   typedef struct
   {
@@ -86,16 +78,16 @@ extern "C"
     volatile uint32_t high_digit : 4;
   } stc_rtc_year_field_t;
 
-  typedef struct
+  typedef enum
   {
-    volatile uint8_t SUNDAY : 1;
-    volatile uint8_t MONDAY : 1;
-    volatile uint8_t TUESDAY : 1;
-    volatile uint8_t WEDNESDAY : 1;
-    volatile uint8_t THURSDAY : 1;
-    volatile uint8_t FRIDAY : 1;
-    volatile uint8_t SATURDAY : 1;
-  } stc_rtc_almweek_field_t;
+    sunday = 1,
+    monday = 2,
+    tuesday = 4,
+    wednesday = 8,
+    thursday = 16,
+    friday = 32,
+    saturday = 64
+  } rtc_day_of_week_t;
 
   typedef struct
   {
@@ -107,16 +99,16 @@ extern "C"
   typedef struct
   {
     stc_rtc_cr_field_t control;
-    stc_rtc_sec_field_t second;
-    stc_rtc_min_field_t minute;
-    stc_rtc_hour_field_t hour;
+    stc_rtc_4_3_field_t second;
+    stc_rtc_4_3_field_t minute;
+    stc_rtc_4_2_field_t hour;
     volatile uint32_t week;
-    stc_rtc_day_field_t day;
+    stc_rtc_4_2_field_t day;
     volatile uint32_t month;
     stc_rtc_year_field_t year;
-    stc_rtc_min_field_t alarm_minute;
-    stc_rtc_hour_field_t alarm_hour;
-    stc_rtc_almweek_field_t alarm_day_of_week;
+    stc_rtc_4_3_field_t alarm_minute;
+    stc_rtc_4_2_field_t alarm_hour;
+    rtc_day_of_week_t alarm_day_of_week;
   } M0P_RTC_TypeDef;
 
   typedef struct

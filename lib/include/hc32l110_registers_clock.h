@@ -56,12 +56,7 @@ extern "C"
     volatile uint32_t STABLE : 1;
   } stc_clock_rch_cr_field_t;
 
-  typedef struct
-  {
-    volatile uint32_t DRIVER : 4;
-    volatile uint32_t STARTUP : 2;
-    volatile uint32_t STABLE : 1;
-  } stc_clock_xth_cr_field_t;
+
 
   typedef struct
   {
@@ -75,7 +70,8 @@ extern "C"
     volatile uint32_t DRIVER : 4;
     volatile uint32_t STARTUP : 2;
     volatile uint32_t STABLE : 1;
-  } stc_clock_xtl_cr_field_t;
+  } stc_clock_external_cr_field_t;
+
 
   typedef struct
   {
@@ -139,9 +135,9 @@ extern "C"
     stc_clock_sysctrl1_field_t SYSCTRL1;
     volatile uint32_t SYSCTRL2;
     stc_clock_rch_cr_field_t RCH_CR;
-    stc_clock_xth_cr_field_t XTH_CR;
+    stc_clock_external_cr_field_t XTH_CR;
     stc_clock_rcl_cr_field_t RCL_CR;
-    stc_clock_xtl_cr_field_t XTL_CR;
+    stc_clock_external_cr_field_t XTL_CR;
     uint8_t RESERVED7[4];
     union{
       uint32_t peripheral_clock_enable;

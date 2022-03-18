@@ -6,7 +6,7 @@
 extern "C"
 {
 #endif
-#include "hc32_common.h"
+#include <stddef.h>
 #include "hc32l110_registers.h"
 #include "hc32l110_system.h"
 
@@ -47,130 +47,30 @@ extern "C"
     uint32_t systick_frequency_hz;
   } core_system_config_t;
 
-  
   __read_only_data core_system_config_t default_system_config = {
-        .clock_source = core_clock_source_internal_high_speed,
-        .system_clock_prescaler = 0,
-        .peripheral_clock_prescaler = 0,
-        .enable_systick = 1,
-        .clock_frequency_hz = 4000000,
-        .systick_frequency_hz = 100000};
+      .clock_source = core_clock_source_internal_high_speed,
+      .system_clock_prescaler = 0,
+      .peripheral_clock_prescaler = 0,
+      .enable_systick = 1,
+      .clock_frequency_hz = 4000000,
+      .systick_frequency_hz = 100000};
   void core_system_clock_config(core_system_config_t config);
   __FORCE_INLINE uint32_t core_get_system_clock_frequency() { return SystemCoreClock; };
   __FORCE_INLINE uint32_t core_get_peripheral_clock_frequency() { return PeripheralCoreClock; };
 
   void core_systick_delay(uint32_t delay_ticks);
   void core_systick_increment_ticks(void);
-  uint32_t core_systick_get_tick(void);
+  __FORCE_INLINE uint32_t core_systick_get_tick(void);
   void core_systick_disable(void);
   void core_systick_enable(void);
-  /**
-    \brief   Enable Interrupt
-    \details Enables a device specific interrupt in the NVIC interrupt controller.
-    \param [in]      irq_number  Device specific interrupt number.
-    \note    irq_number must not be negative.
-   */
-  inline void nvic_enable_irq(nivc_irq_number_t irq_number)
-  {
-    if ((int32_t)(irq_number) >= 0)
-    {
-      NVIC->ISER[0U] = (uint32_t)(1UL << (((uint32_t)irq_number) & 0x1FUL));
-    }
-  }
+  typedef void (*core_systick_handler_t)();
+  void core_set_systick_handler(core_systick_handler_t *handler);
 
-  /**
-    \brief   Get Interrupt Enable status
-    \details Returns a device specific interrupt enable status from the NVIC interrupt controller.
-    \param [in]      irq_number  Device specific interrupt number.
-    \return             0  Interrupt is not enabled.
-    \return             1  Interrupt is enabled.
-    \note    irq_number must not be negative.
-   */
-  inline uint32_t nvic_is_irq_enabled(nivc_irq_number_t irq_number)
-  {
-    if ((int32_t)(irq_number) >= 0)
-    {
-      return ((uint32_t)(((NVIC->ISER[0U] & (1UL << (((uint32_t)irq_number) & 0x1FUL))) != 0UL) ? 1UL : 0UL));
-    }
-    else
-    {
-      return (0U);
-    }
-  }
+  void nvic_interrupt_set_enabled(nivc_irq_number_t irq_number, uint8_t enabled);
+  void nvic_interrupt_raise(nivc_irq_number_t irq_number);
+  void nvic_interrupt_clear(nivc_irq_number_t irq_number);
 
-  /**
-    \brief   Disable Interrupt
-    \details Disables a device specific interrupt in the NVIC interrupt controller.
-    \param [in]      irq_number  Device specific interrupt number.
-    \note    irq_number must not be negative.
-   */
-  inline void nvic_disable_irq(nivc_irq_number_t irq_number)
-  {
-    if ((int32_t)(irq_number) >= 0)
-    {
-      NVIC->ICER[0U] = (uint32_t)(1UL << (((uint32_t)irq_number) & 0x1FUL));
-      __DSB();
-      __ISB();
-    }
-  }
-
-  /**
-    \brief   Get Pending Interrupt
-    \details Reads the NVIC pending register and returns the pending bit for the specified device specific interrupt.
-    \param [in]      irq_number  Device specific interrupt number.
-    \return             0  Interrupt status is not pending.
-    \return             1  Interrupt status is pending.
-    \note    irq_number must not be negative.
-   */
-  inline uint32_t nvic_get_pending_irq(nivc_irq_number_t irq_number)
-  {
-    if ((int32_t)(irq_number) >= 0)
-    {
-      return ((uint32_t)(((NVIC->ISPR[0U] & (1UL << (((uint32_t)irq_number) & 0x1FUL))) != 0UL) ? 1UL : 0UL));
-    }
-    else
-    {
-      return (0U);
-    }
-  }
-
-  /**
-    \brief   Clear Pending Interrupt
-    \details Clears the pending bit of a device specific interrupt in the NVIC pending register.
-    \param [in]      irq_number  Device specific interrupt number.
-    \note    irq_number must not be negative.
-   */
-  inline void nvic_clear_pending_irq(nivc_irq_number_t irq_number)
-  {
-    if ((int32_t)(irq_number) >= 0)
-    {
-      NVIC->ICPR[0U] = (uint32_t)(1UL << (((uint32_t)irq_number) & 0x1FUL));
-    }
-  }
 #define systick_max_reload_value 0xFFFFFFUL
-  typedef enum
-  {
-    port_p01 = 1,
-    port_p02 = 2,
-    port_p03 = 3,
-    port_p14 = 14,
-    port_p15 = 15,
-    port_p23 = 23,
-    port_p24 = 24,
-    port_p25 = 25,
-    port_p26 = 26,
-    port_p27 = 27,
-    port_p31 = 31,
-    port_p32 = 32,
-    port_p33 = 33,
-    port_p34 = 34,
-    port_p35 = 35,
-    port_p36 = 36,
-  } port_number_t;
-
-  void core_ports_set_function(port_number_t port, uint8_t function);
-
-  uint8_t core_ports_get_function(port_number_t port);
 
   typedef enum
   {
@@ -193,17 +93,9 @@ extern "C"
     peripheral_gpio = 0x10000000UL,
     peripheral_flash = 0x80000000UL,
   } peripheral_t;
-  static inline void core_peripheral_set_enabled(peripheral_t enabled) { M0P_CLOCK->peripheral_clock_enable = (uint32_t)enabled; }
-  static inline peripheral_t core_peripheral_get_enabled()
-  {
-    return (peripheral_t)M0P_CLOCK->peripheral_clock_enable;
-  }
-  static inline peripheral_t core_peripheral_is_enabled(peripheral_t enabled)
-  {
-    return enabled & M0P_CLOCK->peripheral_clock_enable > 0 ? 1 : 0;
-  }
-  static uint32_t tick_increment_step = 0ul;
-  volatile static uint32_t current_tick_count = 0ul;
+
+  uint32_t tick_increment_step = 0ul;
+  volatile uint32_t current_tick_count = 0ul;
 
 #define clock_trim_high_24mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C00ul))) * 1000)
 #define clock_trim_high_22_12mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C02ul))) * 1000)
@@ -221,16 +113,13 @@ extern "C"
 #define mhz22_12 22120000
 #define mhz24 24000000
 #define sub_4mhz_scale_factor 8000
-  __FORCE_INLINE static uint32_t __clock_interpolate(uint32_t clock_frequency, uint32_t low_freqency, uint32_t high_frequency, uint32_t low_trim, uint32_t high_trim)
-  {
-    return (low_trim + ((clock_frequency - low_freqency) * ((high_trim - low_trim) / (high_frequency - low_freqency)))) / 1000;
-  }
-  __FORCE_INLINE static void __core_clock_config_unlock(void)
-  {
-    M0P_CLOCK->SYSCTRL2 = 0x5A5A;
-    M0P_CLOCK->SYSCTRL2 = 0xA5A5;
-  }
-
+    void nvic_interrupt_raise(nivc_irq_number_t irq_number)
+    {
+        if ((int32_t)(irq_number) >= 0)
+        {
+            NVIC->SCS_SETPEND = (uint32_t)(1UL << (((uint32_t)irq_number -5) & 0x1FUL));
+        }
+    }
   /**
     \brief   System Reset
     \details Initiates a system reset request to reset the MCU.
@@ -247,7 +136,17 @@ extern "C"
       __NOP();
     }
   }
-  uint16_t __core_calculate_clock_trim(core_system_config_t config)
+  static uint32_t __clock_interpolate(uint32_t clock_frequency, uint32_t low_freqency, uint32_t high_frequency, uint32_t low_trim, uint32_t high_trim)
+  {
+    return (low_trim + ((clock_frequency - low_freqency) * ((high_trim - low_trim) / (high_frequency - low_freqency)))) / 1000;
+  }
+  static void __core_clock_config_unlock(void)
+  {
+    M0P_CLOCK->SYSCTRL2 = 0x5A5A;
+    M0P_CLOCK->SYSCTRL2 = 0xA5A5;
+  }
+
+  static uint16_t __core_calculate_clock_trim(core_system_config_t config)
   {
     if (config.clock_source == core_clock_source_internal_high_speed)
     {
@@ -309,6 +208,148 @@ extern "C"
     }
     return 0;
   }
+  /**
+    \brief   Enable Interrupt
+    \details Enables a device specific interrupt in the NVIC interrupt controller.
+    \param [in]      irq_number  Device specific interrupt number.
+    \note    irq_number must not be negative.
+   */
+  inline void nvic_interrupt_set_enabled(nivc_irq_number_t irq_number, uint8_t enabled)
+  {
+    if ((int32_t)(irq_number) >= 5)
+    {
+
+      NVIC->SCS_SETENA = (uint32_t)(1UL << (((uint32_t)irq_number - 5) & 0x1FUL & enabled));
+      __DSB();
+      __ISB();
+    }
+    else if (irq_number == irq_sys_tick)
+    {
+      SysTick->CTRL_f.interrupt_enable = enabled;
+      SysTick->CTRL_f.enable = enabled;
+    }
+  }
+
+  /**
+    \brief   Get Interrupt Enable status
+    \details Returns a device specific interrupt enable status from the NVIC interrupt controller.
+    \param [in]      irq_number  Device specific interrupt number.
+    \return             0  Interrupt is not enabled.
+    \return             1  Interrupt is enabled.
+    \note    irq_number must not be negative.
+   */
+  inline uint32_t nvic_is_interrupt_enabled(nivc_irq_number_t irq_number)
+  {
+    if ((int32_t)(irq_number) >= 5)
+    {
+      return ((uint32_t)(((NVIC->SCS_SETENA & (1UL << (((uint32_t)irq_number - 5) & 0x1FUL))) != 0UL) ? 1UL : 0UL));
+    }
+    else if (irq_number == irq_sys_tick)
+    {
+      return SysTick->CTRL_f.interrupt_enable;
+    }
+    else
+    {
+      return (0U);
+    }
+  }
+
+  /**
+    \brief   Get Pending Interrupt
+    \details Reads the NVIC pending register and returns the pending bit for the specified device specific interrupt.
+    \param [in]      irq_number  Device specific interrupt number.
+    \return             0  Interrupt status is not pending.
+    \return             1  Interrupt status is pending.
+    \note    irq_number must not be negative.
+   */
+  inline uint32_t nvic_is_interrupt_pending(nivc_irq_number_t irq_number)
+  {
+    if ((int32_t)(irq_number) >= 5)
+    {
+      return ((uint32_t)(((NVIC->SCS_SETENA & (1UL << (((uint32_t)irq_number - 5) & 0x1FUL))) != 0UL) ? 1UL : 0UL));
+    }
+    else
+    {
+      return (0U);
+    }
+  }
+
+  /**
+    \brief   Clear Pending Interrupt
+    \details Clears the pending bit of a device specific interrupt in the NVIC pending register.
+    \param [in]      irq_number  Device specific interrupt number.
+    \note    irq_number must not be negative.
+   */
+  inline void nvic_interrupt_clear_pending(nivc_irq_number_t irq_number)
+  {
+    if ((int32_t)(irq_number) >= 5)
+    {
+      NVIC->SCS_CLRPEND = (uint32_t)(1UL << (((uint32_t)irq_number - 5) & 0x1FUL));
+    }
+  }
+  inline void core_peripheral_set_enabled(peripheral_t enabled)
+  {
+    M0P_CLOCK->peripheral_clock_enable = (uint32_t)enabled;
+  }
+  static inline peripheral_t core_peripheral_get_enabled()
+  {
+    return (peripheral_t)M0P_CLOCK->peripheral_clock_enable;
+  }
+  static inline uint8_t core_peripheral_is_enabled(peripheral_t enabled)
+  {
+    return enabled & M0P_CLOCK->peripheral_clock_enable > 0 ? 1 : 0;
+  }
+  /**
+   * @brief This function provides minimum delay in ticks.
+   * @param [in] delay_ticks Delay specifies the delay time.
+   * @retval None
+   */
+  void core_systick_delay(uint32_t delay_ticks)
+  {
+    const uint32_t tick_start = core_systick_get_tick();
+    uint32_t tick_end;
+    uint32_t tickMax;
+
+    if (tick_increment_step != 0ul)
+    {
+      tickMax = (0xFFFFFFFFul / tick_increment_step) * tick_increment_step;
+      /* Add a freq to guarantee minimum wait */
+      if ((delay_ticks >= tickMax) || ((tickMax - delay_ticks) < tick_increment_step))
+      {
+        tick_end = tickMax;
+      }
+      else
+      {
+        tick_end = delay_ticks + tick_increment_step;
+      }
+
+      while ((core_systick_get_tick() - tick_start) < tick_end)
+      {
+        __WFI();
+      }
+    }
+  }
+
+  /**
+   * @brief This function is called to increment a global variable "u32TickCount".
+   * @note  This variable is incremented in SysTick ISR.
+   * @param None
+   * @retval None
+   */
+  __FORCE_INLINE void core_systick_increment_ticks(void)
+  {
+    current_tick_count += tick_increment_step;
+  }
+
+  /**
+   * @brief Provides a tick value
+   * @param None
+   * @retval Tick value
+   */
+  __FORCE_INLINE uint32_t core_systick_get_tick(void) { return current_tick_count; }
+
+  // PORT0 0x40020CCAUL
+  // 64 bytes
 
   void core_system_clock_config(core_system_config_t config)
   {
@@ -317,8 +358,8 @@ extern "C"
     {
       if (config.clock_source == core_clock_source_external_low_speed)
       {
-        M0P_GPIO->P1ADS.P14 = gpio_analog;
-        M0P_GPIO->P1ADS.P15 = gpio_analog;
+        M0P_GPIO->PORT1.ADS = 0x30;
+
         __core_clock_config_unlock();
         M0P_CLOCK->XTL_CR.STARTUP = 3;
         __core_clock_config_unlock();
@@ -424,181 +465,20 @@ extern "C"
     }
   }
 
-  /**
-   * @brief This function provides minimum delay in ticks.
-   * @param [in] delay_ticks Delay specifies the delay time.
-   * @retval None
-   */
-  void core_systick_delay(uint32_t delay_ticks)
+  static core_systick_handler_t *user_systick_handler = NULL;
+  void core_set_systick_handler(core_systick_handler_t *handler)
   {
-    const uint32_t tick_start = core_systick_get_tick();
-    uint32_t tick_end;
-    uint32_t tickMax;
-
-    if (tick_increment_step != 0ul)
-    {
-      tickMax = (0xFFFFFFFFul / tick_increment_step) * tick_increment_step;
-      /* Add a freq to guarantee minimum wait */
-      if ((delay_ticks >= tickMax) || ((tickMax - delay_ticks) < tick_increment_step))
-      {
-        tick_end = tickMax;
-      }
-      else
-      {
-        tick_end = delay_ticks + tick_increment_step;
-      }
-
-      while ((core_systick_get_tick() - tick_start) < tick_end)
-      {
-      }
-    }
+    user_systick_handler = handler;
   }
-
-  /**
-   * @brief This function is called to increment a global variable "u32TickCount".
-   * @note  This variable is incremented in SysTick ISR.
-   * @param None
-   * @retval None
-   */
-  __FORCE_INLINE void core_systick_increment_ticks(void)
-  {
-    current_tick_count += tick_increment_step;
-  }
-
-  /**
-   * @brief Provides a tick value
-   * @param None
-   * @retval Tick value
-   */
-  __FORCE_INLINE uint32_t core_systick_get_tick(void) { return current_tick_count; }
-
-  /**
-   * @brief Suspend SysTick increment.
-   * @param None
-   * @retval None
-   */
-  __FORCE_INLINE void core_systick_disable(void)
-  {
-    /* Disable SysTick Interrupt */
-    SysTick->CTRL_f.interrupt_enable = 0;
-    SysTick->CTRL_f.enable = 0;
-  }
-
-  /**
-   * @brief Resume SysTick increment.
-   * @param None
-   * @retval None
-   */
-  __FORCE_INLINE void core_systick_enable(void)
-  {
-    SysTick->CTRL_f.interrupt_enable = 1;
-    SysTick->CTRL_f.enable = 1;
-  }
-  void core_ports_set_function(port_number_t port, uint8_t function)
-  {
-    switch (port)
-    {
-    case port_p01:
-      M0P_GPIO->P01_SEL = function;
-      return;
-    case port_p02:
-      M0P_GPIO->P02_SEL = function;
-      return;
-    case port_p03:
-      M0P_GPIO->P03_SEL = function;
-      return;
-    case port_p14:
-      M0P_GPIO->P14_SEL = function;
-      return;
-    case port_p15:
-      M0P_GPIO->P15_SEL = function;
-      return;
-    case port_p23:
-      M0P_GPIO->P23_SEL = function;
-      return;
-    case port_p24:
-      M0P_GPIO->P24_SEL = function;
-      return;
-    case port_p25:
-      M0P_GPIO->P25_SEL = function;
-      return;
-    case port_p26:
-      M0P_GPIO->P26_SEL = function;
-      return;
-    case port_p27:
-      M0P_GPIO->P27_SEL = function;
-      return;
-    case port_p31:
-      M0P_GPIO->P31_SEL = function;
-      return;
-    case port_p32:
-      M0P_GPIO->P32_SEL = function;
-      return;
-    case port_p33:
-      M0P_GPIO->P33_SEL = function;
-      return;
-    case port_p34:
-      M0P_GPIO->P34_SEL = function;
-      return;
-    case port_p35:
-      M0P_GPIO->P35_SEL = function;
-      return;
-    case port_p36:
-      M0P_GPIO->P36_SEL = function;
-      return;
-    default:
-      break;
-    }
-  }
-
-  uint8_t core_ports_get_function(port_number_t port)
-  {
-    switch (port)
-    {
-    case port_p01:
-      return M0P_GPIO->P01_SEL;
-    case port_p02:
-      return M0P_GPIO->P02_SEL;
-    case port_p03:
-      return M0P_GPIO->P03_SEL;
-    case port_p14:
-      return M0P_GPIO->P14_SEL;
-    case port_p15:
-      return M0P_GPIO->P15_SEL;
-    case port_p23:
-      return M0P_GPIO->P23_SEL;
-    case port_p24:
-      return M0P_GPIO->P24_SEL;
-    case port_p25:
-      return M0P_GPIO->P25_SEL;
-    case port_p26:
-      return M0P_GPIO->P26_SEL;
-    case port_p27:
-      return M0P_GPIO->P27_SEL;
-    case port_p31:
-      return M0P_GPIO->P31_SEL;
-    case port_p32:
-      return M0P_GPIO->P32_SEL;
-    case port_p33:
-      return M0P_GPIO->P33_SEL;
-    case port_p34:
-      return M0P_GPIO->P34_SEL;
-    case port_p35:
-      return M0P_GPIO->P35_SEL;
-    case port_p36:
-      return M0P_GPIO->P36_SEL;
-    default:
-      return 0;
-    }
-  }
-#ifndef DDL_USE_ALL
-#ifndef DDL_USE_INTERRUPTS
   void SysTick_Handler(void)
   {
     core_systick_increment_ticks();
+    if (user_systick_handler != NULL)
+    {
+      (*user_systick_handler)();
+    }
   }
-#endif
-#endif
+
 #ifdef __cplusplus
 }
 #endif

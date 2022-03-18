@@ -5,7 +5,7 @@
  */
 #ifndef __hc32l110_RTC_H__
 #define __hc32l110_RTC_H__
-#if defined(DDL_USE_ALL) || ( defined(DDL_USE_CORE) && defined(DDL_USE_RTC))
+#if defined(DDL_USE_ALL) || (defined(DDL_USE_CORE) && defined(DDL_USE_RTC))
 #ifdef __cplusplus
 extern "C"
 {
@@ -84,7 +84,7 @@ extern "C"
     uint32_t rtc_now_bcd();
     uint32_t rtc_now_seconds();
 
-    void rtc_alarm_set(uint8_t hour, uint8_t minute, stc_rtc_almweek_field_t days_of_week);
+    void rtc_alarm_set(uint8_t hour, uint8_t minute, rtc_day_of_week_t days_of_week);
     void rtc_time_set(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);
     void rtc_configure(rtc_configuration_t cfg)
     {
@@ -129,8 +129,8 @@ extern "C"
         M0P_RTC->control.WAIT = 0;
         return result;
     }
-    __FORCE_INLINE static uint8_t LOW_DIGIT(uint8_t x){ return (((((x) / 10U) << 4U) + ((x) % 10U))) % 10; }
-    __FORCE_INLINE static uint8_t HIGH_DIGIT(uint8_t x){ return (((((x) / 10U) << 4U) + ((x) % 10U))) / 10; }
+    __FORCE_INLINE static uint8_t LOW_DIGIT(uint8_t x) { return (((((x) / 10U) << 4U) + ((x) % 10U))) % 10; }
+    __FORCE_INLINE static uint8_t HIGH_DIGIT(uint8_t x) { return (((((x) / 10U) << 4U) + ((x) % 10U))) / 10; }
 
     void rtc_time_set(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second)
     {
@@ -148,9 +148,8 @@ extern "C"
         M0P_RTC->second.low_digit = LOW_DIGIT(second);
         M0P_RTC->control.WAIT = 0;
     }
-    void rtc_alarm_set(uint8_t hour, uint8_t minute, stc_rtc_almweek_field_t days)
+    void rtc_alarm_set(uint8_t hour, uint8_t minute, rtc_day_of_week_t days)
     {
-
         M0P_RTC->alarm_hour.high_digit = HIGH_DIGIT(hour);
         M0P_RTC->alarm_hour.low_digit = LOW_DIGIT(hour);
         M0P_RTC->alarm_minute.high_digit = HIGH_DIGIT(minute);
