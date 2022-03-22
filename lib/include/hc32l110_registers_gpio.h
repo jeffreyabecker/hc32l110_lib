@@ -9,7 +9,7 @@ extern "C"
 #pragma anon_unions
 #endif
 #include <stdint.h>
-
+#include "cmsis_compiler.h"
   typedef enum
   {
     port_p01_gpio = 0,
@@ -258,10 +258,90 @@ extern "C"
 
   typedef struct
   {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p01_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p02_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p03_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p14_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p15_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p23_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p24_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p25_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p26_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p27_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p31_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p32_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p33_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p34_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p35_sel_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t SEL : 3;
+  } stc_gpio_p36_sel_field_t;
+
+  typedef struct
+  {
     uint32_t RESERVED0 : 1;
-    volatile gpio_direction_t P01 : 1;
-    volatile gpio_direction_t P02 : 1;
-    volatile gpio_direction_t P03 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0dir_field_t;
 
   typedef struct
@@ -283,80 +363,80 @@ extern "C"
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_analog_digital_t P01 : 1;
-    volatile gpio_analog_digital_t P02 : 1;
-    volatile gpio_analog_digital_t P03 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0ads_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_drive_capability_t P01 : 1;
-    volatile gpio_drive_capability_t P02 : 1;
-    volatile gpio_drive_capability_t P03 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0dr_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_internal_pullup_t P01 : 1;
-    volatile gpio_internal_pullup_t P02 : 1;
-    volatile gpio_internal_pullup_t P03 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0pu_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_internal_pulldown_t P01 : 1;
-    volatile gpio_internal_pulldown_t P02 : 1;
-    volatile gpio_internal_pulldown_t P03 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0pd_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_mode_t P01 : 1;
-    volatile gpio_mode_t P02 : 1;
-    volatile gpio_mode_t P03 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0od_field_t;
 
   typedef struct
   {
-    volatile gpio_interrupt_high_t P00 : 1;
-    volatile gpio_interrupt_high_t P01 : 1;
-    volatile gpio_interrupt_high_t P02 : 1;
-    volatile gpio_interrupt_high_t P03 : 1;
+    volatile uint32_t P00 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0hie_field_t;
 
   typedef struct
   {
-    volatile gpio_interrupt_low_t P00 : 1;
-    volatile gpio_interrupt_low_t P01 : 1;
-    volatile gpio_interrupt_low_t P02 : 1;
-    volatile gpio_interrupt_low_t P03 : 1;
+    volatile uint32_t P00 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0lie_field_t;
 
   typedef struct
   {
-    volatile gpio_interrupt_rising_t P00 : 1;
-    volatile gpio_interrupt_rising_t P01 : 1;
-    volatile gpio_interrupt_rising_t P02 : 1;
-    volatile gpio_interrupt_rising_t P03 : 1;
+    volatile uint32_t P00 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0rie_field_t;
 
   typedef struct
   {
-    volatile gpio_interrupt_falling_t P00 : 1;
-    volatile gpio_interrupt_falling_t P01 : 1;
-    volatile gpio_interrupt_falling_t P02 : 1;
-    volatile gpio_interrupt_falling_t P03 : 1;
+    volatile uint32_t P00 : 1;
+    volatile uint32_t P01 : 1;
+    volatile uint32_t P02 : 1;
+    volatile uint32_t P03 : 1;
   } stc_gpio_p0fie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_direction_t P14 : 1;
-    volatile gpio_direction_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1dir_field_t;
 
   typedef struct
@@ -376,74 +456,74 @@ extern "C"
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_analog_digital_t P14 : 1;
-    volatile gpio_analog_digital_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1ads_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_drive_capability_t P14 : 1;
-    volatile gpio_drive_capability_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1dr_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_internal_pullup_t P14 : 1;
-    volatile gpio_internal_pullup_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1pu_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_internal_pulldown_t P14 : 1;
-    volatile gpio_internal_pulldown_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1pd_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_mode_t P14 : 1;
-    volatile gpio_mode_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1od_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_interrupt_high_t P14 : 1;
-    volatile gpio_interrupt_high_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1hie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_interrupt_low_t P14 : 1;
-    volatile gpio_interrupt_low_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1lie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_interrupt_rising_t P14 : 1;
-    volatile gpio_interrupt_rising_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1rie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 4;
-    volatile gpio_interrupt_falling_t P14 : 1;
-    volatile gpio_interrupt_falling_t P15 : 1;
+    volatile uint32_t P14 : 1;
+    volatile uint32_t P15 : 1;
   } stc_gpio_p1fie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_direction_t P23 : 1;
-    volatile gpio_direction_t P24 : 1;
-    volatile gpio_direction_t P25 : 1;
-    volatile gpio_direction_t P26 : 1;
-    volatile gpio_direction_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2dir_field_t;
 
   typedef struct
@@ -469,102 +549,102 @@ extern "C"
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_analog_digital_t P23 : 1;
-    volatile gpio_analog_digital_t P24 : 1;
-    volatile gpio_analog_digital_t P25 : 1;
-    volatile gpio_analog_digital_t P26 : 1;
-    volatile gpio_analog_digital_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2ads_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_drive_capability_t P23 : 1;
-    volatile gpio_drive_capability_t P24 : 1;
-    volatile gpio_drive_capability_t P25 : 1;
-    volatile gpio_drive_capability_t P26 : 1;
-    volatile gpio_drive_capability_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2dr_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_internal_pullup_t P23 : 1;
-    volatile gpio_internal_pullup_t P24 : 1;
-    volatile gpio_internal_pullup_t P25 : 1;
-    volatile gpio_internal_pullup_t P26 : 1;
-    volatile gpio_internal_pullup_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2pu_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_internal_pulldown_t P23 : 1;
-    volatile gpio_internal_pulldown_t P24 : 1;
-    volatile gpio_internal_pulldown_t P25 : 1;
-    volatile gpio_internal_pulldown_t P26 : 1;
-    volatile gpio_internal_pulldown_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2pd_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_mode_t P23 : 1;
-    volatile gpio_mode_t P24 : 1;
-    volatile gpio_mode_t P25 : 1;
-    volatile gpio_mode_t P26 : 1;
-    volatile gpio_mode_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2od_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_interrupt_high_t P23 : 1;
-    volatile gpio_interrupt_high_t P24 : 1;
-    volatile gpio_interrupt_high_t P25 : 1;
-    volatile gpio_interrupt_high_t P26 : 1;
-    volatile gpio_interrupt_high_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2hie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_interrupt_low_t P23 : 1;
-    volatile gpio_interrupt_low_t P24 : 1;
-    volatile gpio_interrupt_low_t P25 : 1;
-    volatile gpio_interrupt_low_t P26 : 1;
-    volatile gpio_interrupt_low_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2lie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_interrupt_rising_t P23 : 1;
-    volatile gpio_interrupt_rising_t P24 : 1;
-    volatile gpio_interrupt_rising_t P25 : 1;
-    volatile gpio_interrupt_rising_t P26 : 1;
-    volatile gpio_interrupt_rising_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2rie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 3;
-    volatile gpio_interrupt_falling_t P23 : 1;
-    volatile gpio_interrupt_falling_t P24 : 1;
-    volatile gpio_interrupt_falling_t P25 : 1;
-    volatile gpio_interrupt_falling_t P26 : 1;
-    volatile gpio_interrupt_falling_t P27 : 1;
+    volatile uint32_t P23 : 1;
+    volatile uint32_t P24 : 1;
+    volatile uint32_t P25 : 1;
+    volatile uint32_t P26 : 1;
+    volatile uint32_t P27 : 1;
   } stc_gpio_p2fie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_direction_t P31 : 1;
-    volatile gpio_direction_t P32 : 1;
-    volatile gpio_direction_t P33 : 1;
-    volatile gpio_direction_t P34 : 1;
-    volatile gpio_direction_t P35 : 1;
-    volatile gpio_direction_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3dir_field_t;
 
   typedef struct
@@ -592,100 +672,100 @@ extern "C"
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_analog_digital_t P31 : 1;
-    volatile gpio_analog_digital_t P32 : 1;
-    volatile gpio_analog_digital_t P33 : 1;
-    volatile gpio_analog_digital_t P34 : 1;
-    volatile gpio_analog_digital_t P35 : 1;
-    volatile gpio_analog_digital_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3ads_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_drive_capability_t P31 : 1;
-    volatile gpio_drive_capability_t P32 : 1;
-    volatile gpio_drive_capability_t P33 : 1;
-    volatile gpio_drive_capability_t P34 : 1;
-    volatile gpio_drive_capability_t P35 : 1;
-    volatile gpio_drive_capability_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3dr_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_internal_pullup_t P31 : 1;
-    volatile gpio_internal_pullup_t P32 : 1;
-    volatile gpio_internal_pullup_t P33 : 1;
-    volatile gpio_internal_pullup_t P34 : 1;
-    volatile gpio_internal_pullup_t P35 : 1;
-    volatile gpio_internal_pullup_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3pu_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_internal_pulldown_t P31 : 1;
-    volatile gpio_internal_pulldown_t P32 : 1;
-    volatile gpio_internal_pulldown_t P33 : 1;
-    volatile gpio_internal_pulldown_t P34 : 1;
-    volatile gpio_internal_pulldown_t P35 : 1;
-    volatile gpio_internal_pulldown_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3pd_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_mode_t P31 : 1;
-    volatile gpio_mode_t P32 : 1;
-    volatile gpio_mode_t P33 : 1;
-    volatile gpio_mode_t P34 : 1;
-    volatile gpio_mode_t P35 : 1;
-    volatile gpio_mode_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3od_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_interrupt_high_t P31 : 1;
-    volatile gpio_interrupt_high_t P32 : 1;
-    volatile gpio_interrupt_high_t P33 : 1;
-    volatile gpio_interrupt_high_t P34 : 1;
-    volatile gpio_interrupt_high_t P35 : 1;
-    volatile gpio_interrupt_high_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3hie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_interrupt_low_t P31 : 1;
-    volatile gpio_interrupt_low_t P32 : 1;
-    volatile gpio_interrupt_low_t P33 : 1;
-    volatile gpio_interrupt_low_t P34 : 1;
-    volatile gpio_interrupt_low_t P35 : 1;
-    volatile gpio_interrupt_low_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3lie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_interrupt_rising_t P31 : 1;
-    volatile gpio_interrupt_rising_t P32 : 1;
-    volatile gpio_interrupt_rising_t P33 : 1;
-    volatile gpio_interrupt_rising_t P34 : 1;
-    volatile gpio_interrupt_rising_t P35 : 1;
-    volatile gpio_interrupt_rising_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3rie_field_t;
 
   typedef struct
   {
     uint32_t RESERVED0 : 1;
-    volatile gpio_interrupt_falling_t P31 : 1;
-    volatile gpio_interrupt_falling_t P32 : 1;
-    volatile gpio_interrupt_falling_t P33 : 1;
-    volatile gpio_interrupt_falling_t P34 : 1;
-    volatile gpio_interrupt_falling_t P35 : 1;
-    volatile gpio_interrupt_falling_t P36 : 1;
+    volatile uint32_t P31 : 1;
+    volatile uint32_t P32 : 1;
+    volatile uint32_t P33 : 1;
+    volatile uint32_t P34 : 1;
+    volatile uint32_t P35 : 1;
+    volatile uint32_t P36 : 1;
   } stc_gpio_p3fie_field_t;
 
   typedef struct
@@ -803,278 +883,106 @@ extern "C"
     volatile uint32_t TM3_GATE_SEL : 2;
   } stc_gpio_ctrl4_field_t;
 
+  typedef struct {
+    volatile uint32_t DIR;
+    volatile uint32_t IN;
+    volatile uint32_t OUT;
+    volatile uint32_t ADS;
+    uint8_t RESERVED20[12];
+    volatile uint32_t DR;
+    volatile uint32_t PU;
+    volatile uint32_t PD;
+    uint8_t RESERVED23[4];
+    volatile uint32_t OD;
+    volatile uint32_t HIE;
+    volatile uint32_t LIE;
+    volatile uint32_t RIE;
+    volatile uint32_t FIE;
+  } stc_gpio_port_ctl_t;
   typedef struct
   {
     uint8_t RESERVED0[4];
-
-    volatile stc_port_01_function_t P01_SEL;
-    volatile stc_port_02_function_t P02_SEL;
-    volatile stc_port_03_function_t P03_SEL;
+    volatile uint32_t P01_SEL;
+    volatile uint32_t P02_SEL;
+    volatile uint32_t P03_SEL;
     uint8_t RESERVED3[64];
-    volatile stc_port_14_function_t P14_SEL;
-    volatile stc_port_15_function_t P15_SEL;
+    volatile uint32_t P14_SEL;
+    volatile uint32_t P15_SEL;
     uint8_t RESERVED5[52];
-    volatile stc_port_23_function_t P23_SEL;
-    volatile stc_port_24_function_t P24_SEL;
-    volatile stc_port_25_function_t P25_SEL;
-    volatile stc_port_26_function_t P26_SEL;
-    volatile stc_port_27_function_t P27_SEL;
+    volatile uint32_t P23_SEL;
+    volatile uint32_t P24_SEL;
+    volatile uint32_t P25_SEL;
+    volatile uint32_t P26_SEL;
+    volatile uint32_t P27_SEL;
     uint8_t RESERVED10[36];
-    volatile stc_port_31_function_t P31_SEL;
-    volatile stc_port_32_function_t P32_SEL;
-    volatile stc_port_33_function_t P33_SEL;
-    volatile stc_port_34_function_t P34_SEL;
-    volatile stc_port_35_function_t P35_SEL;
-    volatile stc_port_36_function_t P36_SEL;
+    volatile uint32_t P31_SEL;
+    volatile uint32_t P32_SEL;
+    volatile uint32_t P33_SEL;
+    volatile uint32_t P34_SEL;
+    volatile uint32_t P35_SEL;
+    volatile uint32_t P36_SEL;
     uint8_t RESERVED16[36];
-    union
-    {
-      volatile uint32_t P0DIR;
-      stc_gpio_p0dir_field_t P0DIR_f;
-    };
-    union
-    {
-      volatile uint32_t P0IN;
-      stc_gpio_p0in_field_t P0IN_f;
-    };
-    union
-    {
-      volatile uint32_t P0OUT;
-      stc_gpio_p0out_field_t P0OUT_f;
-    };
-    union
-    {
-      volatile uint32_t P0ADS;
-      stc_gpio_p0ads_field_t P0ADS_f;
-    };
-    uint8_t RESERVED20[12];
-    union
-    {
-      volatile uint32_t P0DR;
-      stc_gpio_p0dr_field_t P0DR_f;
-    };
-    union
-    {
-      volatile uint32_t P0PU;
-      stc_gpio_p0pu_field_t P0PU_f;
-    };
-    union
-    {
-      volatile uint32_t P0PD;
-      stc_gpio_p0pd_field_t P0PD_f;
-    };
-    uint8_t RESERVED23[4];
-    union
-    {
-      volatile uint32_t P0OD;
-      stc_gpio_p0od_field_t P0OD_f;
-    };
-    union
-    {
-      volatile uint32_t P0HIE;
-      stc_gpio_p0hie_field_t P0HIE_f;
-    };
-    union
-    {
-      volatile uint32_t P0LIE;
-      stc_gpio_p0lie_field_t P0LIE_f;
-    };
-    union
-    {
-      volatile uint32_t P0RIE;
-      stc_gpio_p0rie_field_t P0RIE_f;
-    };
-    union
-    {
-      volatile uint32_t P0FIE;
-      stc_gpio_p0fie_field_t P0FIE_f;
-    };
-    union
-    {
-      volatile uint32_t P1DIR;
-      stc_gpio_p1dir_field_t P1DIR_f;
-    };
-    union
-    {
-      volatile uint32_t P1IN;
-      stc_gpio_p1in_field_t P1IN_f;
-    };
-    union
-    {
-      volatile uint32_t P1OUT;
-      stc_gpio_p1out_field_t P1OUT_f;
-    };
-    union
-    {
-      volatile uint32_t P1ADS;
-      stc_gpio_p1ads_field_t P1ADS_f;
-    };
+
+    stc_gpio_port_ctl_t PORT0;
+    // volatile uint32_t P0DIR;
+    // volatile uint32_t P0IN;
+    // volatile uint32_t P0OUT;
+    // volatile uint32_t P0ADS;
+    // uint8_t RESERVED20[12];
+    // volatile uint32_t P0DR;
+    // volatile uint32_t P0PU;
+    // volatile uint32_t P0PD;
+    // uint8_t RESERVED23[4];
+    // volatile uint32_t P0OD;
+    // volatile uint32_t P0HIE;
+    // volatile uint32_t P0LIE;
+    // volatile uint32_t P0RIE;
+    // volatile uint32_t P0FIE;
+
+    volatile uint32_t P1DIR;
+    volatile uint32_t P1IN;
+    volatile uint32_t P1OUT;
+    volatile uint32_t P1ADS;
     uint8_t RESERVED32[12];
-    union
-    {
-      volatile uint32_t P1DR;
-      stc_gpio_p1dr_field_t P1DR_f;
-    };
-    union
-    {
-      volatile uint32_t P1PU;
-      stc_gpio_p1pu_field_t P1PU_f;
-    };
-    union
-    {
-      volatile uint32_t P1PD;
-      stc_gpio_p1pd_field_t P1PD_f;
-    };
+    volatile uint32_t P1DR;
+    volatile uint32_t P1PU;
+    volatile uint32_t P1PD;
     uint8_t RESERVED35[4];
-    union
-    {
-      volatile uint32_t P1OD;
-      stc_gpio_p1od_field_t P1OD_f;
-    };
-    union
-    {
-      volatile uint32_t P1HIE;
-      stc_gpio_p1hie_field_t P1HIE_f;
-    };
-    union
-    {
-      volatile uint32_t P1LIE;
-      stc_gpio_p1lie_field_t P1LIE_f;
-    };
-    union
-    {
-      volatile uint32_t P1RIE;
-      stc_gpio_p1rie_field_t P1RIE_f;
-    };
-    union
-    {
-      volatile uint32_t P1FIE;
-      stc_gpio_p1fie_field_t P1FIE_f;
-    };
-    union
-    {
-      volatile uint32_t P2DIR;
-      stc_gpio_p2dir_field_t P2DIR_f;
-    };
-    union
-    {
-      volatile uint32_t P2IN;
-      stc_gpio_p2in_field_t P2IN_f;
-    };
-    union
-    {
-      volatile uint32_t P2OUT;
-      stc_gpio_p2out_field_t P2OUT_f;
-    };
-    union
-    {
-      volatile uint32_t P2ADS;
-      stc_gpio_p2ads_field_t P2ADS_f;
-    };
+    volatile uint32_t P1OD;
+    volatile uint32_t P1HIE;
+    volatile uint32_t P1LIE;
+    volatile uint32_t P1RIE;
+    volatile uint32_t P1FIE;
+
+    volatile uint32_t P2DIR;
+    volatile uint32_t P2IN;
+    volatile uint32_t P2OUT;
+    volatile uint32_t P2ADS;
     uint8_t RESERVED44[12];
-    union
-    {
-      volatile uint32_t P2DR;
-      stc_gpio_p2dr_field_t P2DR_f;
-    };
-    union
-    {
-      volatile uint32_t P2PU;
-      stc_gpio_p2pu_field_t P2PU_f;
-    };
-    union
-    {
-      volatile uint32_t P2PD;
-      stc_gpio_p2pd_field_t P2PD_f;
-    };
+    volatile uint32_t P2DR;
+    volatile uint32_t P2PU;
+    volatile uint32_t P2PD;
     uint8_t RESERVED47[4];
-    union
-    {
-      volatile uint32_t P2OD;
-      stc_gpio_p2od_field_t P2OD_f;
-    };
-    union
-    {
-      volatile uint32_t P2HIE;
-      stc_gpio_p2hie_field_t P2HIE_f;
-    };
-    union
-    {
-      volatile uint32_t P2LIE;
-      stc_gpio_p2lie_field_t P2LIE_f;
-    };
-    union
-    {
-      volatile uint32_t P2RIE;
-      stc_gpio_p2rie_field_t P2RIE_f;
-    };
-    union
-    {
-      volatile uint32_t P2FIE;
-      stc_gpio_p2fie_field_t P2FIE_f;
-    };
-    union
-    {
-      volatile uint32_t P3DIR;
-      stc_gpio_p3dir_field_t P3DIR_f;
-    };
-    union
-    {
-      volatile uint32_t P3IN;
-      stc_gpio_p3in_field_t P3IN_f;
-    };
-    union
-    {
-      volatile uint32_t P3OUT;
-      stc_gpio_p3out_field_t P3OUT_f;
-    };
-    union
-    {
-      volatile uint32_t P3ADS;
-      stc_gpio_p3ads_field_t P3ADS_f;
-    };
+    volatile uint32_t P2OD;
+    volatile uint32_t P2HIE;
+    volatile uint32_t P2LIE;
+    volatile uint32_t P2RIE;
+    volatile uint32_t P2FIE;
+
+    volatile uint32_t P3DIR;
+    volatile uint32_t P3IN;
+    volatile uint32_t P3OUT;
+    volatile uint32_t P3ADS;
     uint8_t RESERVED56[12];
-    union
-    {
-      volatile uint32_t P3DR;
-      stc_gpio_p3dr_field_t P3DR_f;
-    };
-    union
-    {
-      volatile uint32_t P3PU;
-      stc_gpio_p3pu_field_t P3PU_f;
-    };
-    union
-    {
-      volatile uint32_t P3PD;
-      stc_gpio_p3pd_field_t P3PD_f;
-    };
+    volatile uint32_t P3DR;
+    volatile uint32_t P3PU;
+    volatile uint32_t P3PD;
     uint8_t RESERVED59[4];
-    union
-    {
-      volatile uint32_t P3OD;
-      stc_gpio_p3od_field_t P3OD_f;
-    };
-    union
-    {
-      volatile uint32_t P3HIE;
-      stc_gpio_p3hie_field_t P3HIE_f;
-    };
-    union
-    {
-      volatile uint32_t P3LIE;
-      stc_gpio_p3lie_field_t P3LIE_f;
-    };
-    union
-    {
-      volatile uint32_t P3RIE;
-      stc_gpio_p3rie_field_t P3RIE_f;
-    };
-    union
-    {
-      volatile uint32_t P3FIE;
-      stc_gpio_p3fie_field_t P3FIE_f;
-    };
+    volatile uint32_t P3OD;
+    volatile uint32_t P3HIE;
+    volatile uint32_t P3LIE;
+    volatile uint32_t P3RIE;
+    volatile uint32_t P3FIE;
     union
     {
       volatile uint32_t P0STAT;
