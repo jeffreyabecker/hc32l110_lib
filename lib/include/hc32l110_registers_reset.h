@@ -54,7 +54,7 @@ extern "C"
   {
     stc_reset_reset_flag_field_t RESET_FLAG;
     uint8_t RESERVED1[8];
-    stc_reset_prei_reset_field_t PREI_RESET;
+    uint32_t PREI_RESET;
   } M0P_RESET_TypeDef;
 
 #define M0P_RESET ((M0P_RESET_TypeDef *)0x4000201CUL)

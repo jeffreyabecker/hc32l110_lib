@@ -4,6 +4,8 @@
         "hc32l110_ddl.h": "c",
         "hc32l110_ddl_basic_timers.h": "c",
         "hc32l110_registers.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "hc32l110_ddl_crc.h": "c",
+        "hc32l110_ddl_gpio.h": "c"
     }
 }
