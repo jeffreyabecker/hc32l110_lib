@@ -35,7 +35,7 @@ int main()
     M0P_CLOCK->SYSTICK_CR.CLK_SEL = systick_clock_source_internal_high;
     M0P_CLOCK->SYSTICK_CR.NOREF = 1;
     
-    SysTick->LOAD = 0x00200000;
+    SysTick->LOAD = 8388591;//0x00200000;
     SysTick->VAL = 0;
     SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk;  
     while (1)
