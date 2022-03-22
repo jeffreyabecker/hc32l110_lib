@@ -7,7 +7,6 @@ extern "C"
 #endif
 #include <stdint.h>
 
-#include "hc32l110_registers_platform.h"
   typedef struct
   {
     volatile uint32_t STOP : 1;
@@ -56,8 +55,6 @@ extern "C"
     volatile uint32_t STABLE : 1;
   } stc_clock_rch_cr_field_t;
 
-
-
   typedef struct
   {
     volatile uint32_t TRIM : 10;
@@ -71,7 +68,6 @@ extern "C"
     volatile uint32_t STARTUP : 2;
     volatile uint32_t STABLE : 1;
   } stc_clock_external_cr_field_t;
-
 
   typedef struct
   {
@@ -104,14 +100,18 @@ extern "C"
     volatile uint32_t FLASH : 1;
   } stc_clock_peri_clken_field_t;
 
-
-
+  typedef enum{
+    systick_clock_source_internal_high = 0x02,
+    systick_clock_source_internal_low = 0x01,
+    systick_clock_source_external_high= 0x03,
+    systick_clock_source_external_low = 0x00
+  } systick_clock_source_t;
   typedef struct
   {
     volatile uint32_t STCALIB : 24;
     volatile uint32_t SKEW : 1;
     volatile uint32_t NOREF : 1;
-    volatile uint32_t CLK_SEL : 2;
+    volatile systick_clock_source_t CLK_SEL : 2;
   } stc_clock_systick_cr_field_t;
 
   typedef struct
@@ -139,7 +139,8 @@ extern "C"
     stc_clock_rcl_cr_field_t RCL_CR;
     stc_clock_external_cr_field_t XTL_CR;
     uint8_t RESERVED7[4];
-    union{
+    union
+    {
       uint32_t peripheral_clock_enable;
       stc_clock_peri_clken_field_t peripheral_clock_enable_f;
     };
@@ -148,6 +149,15 @@ extern "C"
     stc_clock_debug_active_field_t DEBUG_ACTIVE;
   } M0P_CLOCK_TypeDef;
 #define M0P_CLOCK ((M0P_CLOCK_TypeDef *)0x40002000UL)
+
+
+
+
+//0xE000E010UL
+
+#define MAX_SYSTICK_VALUE 0x007FFFFFUL
+
+
 
 #ifdef __cplusplus
 }

@@ -94,7 +94,7 @@ extern "C"
     peripheral_flash = 0x80000000UL, // 31
   } peripheral_t;
 
-  volatile uint32_t tick_increment_step = 0ul;
+  uint32_t tick_increment_step = 0ul;
   volatile uint32_t current_tick_count = 0ul;
 
 #define clock_trim_high_24mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C00ul))) * 1000)
@@ -465,19 +465,7 @@ extern "C"
     }
   }
 
-  static core_systick_handler_t *user_systick_handler = NULL;
-  void core_set_systick_handler(core_systick_handler_t *handler)
-  {
-    user_systick_handler = handler;
-  }
-  void SysTick_Handler(void)
-  {
-    core_systick_increment_ticks();
-    if (user_systick_handler != NULL)
-    {
-      (*user_systick_handler)();
-    }
-  }
+
 
 #ifdef __cplusplus
 }
