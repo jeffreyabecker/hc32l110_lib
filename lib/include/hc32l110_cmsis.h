@@ -1,5 +1,5 @@
-#ifndef __HC32L110C_H__
-#define __HC32L110C_H__
+#ifndef __HC32L110C_CMSIS_H__
+#define __HC32L110C_CMSIS_H__
 
 #ifdef __cplusplus
 extern "C"

@@ -1,5 +1,5 @@
-#ifndef __HC32L110_REGISTERS_PORTS_H__
-#define __HC32L110_REGISTERS_PORTS_H__
+#ifndef __HC32L110_REGISTERS_GPIO_H__
+#define __HC32L110_REGISTERS_GPIO_H__
 
 #ifdef __cplusplus
 extern "C"
