@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include "cmsis_compiler.h"
+#include "hc32l110_cmsis.h"
 #ifdef __cplusplus
 extern "C"
 {
@@ -13,7 +14,6 @@ extern "C"
     extern uint32_t PeripheralCoreClock;
 
     __WEAK void SystemInit(void);
-    void __main();
 #ifdef __cplusplus
 }
 #endif
