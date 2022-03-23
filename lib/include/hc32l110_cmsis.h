@@ -109,7 +109,12 @@ typedef enum IRQn
 #include <core_cm0.h>
 #include <stdint.h>
 
+#define __read_only_data __attribute__((section(".rodata"))) const
 
+/* following defines should be used for structure members */
+#define __IM volatile const /*! Defines 'read only' structure member permissions */
+#define __OM volatile       /*! Defines 'write only' structure member permissions */
+#define __IOM volatile      /*! Defines 'read / write' structure member permissions */
 
 #ifdef __cplusplus
 }

@@ -1,8 +1,9 @@
 
-#ifndef __SYSTEM_HC32L110_H__
-#define __SYSTEM_HC32L110_H__
+#ifndef __SYSTEM_HC32L110_SYSTEM_H__
+#define __SYSTEM_HC32L110_SYSTEM_H__
 
 #include <stdint.h>
+#include "cmsis_compiler.h"
 #ifdef __cplusplus
 extern "C"
 {
@@ -11,7 +12,7 @@ extern "C"
     extern uint32_t SystemCoreClock;
     extern uint32_t PeripheralCoreClock;
 
-    __attribute__((weak)) void SystemInit(void);
+    __WEAK void SystemInit(void);
     void __main();
 #ifdef __cplusplus
 }
