@@ -6,21 +6,21 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
     /*port_p01*/
     {
         .sel = ((uint32_t *)0x40020C04),
-        .port = M0P_GPIO_PORT0,
+        .port = HC32_GPIO_PORT0,
         .interrupt = ((gpio_port_interrupt_t *)0x40020DD0),
         .position = 1,
         .index = 0},
     /*port_p02*/
     {
         .sel = ((uint32_t *)0x40020C08),
-        .port = M0P_GPIO_PORT0,
+        .port = HC32_GPIO_PORT0,
         .interrupt = ((gpio_port_interrupt_t *)0x40020DD0),
         .position = 2,
         .index = 1},
     /*port_p03*/
     {
         .sel = ((uint32_t *)0x40020C0C),
-        .port = M0P_GPIO_PORT0,
+        .port = HC32_GPIO_PORT0,
         .interrupt = ((gpio_port_interrupt_t *)0x40020DD0),
         .position = 3,
         .index = 2},
@@ -28,14 +28,14 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
     /*port_p14*/
     {
         .sel = ((uint32_t *)0x40020C50),
-        .port = M0P_GPIO_PORT1,
+        .port = HC32_GPIO_PORT1,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E10),
         .position = 5,
         .index = 3},
     /*port_p15*/
     {
         .sel = ((uint32_t *)0x40020C54),
-        .port = M0P_GPIO_PORT1,
+        .port = HC32_GPIO_PORT1,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E10),
         .position = 6,
         .index = 4},
@@ -43,14 +43,14 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
     /*port_p23*/
     {
         .sel = ((uint32_t *)(0x40020C8c)),
-        .port = M0P_GPIO_PORT2,
+        .port = HC32_GPIO_PORT2,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E50),
         .position = 4,
         .index = 5},
     /*port_p24*/
     {
         .sel = ((uint32_t *)(0x40020C90)),
-        .port = M0P_GPIO_PORT2,
+        .port = HC32_GPIO_PORT2,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E50),
         .position = 5,
         .index = 6},
@@ -64,14 +64,14 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
     /*port_p26*/
     {
         .sel = ((uint32_t *)(0x40020C98)),
-        .port = M0P_GPIO_PORT2,
+        .port = HC32_GPIO_PORT2,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E50),
         .position = 7,
         .index = 8},
     /*port_p27*/
     {
         .sel = ((uint32_t *)(0x40020C9C)),
-        .port = M0P_GPIO_PORT2,
+        .port = HC32_GPIO_PORT2,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E50),
         .position = 8,
         .index = 9},
@@ -79,28 +79,28 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
     /*port_p31*/
     {
         .sel = ((uint32_t *)(0x40020CC4)),
-        .port = M0P_GPIO_PORT3,
+        .port = HC32_GPIO_PORT3,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
         .position = 1,
         .index = 10},
     /*port_p32*/
     {
         .sel = ((uint32_t *)(0x40020CC8)),
-        .port = M0P_GPIO_PORT3,
+        .port = HC32_GPIO_PORT3,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
         .position = 2,
         .index = 11},
     /*port_p33*/
     {
         .sel = ((uint32_t *)(0x40020CCC)),
-        .port = M0P_GPIO_PORT3,
+        .port = HC32_GPIO_PORT3,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
         .position = 3,
         .index = 12},
     /*port_p34*/
     {
         .sel = ((uint32_t *)(0x40020CD0)),
-        .port = M0P_GPIO_PORT3,
+        .port = HC32_GPIO_PORT3,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
         .position = 4,
         .index = 13},
@@ -114,7 +114,7 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
     /*port_p36*/
     {
         .sel = ((uint32_t *)(0x40020CD8)),
-        .port = M0P_GPIO_PORT3,
+        .port = HC32_GPIO_PORT3,
         .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
         .position = 6,
         .index = 15}};
@@ -199,14 +199,14 @@ void GpioPort3_Handler(void)
 void peripheral_enable_gpio()
 {
 
-    M0P_GPIO_PORT0->DIR = 0xFF;
-    M0P_GPIO_PORT1->DIR = 0xFF;
-    M0P_GPIO_PORT2->DIR = 0xFF;
-    M0P_GPIO_PORT3->DIR = 0xFF;
-    M0P_GPIO_PORT0->OD = 0x00;
-    M0P_GPIO_PORT1->OD = 0x00;
-    M0P_GPIO_PORT2->OD = 0x00;
-    M0P_GPIO_PORT3->OD = 0x00;
+    HC32_GPIO_PORT0->DIR = 0xFF;
+    HC32_GPIO_PORT1->DIR = 0xFF;
+    HC32_GPIO_PORT2->DIR = 0xFF;
+    HC32_GPIO_PORT3->DIR = 0xFF;
+    HC32_GPIO_PORT0->OD = 0x00;
+    HC32_GPIO_PORT1->OD = 0x00;
+    HC32_GPIO_PORT2->OD = 0x00;
+    HC32_GPIO_PORT3->OD = 0x00;
 
     peripheral_set_enabled(peripheral_get_enabled() | peripheral_gpio);
 }

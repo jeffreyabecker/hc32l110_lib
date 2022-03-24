@@ -1,13 +1,7 @@
 #ifndef __HC32L110_REGISTERS_GPIO_H__
 #define __HC32L110_REGISTERS_GPIO_H__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-#if defined(__CC_ARM)
-#pragma anon_unions
-#endif
+
 #include <stdint.h>
 #include "cmsis_compiler.h"
   typedef enum
@@ -259,43 +253,36 @@ extern "C"
 
 
 
-  // typedef struct
-  // {
-  //   volatile uint32_t EXT_CLK_SEL : 4;
-  //   volatile uint32_t SSN_SEL : 4;
-  //   volatile uint32_t PCLK_SEL : 2;
-  //   volatile uint32_t HCLK_SEL : 2;
-  //   volatile uint32_t PCLK_EN : 1;
-  //   volatile uint32_t HCLK_EN : 1;
-  //   volatile uint32_t IR_POL : 1;
-  // } gpio_ctrl1_field_t;
+  typedef struct
+  {
+    volatile uint32_t EXT_CLK_SEL : 4;
+    volatile uint32_t SSN_SEL : 4;
+    volatile uint32_t PCLK_SEL : 2;
+    volatile uint32_t HCLK_SEL : 2;
+    volatile uint32_t PCLK_EN : 1;
+    volatile uint32_t HCLK_EN : 1;
+    volatile uint32_t IR_POL : 1;
+  } gpio_output_ctl_t;
 
-  // typedef struct
-  // {
-  //   volatile uint32_t PCA_CAP0_SEL : 2;
-  //   volatile uint32_t PCA_CAP1_SEL : 2;
-  //   volatile uint32_t PCA_CAP2_SEL : 2;
-  //   volatile uint32_t PCA_CAP3_SEL : 2;
-  //   volatile uint32_t PCA_CAP4_SEL : 2;
-  // } gpio_ctrl2_field_t;
 
-  // typedef struct
-  // {
-  //   volatile uint32_t TM4_B_SEL : 2;
-  //   volatile uint32_t TM5_B_SEL : 2;
-  //   volatile uint32_t TM6_B_SEL : 2;
-  //   volatile uint32_t TM4_A_SEL : 2;
-  //   volatile uint32_t TM5_A_SEL : 2;
-  //   volatile uint32_t TM6_A_SEL : 2;
-  // } gpio_ctrl3_field_t;
 
-  // typedef struct
-  // {
-  //   volatile uint32_t TM0_GATE_SEL : 2;
-  //   volatile uint32_t TM1_GATE_SEL : 2;
-  //   volatile uint32_t TM2_GATE_SEL : 2;
-  //   volatile uint32_t TM3_GATE_SEL : 2;
-  // } gpio_ctrl4_field_t;
+  typedef struct
+  {
+    volatile uint32_t TM4_B_SEL : 2;
+    volatile uint32_t TM5_B_SEL : 2;
+    volatile uint32_t TM6_B_SEL : 2;
+    volatile uint32_t TM4_A_SEL : 2;
+    volatile uint32_t TM5_A_SEL : 2;
+    volatile uint32_t TM6_A_SEL : 2;
+  } gpio_ctrl3_field_t;
+
+  typedef struct
+  {
+    volatile uint32_t TM0_GATE_SEL : 2;
+    volatile uint32_t TM1_GATE_SEL : 2;
+    volatile uint32_t TM2_GATE_SEL : 2;
+    volatile uint32_t TM3_GATE_SEL : 2;
+  } gpio_ctrl4_field_t;
 
   typedef struct
   {
@@ -428,26 +415,22 @@ extern "C"
     volatile uint32_t CTRL2;
     volatile uint32_t CTRL3;
     volatile uint32_t CTRL4;
-  } M0P_GPIO_TypeDef;
+  } HC32_GPIO_TypeDef;
 
 #define GPIO_BASE_ADDRESS 0x40020C00UL
-#define M0P_GPIO ((M0P_GPIO_TypeDef *)GPIO_BASE_ADDRESS)
-#define M0P_GPIO_PORT0 ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x100))
-#define M0P_GPIO_PORT1 ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x140))
-#define M0P_GPIO_PORT2 ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x180))
-#define M0P_GPIO_PORT3 ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x1C0))
+#define HC32_GPIO ((HC32_GPIO_TypeDef *)GPIO_BASE_ADDRESS)
+#define HC32_GPIO_PORT0 ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x100))
+#define HC32_GPIO_PORT1 ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x140))
+#define HC32_GPIO_PORT2 ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x180))
+#define HC32_GPIO_PORT3 ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x1C0))
 
 
-#define M0P_GPIO_PORT0_INTERRUPT ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x200))
-#define M0P_GPIO_PORT1_INTERRUPT ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x240))
-#define M0P_GPIO_PORT2_INTERRUPT ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x280))
-#define M0P_GPIO_PORT3_INTERRUPT ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x2C0))
+#define HC32_GPIO_PORT0_INTERRUPT ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x200))
+#define HC32_GPIO_PORT1_INTERRUPT ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x240))
+#define HC32_GPIO_PORT2_INTERRUPT ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x280))
+#define HC32_GPIO_PORT3_INTERRUPT ((gpio_port_ctl_t *)(GPIO_BASE_ADDRESS + 0x2C0))
 
+#define HC32_GPIO_OUTPUT_CTL ((gpio_output_ctl_t*) (GPIO_BASE_ADDRESS+0x304))
 
-
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

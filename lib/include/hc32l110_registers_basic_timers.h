@@ -1,10 +1,6 @@
 #ifndef __HC32L110_REGISTERS_BASIC_TIMERS_H__
 #define __HC32L110_REGISTERS_BASIC_TIMERS_H__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 #include <stdint.h>
 
   typedef enum
@@ -66,7 +62,7 @@ extern "C"
     basic_timer_cr_field_t control;    // CR
     volatile uint32_t interrupt_flag;  // IFR
     volatile uint32_t interrupt_clear; // ICLR
-  } M0P_BasicTimer_TypeDef;
+  } HC32_BasicTimer_TypeDef;
 
   typedef struct
   {
@@ -77,19 +73,17 @@ extern "C"
     basic_timer_cr_field_t control;    // CR
     volatile uint32_t interrupt_flag;  // IFR
     volatile uint32_t interrupt_clear; // ICLR
-  } M0P_LPTIMER_TypeDef;
+  } HC32_LPTIMER_TypeDef;
 
 #define TIMER_0_ADDRESS 0x40000C00UL
 #define TIMER_1_ADDRESS 0x40000C20UL
 #define TIMER_2_ADDRESS 0x40000C40UL
 #define LPTIMER_ADDRESS 0x40000C60UL
 
-#define M0P_TIMER0 ((M0P_BasicTimer_TypeDef *)TIMER_0_ADDRESS)
-#define M0P_TIMER1 ((M0P_BasicTimer_TypeDef *)TIMER_1_ADDRESS)
-#define M0P_TIMER2 ((M0P_BasicTimer_TypeDef *)TIMER_2_ADDRESS)
-#define M0P_LPTIMER ((M0P_LPTIMER_TypeDef *)LPTIMER_ADDRESS)
-#ifdef __cplusplus
-}
-#endif
+#define HC32_TIMER0 ((HC32_BasicTimer_TypeDef *)TIMER_0_ADDRESS)
+#define HC32_TIMER1 ((HC32_BasicTimer_TypeDef *)TIMER_1_ADDRESS)
+#define HC32_TIMER2 ((HC32_BasicTimer_TypeDef *)TIMER_2_ADDRESS)
+#define HC32_LPTIMER ((HC32_LPTIMER_TypeDef *)LPTIMER_ADDRESS)
+
 
 #endif

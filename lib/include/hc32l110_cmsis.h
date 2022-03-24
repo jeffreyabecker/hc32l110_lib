@@ -1,11 +1,6 @@
 #ifndef __HC32L110C_CMSIS_H__
 #define __HC32L110C_CMSIS_H__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 #define __MPU_PRESENT 0
 #define __NVIC_PRIO_BITS 2
 #define __Vendor_SysTickConfig 0
@@ -55,8 +50,6 @@ extern "C"
 #define __OM volatile
 #define __IOM volatile
 
-#ifdef __cplusplus
-}
-#endif
+
 
 #endif /* __HC32L110C_H__ */

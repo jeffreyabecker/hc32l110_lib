@@ -1,10 +1,6 @@
 #ifndef __HC32L110_REGISTERS_CLOCK_H__
 #define __HC32L110_REGISTERS_CLOCK_H__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 #include <stdint.h>
 
 
@@ -129,8 +125,8 @@ extern "C"
     uint8_t RESERVED8[16];
     clock_systick_cr_field_t SYSTICK_CR;
     clock_debug_active_field_t DEBUG_ACTIVE;
-  } M0P_CLOCK_TypeDef;
-#define M0P_CLOCK ((M0P_CLOCK_TypeDef *)0x40002000UL)
+  } HC32_CLOCK_TypeDef;
+#define HC32_CLOCK ((HC32_CLOCK_TypeDef *)0x40002000UL)
 
 
 typedef struct {
@@ -148,8 +144,8 @@ typedef struct
   volatile uint32_t LOAD;                   /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register */
   volatile uint32_t VAL;                    /*!< Offset: 0x008 (R/W)  SysTick Current Value Register */
   volatile uint32_t CALIB;                  /*!< Offset: 0x00C (R/ )  SysTick Calibration Register */
-} M0P_SYSTICK_TypeDef;
-#define M0P_SYSTICK ((M0P_SYSTICK_TypeDef *)0xE000E010UL)
+} HC32_SYSTICK_TypeDef;
+#define HC32_SYSTICK ((HC32_SYSTICK_TypeDef *)0xE000E010UL)
 
 
 #define CLOCK_TRIM_HIGH_24mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C00ul))) * 1000)
@@ -168,8 +164,5 @@ typedef struct
 #define mhz22_12 22120000
 #define mhz24 24000000
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
