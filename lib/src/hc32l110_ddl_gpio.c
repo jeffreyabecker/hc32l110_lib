@@ -5,117 +5,117 @@
 __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
     /*port_p01*/
     {
-        .sel = ((uint32_t *)0x40020C04),
+        .sel = HC32_GPIO_P01_SEL,
         .port = HC32_GPIO_PORT0,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020DD0),
+        .interrupt = HC32_GPIO_PORT0_INTERRUPT,
         .position = 1,
         .index = 0},
     /*port_p02*/
     {
-        .sel = ((uint32_t *)0x40020C08),
+        .sel = HC32_GPIO_P02_SEL,
         .port = HC32_GPIO_PORT0,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020DD0),
+        .interrupt = HC32_GPIO_PORT0_INTERRUPT,
         .position = 2,
         .index = 1},
     /*port_p03*/
     {
-        .sel = ((uint32_t *)0x40020C0C),
+        .sel = HC32_GPIO_P03_SEL,
         .port = HC32_GPIO_PORT0,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020DD0),
+        .interrupt = HC32_GPIO_PORT0_INTERRUPT,
         .position = 3,
         .index = 2},
 
     /*port_p14*/
     {
-        .sel = ((uint32_t *)0x40020C50),
+        .sel = HC32_GPIO_P14_SEL,
         .port = HC32_GPIO_PORT1,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E10),
+        .interrupt = HC32_GPIO_PORT1_INTERRUPT,
         .position = 5,
         .index = 3},
     /*port_p15*/
     {
-        .sel = ((uint32_t *)0x40020C54),
+        .sel = HC32_GPIO_P15_SEL,
         .port = HC32_GPIO_PORT1,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E10),
+        .interrupt = HC32_GPIO_PORT1_INTERRUPT,
         .position = 6,
         .index = 4},
 
     /*port_p23*/
     {
-        .sel = ((uint32_t *)(0x40020C8c)),
+        .sel = HC32_GPIO_P23_SEL,
         .port = HC32_GPIO_PORT2,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E50),
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
         .position = 4,
         .index = 5},
     /*port_p24*/
     {
-        .sel = ((uint32_t *)(0x40020C90)),
+        .sel = HC32_GPIO_P24_SEL,
         .port = HC32_GPIO_PORT2,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E50),
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
         .position = 5,
         .index = 6},
     /*port_p25*/
     {
-        .sel = ((uint32_t *)(0x40020C94)),
-        .port = ((gpio_port_ctl_t *)0x40020D50),
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E50),
+        .sel = HC32_GPIO_P25_SEL,
+        .port = HC32_GPIO_PORT2,
+        .interrupt = HC32_GPIO_PORT2,
         .position = 6,
         .index = 7},
     /*port_p26*/
     {
-        .sel = ((uint32_t *)(0x40020C98)),
+        .sel = HC32_GPIO_P26_SEL,
         .port = HC32_GPIO_PORT2,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E50),
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
         .position = 7,
         .index = 8},
     /*port_p27*/
     {
-        .sel = ((uint32_t *)(0x40020C9C)),
+        .sel = HC32_GPIO_P27_SEL,
         .port = HC32_GPIO_PORT2,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E50),
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
         .position = 8,
         .index = 9},
 
     /*port_p31*/
     {
-        .sel = ((uint32_t *)(0x40020CC4)),
+        .sel = HC32_GPIO_P31_SEL,
         .port = HC32_GPIO_PORT3,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 1,
         .index = 10},
     /*port_p32*/
     {
-        .sel = ((uint32_t *)(0x40020CC8)),
+        .sel = HC32_GPIO_P32_SEL,
         .port = HC32_GPIO_PORT3,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 2,
         .index = 11},
     /*port_p33*/
     {
-        .sel = ((uint32_t *)(0x40020CCC)),
+        .sel = HC32_GPIO_P33_SEL,
         .port = HC32_GPIO_PORT3,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 3,
         .index = 12},
     /*port_p34*/
     {
-        .sel = ((uint32_t *)(0x40020CD0)),
+        .sel = HC32_GPIO_P34_SEL,
         .port = HC32_GPIO_PORT3,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 4,
         .index = 13},
     /*port_p35*/
     {
-        .sel = ((uint32_t *)(0x40020CD4)),
-        .port = ((gpio_port_ctl_t *)0x40020D90),
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
+        .sel = HC32_GPIO_P35_SEL,
+        .port = HC32_GPIO_PORT3,
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 5,
         .index = 14},
     /*port_p36*/
     {
-        .sel = ((uint32_t *)(0x40020CD8)),
+        .sel = HC32_GPIO_P36_SEL,
         .port = HC32_GPIO_PORT3,
-        .interrupt = ((gpio_port_interrupt_t *)0x40020E90),
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 6,
         .index = 15}};
 
