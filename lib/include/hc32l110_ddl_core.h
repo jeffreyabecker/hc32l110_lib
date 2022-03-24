@@ -39,6 +39,7 @@ peripheral_t peripheral_get_enabled();
 #define peripheral_disable(peripheral) peripheral_set_enabled(peripheral_get_enabled() & ~peripheral);
 
 uint32_t systick_current_value();
+uint32_t systick_time_stince(uint32_t start);
 void systick_delay(uint32_t delay_ticks);
 void set_system_clock(clock_sourcet source,uint32_t clock_frequency_hz, system_clock_divider_t system_clock_prescaler, peripheral_clock_divider_t peripheral_clock_prescaler);
 
@@ -48,7 +49,7 @@ void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled);
 #define nvic_default_irq_priority 0x03
 #define nvic_enable_irq(irq) nvic_configure_interrupt(irq, nvic_default_irq_priority, 1)
 #define nvic_disable_irq(irq) nvic_configure_interrupt(irq, nvic_default_irq_priority, 0)
-
+#define systick_is_running() ((SysTick->CTRL & (SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk)) == (SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk))
 
 
 #endif

@@ -6,6 +6,7 @@
 volatile static uint32_t delay_tick_count = 0ul;
 volatile static uint32_t current_tick_count = 0ul;
 
+
 void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled){
   NVIC_ClearPendingIRQ(irq);
   NVIC_SetPriority(irq, priority);
@@ -16,15 +17,26 @@ void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled){
     NVIC_DisableIRQ(irq);
   }
 }
-
+uint32_t systick_time_stince(uint32_t start){
+    if(!systick_is_running()){
+        return 0;
+    }
+    uint32_t now = current_tick_count;
+    if(now < start){
+        return now + (0xFFFFFFFF - start);
+    }
+    else{
+        return now - start;
+    }
+}
 uint32_t systick_current_value()
 {
     return current_tick_count;
 }
-#define SYSTICK_RUNNING_MASK (SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk)
+
 void systick_delay(uint32_t delay_ticks)
 {
-    if ((SysTick->CTRL & SYSTICK_RUNNING_MASK) == SYSTICK_RUNNING_MASK)
+    if (systick_is_running())
     {
         delay_tick_count = 0;
 
