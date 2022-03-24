@@ -6,6 +6,17 @@
 volatile static uint32_t delay_tick_count = 0ul;
 volatile static uint32_t current_tick_count = 0ul;
 
+void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled){
+  NVIC_ClearPendingIRQ(irq);
+  NVIC_SetPriority(irq, priority);
+  if(enabled){
+    NVIC_EnableIRQ(irq);
+  }
+  else{
+    NVIC_DisableIRQ(irq);
+  }
+}
+
 uint32_t systick_current_value()
 {
     return current_tick_count;
@@ -36,43 +47,43 @@ static uint32_t __clock_interpolate(uint32_t clock_frequency, uint32_t low_freqe
 }
 static uint16_t __calculate_rch_trim(uint32_t clock_frequency_hz)
 {
-    if (clock_frequency_hz < mhz4)
+    if (clock_frequency_hz < MHz_4)
     {
-        return CLOCK_TRIM_HIGH_4mhz - sub_4mhz_scale_factor * (mhz4 - clock_frequency_hz);
+        return CLOCK_TRIM_HIGH_4mhz - sub_4mhz_scale_factor * (MHz_4 - clock_frequency_hz);
     }
-    if (mhz4 <= clock_frequency_hz && clock_frequency_hz <= mhz24)
+    if (MHz_4 <= clock_frequency_hz && clock_frequency_hz <= MHz_24)
     {
-        if (mhz4 == clock_frequency_hz)
+        if (MHz_4 == clock_frequency_hz)
         {
             return CLOCK_TRIM_HIGH_4mhz;
         }
-        else if (clock_frequency_hz < mhz8)
+        else if (clock_frequency_hz < MHz_8)
         {
-            return __clock_interpolate(clock_frequency_hz, mhz4, mhz8, CLOCK_TRIM_HIGH_4mhz, CLOCK_TRIM_HIGH_8mhz);
+            return __clock_interpolate(clock_frequency_hz, MHz_4, MHz_8, CLOCK_TRIM_HIGH_4mhz, CLOCK_TRIM_HIGH_8mhz);
         }
-        else if (clock_frequency_hz == mhz8)
+        else if (clock_frequency_hz == MHz_8)
         {
             return CLOCK_TRIM_HIGH_8mhz;
         }
-        else if (clock_frequency_hz < mhz16)
+        else if (clock_frequency_hz < MHz_16)
         {
-            return __clock_interpolate(clock_frequency_hz, mhz8, mhz16, CLOCK_TRIM_HIGH_8mhz, CLOCK_TRIM_HIGH_16mhz);
+            return __clock_interpolate(clock_frequency_hz, MHz_8, MHz_16, CLOCK_TRIM_HIGH_8mhz, CLOCK_TRIM_HIGH_16mhz);
         }
-        else if (clock_frequency_hz == mhz16)
+        else if (clock_frequency_hz == MHz_16)
         {
             return CLOCK_TRIM_HIGH_16mhz;
         }
-        else if (clock_frequency_hz < mhz22_12)
+        else if (clock_frequency_hz < MHz_22_12)
         {
-            return __clock_interpolate(clock_frequency_hz, mhz16, mhz22_12, CLOCK_TRIM_HIGH_16mhz, CLOCK_TRIM_HIGH_22_12mhz);
+            return __clock_interpolate(clock_frequency_hz, MHz_16, MHz_22_12, CLOCK_TRIM_HIGH_16mhz, CLOCK_TRIM_HIGH_22_12mhz);
         }
-        else if (clock_frequency_hz == mhz22_12)
+        else if (clock_frequency_hz == MHz_22_12)
         {
             return CLOCK_TRIM_HIGH_22_12mhz;
         }
-        else if (clock_frequency_hz < mhz24)
+        else if (clock_frequency_hz < MHz_24)
         {
-            return __clock_interpolate(clock_frequency_hz, mhz22_12, mhz24, CLOCK_TRIM_HIGH_22_12mhz, CLOCK_TRIM_HIGH_24mhz);
+            return __clock_interpolate(clock_frequency_hz, MHz_22_12, MHz_24, CLOCK_TRIM_HIGH_22_12mhz, CLOCK_TRIM_HIGH_24mhz);
         }
         return CLOCK_TRIM_HIGH_22_12mhz;
     }
@@ -81,17 +92,17 @@ static uint16_t __calculate_rch_trim(uint32_t clock_frequency_hz)
 // this function interpolates the clock-trim value from known reference points
 static uint16_t __calculate_rcl_trim(uint32_t clock_frequency_hz)
 {
-    if (khz32_8 == clock_frequency_hz)
+    if (KHz_32_8 == clock_frequency_hz)
     {
         return CLOCK_TRIM_LOW_32_8_khz;
     }
-    if (khz38_4 == clock_frequency_hz)
+    if (KHz_38_4 == clock_frequency_hz)
     {
         return CLOCK_TRIM_LOW_38_4_khz;
     }
-    if (khz32_8 < clock_frequency_hz && clock_frequency_hz < khz38_4)
+    if (KHz_32_8 < clock_frequency_hz && clock_frequency_hz < KHz_38_4)
     {
-        return __clock_interpolate(clock_frequency_hz, khz32_8, khz38_4, CLOCK_TRIM_LOW_32_8_khz, CLOCK_TRIM_LOW_32_8_khz);
+        return __clock_interpolate(clock_frequency_hz, KHz_32_8, KHz_38_4, CLOCK_TRIM_LOW_32_8_khz, CLOCK_TRIM_LOW_32_8_khz);
     }
     return 0;
 }

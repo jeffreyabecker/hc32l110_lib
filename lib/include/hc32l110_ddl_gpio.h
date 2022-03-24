@@ -11,6 +11,7 @@ typedef struct
     gpio_port_interrupt_t *interrupt;
     uint8_t position;
     uint8_t index;
+    IRQn_Type irq;
 } gpio_port_descriptor_t;
 extern const gpio_port_descriptor_t port_descriptors[16];
 
@@ -40,6 +41,7 @@ typedef struct
     gpio_internal_pulldown_t pull_down : 1;
     gpio_mode_t gpio_mode : 1;
     uint8_t function : 3;
+    uint8_t enable_interrupt:1;
 } gpio_port_config_t;
 
 extern const gpio_port_config_t gpio_digital_output;
@@ -57,7 +59,7 @@ typedef struct
     gpio_interrupt_rising_t interrupt_rising : 1;
     gpio_interrupt_falling_t interrupt_falling : 1;
 } gpio_interrupt_config_t;
-void gpio_set_interrupt_handler(const gpio_port_descriptor_t *port, gpio_interrupt_config_t cfg, gpio_port_handler_t *handler);
+void gpio_set_interrupt_handler(const gpio_port_descriptor_t *port, gpio_interrupt_config_t cfg, gpio_port_handler_t handler);
 #define gpio_clear_interrupt_handler(port) gpio_set_interrupt_handler(port, (gpio_interrupt_config_t)NULL, NULL)
 void peripheral_enable_gpio();
 #endif

@@ -4,6 +4,7 @@
 #include "hc32l110_cmsis.h"
 #include "hc32l110_system.h"
 #include "hc32l110_registers_clock.h"
+#include <stddef.h>
 
 typedef enum
 {
@@ -43,6 +44,11 @@ void set_system_clock(clock_sourcet source,uint32_t clock_frequency_hz, system_c
 
 void enable_systick(uint32_t systick_frequency_hz);
 
-#define KHz_1 1000
+void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled);
+#define nvic_default_irq_priority 0x03
+#define nvic_enable_irq(irq) nvic_configure_interrupt(irq, nvic_default_irq_priority, 1)
+#define nvic_disable_irq(irq) nvic_configure_interrupt(irq, nvic_default_irq_priority, 0)
+
+
 
 #endif

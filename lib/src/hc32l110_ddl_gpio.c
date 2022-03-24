@@ -9,21 +9,24 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .port = HC32_GPIO_PORT0,
         .interrupt = HC32_GPIO_PORT0_INTERRUPT,
         .position = 1,
-        .index = 0},
+        .index = 0,
+        .irq = PORT0_IRQn},
     /*port_p02*/
     {
         .sel = HC32_GPIO_P02_SEL,
         .port = HC32_GPIO_PORT0,
         .interrupt = HC32_GPIO_PORT0_INTERRUPT,
         .position = 2,
-        .index = 1},
+        .index = 1,
+        .irq = PORT0_IRQn},
     /*port_p03*/
     {
         .sel = HC32_GPIO_P03_SEL,
         .port = HC32_GPIO_PORT0,
         .interrupt = HC32_GPIO_PORT0_INTERRUPT,
         .position = 3,
-        .index = 2},
+        .index = 2,
+        .irq = PORT0_IRQn},
 
     /*port_p14*/
     {
@@ -31,14 +34,16 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .port = HC32_GPIO_PORT1,
         .interrupt = HC32_GPIO_PORT1_INTERRUPT,
         .position = 5,
-        .index = 3},
+        .index = 3,
+        .irq = PORT1_IRQn},
     /*port_p15*/
     {
         .sel = HC32_GPIO_P15_SEL,
         .port = HC32_GPIO_PORT1,
         .interrupt = HC32_GPIO_PORT1_INTERRUPT,
         .position = 6,
-        .index = 4},
+        .index = 4,
+        .irq = PORT1_IRQn},
 
     /*port_p23*/
     {
@@ -46,14 +51,16 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .port = HC32_GPIO_PORT2,
         .interrupt = HC32_GPIO_PORT2_INTERRUPT,
         .position = 4,
-        .index = 5},
+        .index = 5,
+        .irq = PORT2_IRQn},
     /*port_p24*/
     {
         .sel = HC32_GPIO_P24_SEL,
         .port = HC32_GPIO_PORT2,
         .interrupt = HC32_GPIO_PORT2_INTERRUPT,
         .position = 5,
-        .index = 6},
+        .index = 6,
+        .irq = PORT2_IRQn},
     /*port_p25*/
     {
         .sel = HC32_GPIO_P25_SEL,
@@ -67,14 +74,16 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .port = HC32_GPIO_PORT2,
         .interrupt = HC32_GPIO_PORT2_INTERRUPT,
         .position = 7,
-        .index = 8},
+        .index = 8,
+        .irq = PORT2_IRQn},
     /*port_p27*/
     {
         .sel = HC32_GPIO_P27_SEL,
         .port = HC32_GPIO_PORT2,
         .interrupt = HC32_GPIO_PORT2_INTERRUPT,
         .position = 8,
-        .index = 9},
+        .index = 9,
+        .irq = PORT2_IRQn},
 
     /*port_p31*/
     {
@@ -82,42 +91,48 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .port = HC32_GPIO_PORT3,
         .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 1,
-        .index = 10},
+        .index = 10,
+        .irq = PORT3_IRQn},
     /*port_p32*/
     {
         .sel = HC32_GPIO_P32_SEL,
         .port = HC32_GPIO_PORT3,
         .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 2,
-        .index = 11},
+        .index = 11,
+        .irq = PORT3_IRQn},
     /*port_p33*/
     {
         .sel = HC32_GPIO_P33_SEL,
         .port = HC32_GPIO_PORT3,
         .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 3,
-        .index = 12},
+        .index = 12,
+        .irq = PORT3_IRQn},
     /*port_p34*/
     {
         .sel = HC32_GPIO_P34_SEL,
         .port = HC32_GPIO_PORT3,
         .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 4,
-        .index = 13},
+        .index = 13,
+        .irq = PORT3_IRQn},
     /*port_p35*/
     {
         .sel = HC32_GPIO_P35_SEL,
         .port = HC32_GPIO_PORT3,
         .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 5,
-        .index = 14},
+        .index = 14,
+        .irq = PORT3_IRQn},
     /*port_p36*/
     {
         .sel = HC32_GPIO_P36_SEL,
         .port = HC32_GPIO_PORT3,
         .interrupt = HC32_GPIO_PORT3_INTERRUPT,
         .position = 6,
-        .index = 15}};
+        .index = 15,
+        .irq = PORT3_IRQn}};
 
 void gpio_configure(const gpio_port_descriptor_t *port, gpio_port_config_t cfg)
 {
@@ -128,6 +143,7 @@ void gpio_configure(const gpio_port_descriptor_t *port, gpio_port_config_t cfg)
     port->port->PD = ((port->port->PD & ~(1 << port->position)) | (cfg.pull_down << port->position));
     port->port->OD = ((port->port->OD & ~(1 << port->position)) | (cfg.gpio_mode << port->position));
     *(port->sel) = cfg.function;
+    nvic_configure_interrupt(port->irq, nvic_default_irq_priority, cfg.enable_interrupt);
 }
 
 uint8_t gpio_digital_read(const gpio_port_descriptor_t *port)
@@ -158,9 +174,9 @@ __read_only_data gpio_port_config_t gpio_digital_input = {
     .pull_down = 0,
     .gpio_mode = 0};
 
-gpio_port_handler_t *__port_handlers[16] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+gpio_port_handler_t __port_handlers[16] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
-void gpio_set_interrupt_handler(const gpio_port_descriptor_t *port, gpio_interrupt_config_t cfg, gpio_port_handler_t *handler)
+void gpio_set_interrupt_handler(const gpio_port_descriptor_t *port, gpio_interrupt_config_t cfg, gpio_port_handler_t handler)
 {
     port->port->HIE = cfg.interrupt_high;
     port->port->LIE = cfg.interrupt_low;
@@ -173,9 +189,13 @@ void __handle_gpio_interrupt(uint32_t low, uint32_t high)
 {
     for (uint32_t i = low; i <= high; i++)
     {
-        if (__port_handlers[i] != NULL && ((port_descriptors[i].interrupt->STAT & (0x01 << port_descriptors[i].position)) > 0))
+        if (((port_descriptors[i].interrupt->STAT & (0x01 << port_descriptors[i].position)) > 0))
         {
-            (*__port_handlers[i])(&port_descriptors[i]);
+            if (__port_handlers[i] != NULL)
+            {
+                (*__port_handlers[i])(&port_descriptors[i]);
+            }
+            port_descriptors[i].interrupt->ICLR &= ~(1 << port_descriptors[i].position);
         }
     }
 }
@@ -183,18 +203,22 @@ void __handle_gpio_interrupt(uint32_t low, uint32_t high)
 void GpioPort0_Handler(void)
 {
     __handle_gpio_interrupt(0, 2);
+    NVIC_ClearPendingIRQ(PORT0_IRQn);
 }
 void GpioPort1_Handler(void)
 {
     __handle_gpio_interrupt(3, 4);
+    NVIC_ClearPendingIRQ(PORT1_IRQn);
 }
 void GpioPort2_Handler(void)
 {
     __handle_gpio_interrupt(5, 9);
+    NVIC_ClearPendingIRQ(PORT2_IRQn);
 }
 void GpioPort3_Handler(void)
 {
     __handle_gpio_interrupt(10, 15);
+    NVIC_ClearPendingIRQ(PORT3_IRQn);
 }
 void peripheral_enable_gpio()
 {

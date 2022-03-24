@@ -32,6 +32,6 @@ void basic_timer_configure(const void *timer, const basic_timer_config_t *cfg, c
 void basic_timer_interrupt_clear(const void *timer);
 uint8_t basic_timer_interrupt_get(const void *timer);
 void basic_timer_set_running(const void *timer, uint8_t enabled);
-
+#define peripheral_enable_basic_timer() peripheral_set_enabled(peripheral_get_enabled() | peripheral_base_timer | peripheral_lptimer)
 
 #endif

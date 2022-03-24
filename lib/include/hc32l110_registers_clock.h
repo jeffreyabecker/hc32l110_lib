@@ -156,13 +156,13 @@ typedef struct
 #define CLOCK_TRIM_LOW_38_4_khz ((uint32_t)(*((volatile uint16_t *)(0x00100C20ul))) * 1000)
 #define CLOCK_TRIM_LOW_32_8_khz ((uint32_t)(*((volatile uint16_t *)(0x00100C22ul))) * 1000)
 #define MAX_SYSTICK_VALUE 0x007FFFFFUL
-#define khz32_8 32800
-#define khz38_4 38400
-#define mhz4 4000000
-#define mhz8 8000000
-#define mhz16 16000000
-#define mhz22_12 22120000
-#define mhz24 24000000
-
+#define KHz_32_8 32800
+#define KHz_38_4 38400
+#define MHz_4 4000000
+#define MHz_8 8000000
+#define MHz_16 16000000
+#define MHz_22_12 22120000
+#define MHz_24 24000000
+#define KHz_1 1000
 
 #endif

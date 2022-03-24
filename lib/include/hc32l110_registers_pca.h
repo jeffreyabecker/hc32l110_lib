@@ -26,11 +26,6 @@ typedef struct
 
 typedef struct
 {
-    volatile uint32_t CNT : 16;
-} pca_cnt_field_t;
-
-typedef struct
-{
     volatile uint32_t CCF0 : 1;
     volatile uint32_t CCF1 : 1;
     volatile uint32_t CCF2 : 1;
@@ -53,15 +48,6 @@ typedef struct
 
 typedef struct
 {
-    volatile uint32_t CCAPO0 : 1;
-    volatile uint32_t CCAPO1 : 1;
-    volatile uint32_t CCAPO2 : 1;
-    volatile uint32_t CCAPO3 : 1;
-    volatile uint32_t CCAPO4 : 1;
-} pca_ccapo_field_t;
-
-typedef struct
-{
     union
     {
         volatile uint32_t CCON;
@@ -80,55 +66,22 @@ typedef struct
         volatile uint32_t ICLR;
         pca_iclr_field_t ICLR_f;
     };
-    union
-    {
-        volatile uint32_t CCAPM0;
-        pca_ccapmx_field_t CCAPM0_f;
-    };
-    union
-    {
-        volatile uint32_t CCAPM1;
-        pca_ccapmx_field_t CCAPM1_f;
-    };
-    union
-    {
-        volatile uint32_t CCAPM2;
-        pca_ccapmx_field_t CCAPM2_f;
-    };
-    union
-    {
-        volatile uint32_t CCAPM3;
-        pca_ccapmx_field_t CCAPM3_f;
-    };
-    union
-    {
-        volatile uint32_t CCAPM4;
-        pca_ccapmx_field_t CCAPM4_f;
-    };
-    volatile uint32_t CCAP0H;
-    volatile uint32_t CCAP0L;
-    volatile uint32_t CCAP1H;
-    volatile uint32_t CCAP1L;
-    volatile uint32_t CCAP2H;
-    volatile uint32_t CCAP2L;
-    volatile uint32_t CCAP3H;
-    volatile uint32_t CCAP3L;
-    volatile uint32_t CCAP4H;
-    volatile uint32_t CCAP4L;
-    union
-    {
-        volatile uint32_t CCAPO;
-        pca_ccapo_field_t CCAPO_f;
-    };
 
-    volatile uint32_t CCAP0;
-    volatile uint32_t CCAP1;
-    volatile uint32_t CCAP2;
-    volatile uint32_t CCAP3;
-    volatile uint32_t CCAP4;
 } HC32_PCA_TypeDef;
 #define HC32_PCA ((HC32_PCA_TypeDef *)0x40001000UL)
+typedef struct
+{
+    uint32_t H;
+    uint32_t L;
+} pca_capture_high_low_list_t[5];
+typedef uint32_t pca_capture_list_t[5];
+typedef pca_ccapmx_field_t pca_mode_list_t[5];
 
+#define HC32_PCA_MODE
+#define HC32_PCA_MODULE_MODES ((pca_mode_list_t *)0x40001010UL)
+#define HC32_PCA_CAPTURE_HIGH_LOW ((pca_capture_high_low_list_t *)0x40001024UL)
+#define HC32_PCA_CAPTURE (((pca_capture_list_t) *)0x40001050UL)
+#define HC32_PCA_HIGHSPEED_OUTPUT ((uint32_t *)0x4000104CUL)
 typedef enum
 {
     pcap4_source_pca_chx = 0,
@@ -137,15 +90,8 @@ typedef enum
     pcap4_source_lpuart_rxd = 3
 } pca_capture_source_t;
 
-typedef struct
-{
-    volatile pca_capture_source_t module_0_source : 2;
-    volatile pca_capture_source_t module_1_source : 2;
-    volatile pca_capture_source_t module_2_source : 2;
-    volatile pca_capture_source_t module_3_source : 2;
-    volatile pca_capture_source_t module_4_source : 2;
-} pca_capture_source_selection_t;
+typedef pca_capture_source_t pca_capture_source_list_t[5];
 
-#define HC32_PCA_CAPTURE_SOURCE ((pca_capture_source_selection_t *)0x40020F08UL)
-//
+#define HC32_PCA_CAPTURE_SOURCE ((pca_capture_source_list_t *)0x40020F08UL)
+
 #endif
