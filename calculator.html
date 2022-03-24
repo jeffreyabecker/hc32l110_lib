@@ -2,6 +2,19 @@
     <script>
         const UInt16_MaxValue = 0xFFFF;
         const UInt32_MaxValue = 0xFFFFFFFF;
+        class SystemClock{
+            constructor(){
+                this.baseClock = 4000000;
+                this.hclkDivider = 1;
+                this.pclkDivider = 1;
+            }
+            get hclk(){
+                return this.baseClock / this.hclkDivider;
+            }
+            get pclk(){
+                return this.hclk / this.pclkDivider;
+            }
+        }
         const $_ = document.querySelectorAll;
         const $ = document.querySelector;
         function updatePeripheralClock(){
@@ -20,13 +33,30 @@
 
     </script>
     <body>
-        <label for="SystemClock">Main System Clock</label><input id="SystemClock" name="SystemClock" type="number" value="4000000" />
-        <label for="PeripheralClockDivider">Peripheral Clock Divider</label>
-        <select id="PeripheralClockDivider" name="PeripheralClockDivider" onchange="updatePeripheralClock()">
-            <option value="1">None</option>
+        <h1>Configuration calculator for the HC32L110 series chips</h1>
+        <p>The HDSC HC32L110 series chips have a bunch of peripheral configuration options which are frankly difficult to understand. Many peripherals are tied to a multi-stage clock divider. 
+            These peripheals may also have their own input clock dividers which need to be accounted for to produce accurate results.</p>
+        <label for="SystemClock">Absolute System Clock Frequency</label><input id="SystemClock" name="SystemClock" type="number" value="4000000" />
+
+        <label for="SystemClockDivider">System Clock Divider</label>
+        <select id="SystemClockDivider" name="SystemClockDivider" onchange="updateSystemClock()">
+            <option value="1">None (SystemClock / 1)</option>
             <option value="2">System Clock / 2</option>
             <option value="4">System Clock / 4</option>
-            <option value="audi">System Clock / 8</option>
+            <option value="8">System Clock / 8</option>            
+            <option value="16">System Clock / 16</option>
+            <option value="32">System Clock / 32</option>
+            <option value="64">System Clock / 64</option>
+            <option value="128">System Clock / 128</option>                                  
+        </select>
+        
+
+        <label for="PeripheralClockDivider">Peripheral Clock Divider</label>
+        <select id="PeripheralClockDivider" name="PeripheralClockDivider" onchange="updatePeripheralClock()">
+            <option value="1">None (SystemClock / 1)</option>
+            <option value="2">System Clock / 2</option>
+            <option value="4">System Clock / 4</option>
+            <option value="8">System Clock / 8</option>
         </select>
         <label for="PeripheralClock">Peripheral Clock</label><input id="PeripheralClock" name="PeripheralClock" type="number" value="4000000" disabled/>
 
