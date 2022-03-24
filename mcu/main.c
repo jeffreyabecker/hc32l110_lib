@@ -8,7 +8,7 @@ int main()
 
     
     
-    core_enable_systick(KHz_1);
+    enable_systick(KHz_1);
     peripheral_enable_gpio();
 
     gpio_configure(gpio_port_p02, gpio_digital_output);
