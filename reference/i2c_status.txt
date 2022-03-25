@@ -1,0 +1,52 @@
+controller - transmitting
+===================================
+0x08: Start condition sent
+0x10: Repeated START sent
+0x18: SLA+W sent, ACK received
+0x20: SLA+W sent, non-ACK received
+0x28: Data in I2C_DATA has been sent, ACK has been received
+0x30: Data in I2C_DATA has been sent, non-ACK received
+0x38: Lost Arbitration on SLA+ Read or Write Data Bytes
+
+controller - receiving
+=======================
+0x08: Start condition sent
+0x10: Repeated START sent
+0x38: Lost Arbitration on SLA+ Read or Write Data Bytes
+0x40: SLA+R sent, ACK received
+0x48: SLA+R sent, non-ACK received
+0x50: Data bytes received, ACK returne
+0x58: Data bytes received, not ACK returned
+
+peripheral - receiving
+========================
+0x60: Received (matching itself) SLA+W; received ACK
+0x68: own SLA+W has been received; ACK has been returned
+0x78: general call address received; ACK returned
+0x80: The previous addressing used its own slave address; data bytes have been received; ACK has been returned
+0x88: The previous addressing used its own slave address; data bytes have been received; non-ACK has been returned
+0xA0: Received stop condition or repeated start condition
+
+peripheral - transmitting
+============================
+0xA8: Received its own SLA+R; ACK has been returned, data will be sent and the ACK bit will be received
+0xB0: Losing arbitration in SLA+ read and write when master; has received its own SLA+R; has returned ACK
+0xB8: Data sent; ACK received
+0xC0: Send data, receive non-ACK
+0xC8: The loaded data byte has been sent; ACK received
+
+broadcast mode
+======================
+0x70: The general call address (0x00) has been received; ACK has been received
+0x78: Arbitration lost in SLA+ read/write when mastering; general call address received; ACK returned
+0x90: The previous addressing used the general call address; data has been received; ACK has been returned
+0x98: The previous addressing used the general call address; data has been received; non-ACK has been returned
+0xA0: When statically addressed, a STOP condition or a repeated START condition is received
+
+MISC
+============
+0xF8: No Status -- si is equal to 0
+0x00: Error / bus in undefined state
+
+
+

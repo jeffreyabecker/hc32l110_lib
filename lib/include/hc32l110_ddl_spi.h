@@ -3,8 +3,8 @@
 #include <stdint.h>
 #include "hc32l110_registers_spi.h"
 #include "hc32l110_ddl_core.h"
+void peripheral_enable_spi();
 
-#define peripheral_enable_spi() peripheral_set_enabled(peripheral_get_enabled() | peripheral_spi)
 typedef enum
 {
     spi_participant_mode_peripheral = 0,

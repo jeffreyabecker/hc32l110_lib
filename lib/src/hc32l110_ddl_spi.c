@@ -3,6 +3,11 @@
 #include "hc32l110_ddl_core.h"
 #include "hc32l110_ddl_spi.h"
 
+void peripheral_enable_spi()
+{
+    peripheral_set_enabled(peripheral_get_enabled() | peripheral_spi);
+    nvic_configure_interrupt(SPI_IRQn, nvic_default_irq_priority, 1);
+}
 spi_interrupt_handler_t __handler = NULL;
 void spi_config(const spi_config_t *cfg, const spi_interrupt_handler_t handler)
 {
@@ -15,7 +20,6 @@ void spi_config(const spi_config_t *cfg, const spi_interrupt_handler_t handler)
     HC32_SPI->CR_f.CPHA = (cfg->clock_mode) & 0x01;
     HC32_SPI->CR_f.MODE = cfg->participant_mode;
     HC32_SPI->STAT = 0x00;
-    nvic_configure_interrupt(SPI_IRQn, nvic_default_irq_priority, cfg->enable_interrupt);
     HC32_SPI->CR_f.SPEN = 1;
 }
 
