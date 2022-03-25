@@ -13,6 +13,8 @@
         "hc32l110_registers_gpio.h": "c",
         "cstdint": "c",
         "stdint-gcc.h": "c",
-        "hc32l110_ddl_core.h": "c"
+        "hc32l110_ddl_core.h": "c",
+        "hc32l110_ddl_buffers.h": "c",
+        "hc32l110_ddl_uart.h": "c"
     }
 }

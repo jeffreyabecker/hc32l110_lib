@@ -18,7 +18,7 @@ void basic_timer_configure(const void *timer, const basic_timer_config_t *cfg, c
     if (((uint32_t)timer) == LPTIMER_ADDRESS)
     {
 
-        HC32_LPTIMER_TypeDef *l = timer;
+        hc32_lptimer_register_t *l = timer;
         l->control.mode = cfg->mode;
         l->control.low_power.clock_source = cfg->low_power_clock_source;
         l->control.tick_source = cfg->tick_source;
@@ -26,7 +26,7 @@ void basic_timer_configure(const void *timer, const basic_timer_config_t *cfg, c
         l->control.enable_gate = cfg->enable_gate;
         l->control.gate_polarity = cfg->gate_polarity;
         l->control.interrupt_enabled = cfg->interrupt_enabled;
-        (((HC32_BasicTimer_TypeDef *)timer)->interrupt_clear) = 0;
+        (((hc32_basic_timer_register_t *)timer)->interrupt_clear) = 0;
         if (cfg->mode == basic_timer_mode_one_shot)
         {
             l->count_16 = cfg->preload.oneshot;
@@ -40,7 +40,7 @@ void basic_timer_configure(const void *timer, const basic_timer_config_t *cfg, c
     else
     {
 
-        HC32_BasicTimer_TypeDef *t = timer;
+        hc32_basic_timer_register_t *t = timer;
 
         t->control.mode = cfg->mode;
         t->control.prescaler = cfg->prescaler;
@@ -49,7 +49,7 @@ void basic_timer_configure(const void *timer, const basic_timer_config_t *cfg, c
         t->control.enable_gate = cfg->enable_gate;
         t->control.gate_polarity = cfg->gate_polarity;
         t->control.interrupt_enabled = cfg->interrupt_enabled;
-        (((HC32_BasicTimer_TypeDef *)timer)->interrupt_clear) = 0;
+        (((hc32_basic_timer_register_t *)timer)->interrupt_clear) = 0;
         if (cfg->mode == basic_timer_mode_one_shot)
         {
             t->count_32 = cfg->preload.oneshot;
@@ -73,11 +73,11 @@ void basic_timer_interrupt_clear(const void *timer)
 {
     if (((uint32_t)timer) == LPTIMER_ADDRESS)
     {
-        (((HC32_LPTIMER_TypeDef *)timer)->interrupt_clear) = 0;
+        (((hc32_lptimer_register_t *)timer)->interrupt_clear) = 0;
     }
     else
     {
-        (((HC32_BasicTimer_TypeDef *)timer)->interrupt_clear) = 0;
+        (((hc32_basic_timer_register_t *)timer)->interrupt_clear) = 0;
     }
     NVIC_ClearPendingIRQ(__basic_timer_get_irq(timer));
 }
@@ -85,22 +85,22 @@ uint8_t basic_timer_interrupt_get(const void *timer)
 {
     if (((uint32_t)timer) == LPTIMER_ADDRESS)
     {
-        return (((HC32_LPTIMER_TypeDef *)timer)->interrupt_flag);
+        return (((hc32_lptimer_register_t *)timer)->interrupt_flag);
     }
     else
     {
-        return (((HC32_BasicTimer_TypeDef *)timer)->interrupt_flag);
+        return (((hc32_basic_timer_register_t *)timer)->interrupt_flag);
     }
 }
 void basic_timer_set_running(const void *timer, uint8_t enabled)
 {
     if (((uint32_t)timer) == LPTIMER_ADDRESS)
     {
-        (((HC32_LPTIMER_TypeDef *)timer)->control).timer_running = enabled;
+        (((hc32_lptimer_register_t *)timer)->control).timer_running = enabled;
     }
     else
     {
-        (((HC32_BasicTimer_TypeDef *)timer)->control).timer_running = enabled;
+        (((hc32_basic_timer_register_t *)timer)->control).timer_running = enabled;
     }
 }
 
