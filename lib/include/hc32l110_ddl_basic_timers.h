@@ -28,6 +28,7 @@ typedef struct
     } preload;
 } basic_timer_config_t;
 
+//todo complete the calculator and have it spit out 
 void basic_timer_configure(const void *timer, const basic_timer_config_t *cfg, const basic_timer_handler_t *callback);
 void basic_timer_interrupt_clear(const void *timer);
 uint8_t basic_timer_interrupt_get(const void *timer);

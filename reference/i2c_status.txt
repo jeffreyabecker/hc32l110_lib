@@ -18,14 +18,7 @@ controller - receiving
 0x50: Data bytes received, ACK returne
 0x58: Data bytes received, not ACK returned
 
-peripheral - receiving
-========================
-0x60: Received (matching itself) SLA+W; received ACK
-0x68: own SLA+W has been received; ACK has been returned
-0x78: general call address received; ACK returned
-0x80: The previous addressing used its own slave address; data bytes have been received; ACK has been returned
-0x88: The previous addressing used its own slave address; data bytes have been received; non-ACK has been returned
-0xA0: Received stop condition or repeated start condition
+
 
 peripheral - transmitting
 ============================
@@ -34,6 +27,15 @@ peripheral - transmitting
 0xB8: Data sent; ACK received
 0xC0: Send data, receive non-ACK
 0xC8: The loaded data byte has been sent; ACK received
+
+peripheral - receiving
+========================
+0x60: Received (matching itself) SLA+W; received ACK
+0x68: own SLA+W has been received; ACK has been returned
+0x78: general call address received; ACK returned
+0x80: The previous addressing used its own slave address; data bytes have been received; ACK has been returned
+0x88: The previous addressing used its own slave address; data bytes have been received; non-ACK has been returned
+0xA0: Received stop condition or repeated start condition
 
 broadcast mode
 ======================

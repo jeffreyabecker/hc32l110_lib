@@ -13,7 +13,7 @@ extern "C"
     extern uint32_t SystemCoreClock;
     extern uint32_t PeripheralCoreClock;
 
-    __WEAK void SystemInit(void);
+    void SystemInit(void);
 #ifdef __cplusplus
 }
 #endif

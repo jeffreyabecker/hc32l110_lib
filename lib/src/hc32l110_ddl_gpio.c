@@ -65,7 +65,7 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
     {
         .sel = HC32_GPIO_P25_SEL,
         .port = HC32_GPIO_PORT2,
-        .interrupt = HC32_GPIO_PORT2,
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
         .position = 6,
         .index = 7},
     /*port_p26*/

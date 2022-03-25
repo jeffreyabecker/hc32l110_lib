@@ -50,7 +50,7 @@ void VC1_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void LVD_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void FLASH_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void CLK_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void *vector_table[] __attribute__((section(".vectors"))) = {
+void *vector_table[] __attribute__((used, section(".vectors"))) = {
     &__StackTop,
     Reset_Handler,
     NMI_Handler,
@@ -93,7 +93,7 @@ void *vector_table[] __attribute__((section(".vectors"))) = {
     FLASH_Handler,
     CLK_Handler,
 };
-void Reset_Handler(void)
+ void Reset_Handler(void)
 {
     uint32_t *src, *dst;
 

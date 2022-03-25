@@ -2,7 +2,7 @@
 #include "hc32l110_ddl_gpio.h"
 
 // uint8_t state = 0;
-
+static  systick_counter_t counter;
 int main()
 {
 
@@ -21,9 +21,9 @@ int main()
 
     while (1)
     {
-        systick_delay(250);
+        systck_counter_delay(&counter, 250);
         gpio_digital_write(gpio_port_p02, 0);
-        systick_delay(250);
+        systck_counter_delay(&counter, 250);
         gpio_digital_write(gpio_port_p02, 1);
     }
 }

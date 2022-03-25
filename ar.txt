@@ -1,0 +1,40 @@
+Usage: arm-none-eabi-ar.exe [emulation options] [-]{dmpqrstx}[abcDfilMNoOPsSTuvV] [--plugin <name>] Unable to initialize device PRN
+[member-name] [count] archive-file file...
+       arm-none-eabi-ar.exe -M [<mri-script]
+ commands:
+  d            - delete file(s) from the archive
+  m[ab]        - move file(s) in the archive
+  p            - print file(s) found in the archive
+  q[f]         - quick append file(s) to the archive
+  r[ab][f][u]  - replace existing or insert new file(s) into the archive
+  s            - act as ranlib
+  t[O][v]      - display contents of the archive
+  x[o]         - extract file(s) from the archive
+ command specific modifiers:
+  [a]          - put file(s) after [member-name]
+  [b]          - put file(s) before [member-name] (same as [i])
+  [D]          - use zero for timestamps and uids/gids
+  [U]          - use actual timestamps and uids/gids (default)
+  [N]          - use instance [count] of name
+  [f]          - truncate inserted file names
+  [P]          - use full path names when matching
+  [o]          - preserve original dates
+  [O]          - display offsets of files in the archive
+  [u]          - only replace files that are newer than current archive contents
+ generic modifiers:
+  [c]          - do not warn if the library had to be created
+  [s]          - create an archive index (cf. ranlib)
+  [l <text> ]  - specify the dependencies of this library
+  [S]          - do not build a symbol table
+  [T]          - make a thin archive
+  [v]          - be verbose
+  [V]          - display the version number
+  @<file>      - read options from <file>
+  --target=BFDNAME - specify the target object format as BFDNAME
+  --output=DIRNAME - specify the output directory for extraction operations
+  --record-libdeps=<text> - specify the dependencies of this library
+ optional:
+  --plugin <p> - load the specified plugin
+ emulation options:
+  No emulation specific options
+arm-none-eabi-ar.exe: supported targets: elf32-littlearm elf32-littlearm-fdpic elf32-bigarm elf32-bigarm-fdpic elf32-little elf32-big srec symbolsrec verilog tekhex binary ihex plugin

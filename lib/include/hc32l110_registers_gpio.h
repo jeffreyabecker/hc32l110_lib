@@ -224,7 +224,7 @@ typedef enum
 typedef enum
 {
   gpio_mode_push_pull = 0,
-  gpio_open_drain = 1
+  gpio_mode_open_drain = 1
 } gpio_mode_t;
 typedef enum
 {

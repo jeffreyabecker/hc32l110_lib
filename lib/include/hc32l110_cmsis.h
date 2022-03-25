@@ -44,7 +44,7 @@
 #include <stdint.h>
 
 #define __read_only_data __attribute__((section(".rodata"))) const
-
+#define __used __attribute__((used))
 /* following defines should be used for structure members */
 #define __IM volatile const
 #define __OM volatile

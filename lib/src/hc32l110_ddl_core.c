@@ -3,49 +3,43 @@
 #include "hc32l110_ddl_core.h"
 #include "hc32l110_system.h"
 #include <stdint.h>
-volatile static uint32_t delay_tick_count = 0ul;
-volatile static uint32_t current_tick_count = 0ul;
 
+static systick_counter_t counter_list_head;
 
-void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled){
-  NVIC_ClearPendingIRQ(irq);
-  NVIC_SetPriority(irq, priority);
-  if(enabled){
-    NVIC_EnableIRQ(irq);
-  }
-  else{
-    NVIC_DisableIRQ(irq);
-  }
+void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled)
+{
+    NVIC_ClearPendingIRQ(irq);
+    NVIC_SetPriority(irq, priority);
+    if (enabled)
+    {
+        NVIC_EnableIRQ(irq);
+    }
+    else
+    {
+        NVIC_DisableIRQ(irq);
+    }
 }
-uint32_t systick_time_stince(uint32_t start){
-    if(!systick_is_running()){
+uint32_t systick_time_since(uint32_t start)
+{
+    if (!systick_is_running())
+    {
         return 0;
     }
-    uint32_t now = current_tick_count;
-    if(now < start){
+    uint32_t now = counter_list_head.count;
+    if (now < start)
+    {
         return now + (0xFFFFFFFF - start);
     }
-    else{
+    else
+    {
         return now - start;
     }
 }
 uint32_t systick_current_value()
 {
-    return current_tick_count;
+    return counter_list_head.count;
 }
 
-void systick_delay(uint32_t delay_ticks)
-{
-    if (systick_is_running())
-    {
-        delay_tick_count = 0;
-
-        while (delay_tick_count < delay_ticks)
-        {
-            __NOP();
-        }
-    }
-}
 __STATIC_FORCEINLINE void __clock_config_unlock(void)
 {
     HC32_CLOCK->SYSCTRL2 = 0x5A5A;
@@ -226,6 +220,16 @@ void set_system_clock(clock_sourcet source, uint32_t clock_frequency_hz, system_
         break;
     }
 }
+static void __systick_start()
+{
+    SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk |
+                    SysTick_CTRL_TICKINT_Msk |
+                    SysTick_CTRL_ENABLE_Msk;
+}
+static void __systick_stop()
+{
+    SysTick->CTRL &= ~(SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk);
+}
 void enable_systick(uint32_t systick_frequency_hz)
 {
 
@@ -237,19 +241,72 @@ void enable_systick(uint32_t systick_frequency_hz)
         {
             return;
         }
-        SysTick_Config(ticks);
+        SysTick->LOAD = (uint32_t)(ticks - 1UL); /* set reload register */
+        SysTick->VAL = 0UL;
+        nvic_enable_irq(SysTick_IRQn);
+        __systick_start();
     }
     else
     {
+        __systick_stop();
         peripheral_set_enabled(peripheral_get_enabled() & ~peripheral_systick);
-        SysTick->CTRL &= ~(SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk);
     }
 }
 void peripheral_set_enabled(peripheral_t peripheral) { HC32_CLOCK->peripheral_clock_enable = peripheral; }
 peripheral_t peripheral_get_enabled() { return HC32_CLOCK->peripheral_clock_enable; }
 
+void systick_counter_start(systick_counter_t *counter)
+{
+    if (counter == &counter_list_head)
+    {
+        return;
+    }
+    counter->count = 0;
+    counter->next = NULL;
+    systick_counter_t *last = &counter_list_head;
+    __systick_stop();
+    while (last->next != NULL)
+    {
+        last = last->next;
+    }
+    last->next = counter;
+    __systick_start();
+}
+uint32_t systick_counter_elapsed(systick_counter_t *counter)
+{
+    return counter->count;
+}
+void systick_counter_complete(systick_counter_t *counter)
+{
+    if (counter == &counter_list_head)
+    {
+        return;
+    }
+    systick_counter_t *last = &counter_list_head;
+    __systick_stop();
+    while (last->next != counter)
+    {
+        last = last->next;
+    }
+    last->next = counter->next;
+    counter->next = NULL;
+    counter->count = 0;
+    __systick_start();
+}
+void systck_counter_delay(systick_counter_t *counter, uint32_t ticks)
+{
+    while (counter->count < ticks)
+    {
+        __NOP();
+    }
+}
+
 void SysTick_Handler(void)
 {
-    delay_tick_count += 1;
-    current_tick_count += 1;
+    systick_counter_t *last = &counter_list_head;
+    while (last != NULL)
+    {
+        last->count++;
+        last = last->next;
+    }
 }
