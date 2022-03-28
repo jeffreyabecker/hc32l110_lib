@@ -33,7 +33,7 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .sel = HC32_GPIO_P14_SEL,
         .port = HC32_GPIO_PORT1,
         .interrupt = HC32_GPIO_PORT1_INTERRUPT,
-        .position = 5,
+        .position = 4,
         .index = 3,
         .irq = PORT1_IRQn},
     /*port_p15*/
@@ -41,7 +41,7 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .sel = HC32_GPIO_P15_SEL,
         .port = HC32_GPIO_PORT1,
         .interrupt = HC32_GPIO_PORT1_INTERRUPT,
-        .position = 6,
+        .position = 5,
         .index = 4,
         .irq = PORT1_IRQn},
 
@@ -50,7 +50,7 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .sel = HC32_GPIO_P23_SEL,
         .port = HC32_GPIO_PORT2,
         .interrupt = HC32_GPIO_PORT2_INTERRUPT,
-        .position = 4,
+        .position = 3,
         .index = 5,
         .irq = PORT2_IRQn},
     /*port_p24*/
@@ -58,7 +58,7 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .sel = HC32_GPIO_P24_SEL,
         .port = HC32_GPIO_PORT2,
         .interrupt = HC32_GPIO_PORT2_INTERRUPT,
-        .position = 5,
+        .position = 4,
         .index = 6,
         .irq = PORT2_IRQn},
     /*port_p25*/
@@ -66,14 +66,14 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .sel = HC32_GPIO_P25_SEL,
         .port = HC32_GPIO_PORT2,
         .interrupt = HC32_GPIO_PORT2_INTERRUPT,
-        .position = 6,
+        .position = 5,
         .index = 7},
     /*port_p26*/
     {
         .sel = HC32_GPIO_P26_SEL,
         .port = HC32_GPIO_PORT2,
         .interrupt = HC32_GPIO_PORT2_INTERRUPT,
-        .position = 7,
+        .position = 6,
         .index = 8,
         .irq = PORT2_IRQn},
     /*port_p27*/
@@ -81,7 +81,7 @@ __read_only_data gpio_port_descriptor_t port_descriptors[16] = {
         .sel = HC32_GPIO_P27_SEL,
         .port = HC32_GPIO_PORT2,
         .interrupt = HC32_GPIO_PORT2_INTERRUPT,
-        .position = 8,
+        .position = 7,
         .index = 9,
         .irq = PORT2_IRQn},
 

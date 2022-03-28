@@ -58,5 +58,6 @@ void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled);
 void systick_counter_start(systick_counter_t *counter);
 uint32_t systick_counter_elapsed(systick_counter_t *counter);
 void systick_counter_complete(systick_counter_t *counter);
-void systck_counter_delay(systick_counter_t *counter, uint32_t ticks);
+void systick_counter_delay(systick_counter_t *counter, uint32_t ticks);
+void systick_delay(uint32_t ticks);
 #endif

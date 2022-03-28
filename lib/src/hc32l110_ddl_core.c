@@ -4,8 +4,8 @@
 #include "hc32l110_system.h"
 #include <stdint.h>
 
-static systick_counter_t counter_list_head;
-
+void peripheral_set_enabled(peripheral_t peripheral) { HC32_CLOCK->peripheral_clock_enable = peripheral; }
+peripheral_t peripheral_get_enabled() { return HC32_CLOCK->peripheral_clock_enable; }
 void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled)
 {
     NVIC_ClearPendingIRQ(irq);
@@ -18,26 +18,6 @@ void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled)
     {
         NVIC_DisableIRQ(irq);
     }
-}
-uint32_t systick_time_since(uint32_t start)
-{
-    if (!systick_is_running())
-    {
-        return 0;
-    }
-    uint32_t now = counter_list_head.count;
-    if (now < start)
-    {
-        return now + (0xFFFFFFFF - start);
-    }
-    else
-    {
-        return now - start;
-    }
-}
-uint32_t systick_current_value()
-{
-    return counter_list_head.count;
 }
 
 __STATIC_FORCEINLINE void __clock_config_unlock(void)
@@ -252,9 +232,28 @@ void enable_systick(uint32_t systick_frequency_hz)
         peripheral_set_enabled(peripheral_get_enabled() & ~peripheral_systick);
     }
 }
-void peripheral_set_enabled(peripheral_t peripheral) { HC32_CLOCK->peripheral_clock_enable = peripheral; }
-peripheral_t peripheral_get_enabled() { return HC32_CLOCK->peripheral_clock_enable; }
 
+static systick_counter_t counter_list_head;
+uint32_t systick_time_since(uint32_t start)
+{
+    if (!systick_is_running())
+    {
+        return 0;
+    }
+    uint32_t now = counter_list_head.count;
+    if (now < start)
+    {
+        return now + (0xFFFFFFFF - start);
+    }
+    else
+    {
+        return now - start;
+    }
+}
+uint32_t systick_current_value()
+{
+    return counter_list_head.count;
+}
 void systick_counter_start(systick_counter_t *counter)
 {
     if (counter == &counter_list_head)
@@ -293,12 +292,23 @@ void systick_counter_complete(systick_counter_t *counter)
     counter->count = 0;
     __systick_start();
 }
-void systck_counter_delay(systick_counter_t *counter, uint32_t ticks)
+void systick_delay(uint32_t ticks){
+    systick_counter_t counter;
+    systick_counter_start(&counter);
+    while (counter.count < ticks)
+    {
+        __NOP();
+    }
+    systick_counter_complete(&counter);
+}
+void systick_counter_delay(systick_counter_t *counter, uint32_t ticks)
 {
+    systick_counter_start(counter);
     while (counter->count < ticks)
     {
         __NOP();
     }
+    systick_counter_complete(counter);
 }
 
 void SysTick_Handler(void)

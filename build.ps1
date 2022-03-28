@@ -8,4 +8,4 @@ arm-none-eabi-gcc.exe -T .\hc32l110x6.ld   .\mcu\hc32l110_boot.c .\mcu\main.c .\
 arm-none-eabi-objdump -S blink.elf > blink.elf.dump  
 # arm-none-eabi-readelf -a blink.elf > blink.elf.txt  
 arm-none-eabi-objcopy -O binary blink.elf blink.bin
-#C:\ode\HC32L.Download\HC32L.Download\bin\Debug\net6.0\HC32L.Download.exe .\blink.elf -p COM7
+C:\ode\HC32L.Download\HC32L.Download\bin\Debug\net6.0\HC32L.Download.exe .\blink.elf -p COM7
