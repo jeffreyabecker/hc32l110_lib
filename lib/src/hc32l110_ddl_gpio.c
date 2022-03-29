@@ -203,22 +203,22 @@ void __handle_gpio_interrupt(uint32_t low, uint32_t high)
 void GpioPort0_Handler(void)
 {
     __handle_gpio_interrupt(0, 2);
-    NVIC_ClearPendingIRQ(PORT0_IRQn);
+    nvic_clear_interrupt(PORT0_IRQn);
 }
 void GpioPort1_Handler(void)
 {
     __handle_gpio_interrupt(3, 4);
-    NVIC_ClearPendingIRQ(PORT1_IRQn);
+    nvic_clear_interrupt(PORT1_IRQn);
 }
 void GpioPort2_Handler(void)
 {
     __handle_gpio_interrupt(5, 9);
-    NVIC_ClearPendingIRQ(PORT2_IRQn);
+    nvic_clear_interrupt(PORT2_IRQn);
 }
 void GpioPort3_Handler(void)
 {
     __handle_gpio_interrupt(10, 15);
-    NVIC_ClearPendingIRQ(PORT3_IRQn);
+    nvic_clear_interrupt(PORT3_IRQn);
 }
 void peripheral_enable_gpio()
 {

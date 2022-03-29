@@ -29,7 +29,6 @@ __read_only_data static gpio_port_config_t i2c_port_setup = {
     .pull_up = gpio_pullup_enable,
     .pull_down = gpio_pulldown_disable,
     .gpio_mode = gpio_mode_open_drain,
-
 };
 void peripheral_enable_i2c(i2c_on_port_t on_port)
 {

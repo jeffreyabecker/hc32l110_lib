@@ -50,6 +50,10 @@ void set_system_clock(clock_sourcet source, uint32_t clock_frequency_hz, system_
 void enable_systick(uint32_t systick_frequency_hz);
 
 void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled);
+void nvic_clear_interrupt(IRQn_Type IRQn);
+void nvic_set_interrupt_priority(IRQn_Type IRQn, uint32_t priority);
+void nvic_enable_interrupt(IRQn_Type IRQn);
+void nvic_disable_interrupt(IRQn_Type IRQn);
 #define nvic_default_irq_priority 0x03
 #define nvic_enable_irq(irq) nvic_configure_interrupt(irq, nvic_default_irq_priority, 1)
 #define nvic_disable_irq(irq) nvic_configure_interrupt(irq, nvic_default_irq_priority, 0)

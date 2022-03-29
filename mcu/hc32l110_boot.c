@@ -1,8 +1,8 @@
 #include <stdint.h>
 #include <hc32l110_system.h>
 #include "hc32l110_registers_clock.h"
-uint32_t SystemCoreClock;
-uint32_t PeripheralCoreClock;
+extern uint32_t SystemCoreClock;
+extern uint32_t PeripheralCoreClock;
 
 extern uint32_t __etext;
 extern uint32_t __StackTop;

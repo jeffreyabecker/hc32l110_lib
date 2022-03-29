@@ -68,13 +68,7 @@ uint32_t rtc_now_seconds();
 
 void rtc_alarm_set(uint8_t hour, uint8_t minute, rtc_day_of_week_t days_of_week);
 void rtc_time_set(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);
-__STATIC_FORCEINLINE void rtc_set_running(rtc_enabled_t enabled)
-{
-    HC32_RTC->control.START = enabled;
-}
-__STATIC_FORCEINLINE void rtc_alarm_interrupt_enable(rtc_enabled_t enabled)
-{
-    HC32_RTC->control.alarm_interrupt_enabled = enabled;
-}
+void rtc_set_running(rtc_enabled_t enabled);
+void rtc_alarm_interrupt_enable(rtc_enabled_t enabled);
 #define peripheral_enable_rtc peripheral_set_enabled(peripheral_get_enabled() | peripheral_rtc)
 #endif

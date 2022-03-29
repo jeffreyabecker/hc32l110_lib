@@ -39,9 +39,7 @@ void basic_timer_configure(const void *timer, const basic_timer_config_t *cfg, c
     }
     else
     {
-
         hc32_basic_timer_register_t *t = timer;
-
         t->control.mode = cfg->mode;
         t->control.prescaler = cfg->prescaler;
         t->control.tick_source = cfg->tick_source;
@@ -60,14 +58,7 @@ void basic_timer_configure(const void *timer, const basic_timer_config_t *cfg, c
             t->count_16 = cfg->preload.periodic.preload;
         }
     }
-    if (cfg->interrupt_enabled)
-    {
-        NVIC_EnableIRQ(__basic_timer_get_irq(timer));
-    }
-    else
-    {
-        NVIC_DisableIRQ(__basic_timer_get_irq(timer));
-    }
+    nvic_configure_interrupt(__basic_timer_get_irq(timer), nvic_default_irq_priority, cfg->interrupt_enabled);
 }
 void basic_timer_interrupt_clear(const void *timer)
 {
@@ -79,7 +70,7 @@ void basic_timer_interrupt_clear(const void *timer)
     {
         (((hc32_basic_timer_register_t *)timer)->interrupt_clear) = 0;
     }
-    NVIC_ClearPendingIRQ(__basic_timer_get_irq(timer));
+    nvic_clear_interrupt(__basic_timer_get_irq(timer));
 }
 uint8_t basic_timer_interrupt_get(const void *timer)
 {
@@ -110,6 +101,8 @@ void Timer0_Handler(void)
     {
         (*__timer_handlers[0])(HC32_TIMER0);
     }
+    HC32_TIMER0->interrupt_clear = 0;
+    nvic_clear_interrupt(TIM0_IRQn);
 }
 void Timer1_Handler(void)
 {
@@ -117,6 +110,8 @@ void Timer1_Handler(void)
     {
         (*__timer_handlers[1])(HC32_TIMER1);
     }
+    HC32_TIMER1->interrupt_clear = 0;
+    nvic_clear_interrupt(TIM1_IRQn);
 }
 void Timer2_Handler(void)
 {
@@ -124,6 +119,8 @@ void Timer2_Handler(void)
     {
         (*__timer_handlers[2])(HC32_TIMER2);
     }
+    HC32_TIMER2->interrupt_clear = 0;
+    nvic_clear_interrupt(TIM2_IRQn);
 }
 void LpTimer_Handler(void)
 {
@@ -131,4 +128,6 @@ void LpTimer_Handler(void)
     {
         (*__timer_handlers[3])(HC32_LPTIMER);
     }
+    HC32_LPTIMER->interrupt_clear = 0;
+    nvic_clear_interrupt(LPTIM_IRQn);
 }

@@ -3,20 +3,62 @@
 #include "hc32l110_ddl_core.h"
 #include "hc32l110_system.h"
 #include <stdint.h>
+uint32_t SystemCoreClock;
+uint32_t PeripheralCoreClock;
 
 void peripheral_set_enabled(peripheral_t peripheral) { HC32_CLOCK->peripheral_clock_enable = peripheral; }
 peripheral_t peripheral_get_enabled() { return HC32_CLOCK->peripheral_clock_enable; }
-void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled)
+void nvic_clear_interrupt(IRQn_Type IRQn)
 {
-    NVIC_ClearPendingIRQ(irq);
-    NVIC_SetPriority(irq, priority);
-    if (enabled)
+    if ((int32_t)(IRQn) >= 0)
     {
-        NVIC_EnableIRQ(irq);
+        NVIC->ICPR[0U] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+    }
+}
+void nvic_set_interrupt_priority(IRQn_Type IRQn, uint32_t priority)
+{
+    if ((int32_t)(IRQn) >= 0)
+    {
+        NVIC->IP[_IP_IDX(IRQn)] = ((uint32_t)(NVIC->IP[_IP_IDX(IRQn)] & ~(0xFFUL << _BIT_SHIFT(IRQn))) |
+                                   (((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL) << _BIT_SHIFT(IRQn)));
     }
     else
     {
-        NVIC_DisableIRQ(irq);
+        SCB->SHP[_SHP_IDX(IRQn)] = ((uint32_t)(SCB->SHP[_SHP_IDX(IRQn)] & ~(0xFFUL << _BIT_SHIFT(IRQn))) |
+                                    (((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL) << _BIT_SHIFT(IRQn)));
+    }
+}
+
+void nvic_enable_interrupt(IRQn_Type IRQn)
+{
+    if ((int32_t)(IRQn) >= 0)
+    {
+        __COMPILER_BARRIER();
+        NVIC->ISER[0U] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+        __COMPILER_BARRIER();
+    }
+}
+void nvic_disable_interrupt(IRQn_Type IRQn)
+{
+    if ((int32_t)(IRQn) >= 0)
+    {
+        NVIC->ICER[0U] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+        __DSB();
+        __ISB();
+    }
+}
+
+void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled)
+{
+    nvic_clear_interrupt(irq);
+    nvic_set_interrupt_priority(irq, priority);
+    if (enabled)
+    {
+        nvic_enable_interrupt(irq);
+    }
+    else
+    {
+        nvic_disable_interrupt(irq);
     }
 }
 
@@ -292,7 +334,8 @@ void systick_counter_complete(systick_counter_t *counter)
     counter->count = 0;
     __systick_start();
 }
-void systick_delay(uint32_t ticks){
+void systick_delay(uint32_t ticks)
+{
     systick_counter_t counter;
     systick_counter_start(&counter);
     while (counter.count < ticks)
