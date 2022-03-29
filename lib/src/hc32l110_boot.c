@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include <hc32l110_system.h>
+#include "hc32l110_system.h"
 #include "hc32l110_registers_clock.h"
 extern uint32_t SystemCoreClock;
 extern uint32_t PeripheralCoreClock;
@@ -93,7 +93,7 @@ void *vector_table[] __attribute__((used, section(".vectors"))) = {
     FLASH_Handler,
     CLK_Handler,
 };
- void Reset_Handler(void)
+__attribute__((used)) void Reset_Handler(void)
 {
     uint32_t *src, *dst;
 
