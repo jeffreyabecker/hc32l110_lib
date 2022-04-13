@@ -27,7 +27,15 @@ void basic_timer_configure(hc32_basic_timer_register_t *timer, const basic_timer
         timer->auto_reload = cfg->reload;
         timer->count_16 = cfg->reload;
     }
-    nvic_configure_interrupt(__basic_timer_get_irq(timer), nvic_default_irq_priority, cfg->interrupt_enabled);
+    IRQn_Type irq = __basic_timer_get_irq(timer);
+    if(cfg->interrupt_enabled){
+        nvic_set_interrupt_priority(irq, nvic_default_irq_priority);
+        nvic_enable_interrupt(irq);
+    }
+    else{
+        nvic_disable_interrupt(irq);
+    }
+    
 }
 
 void basic_timer_set_running(hc32_basic_timer_register_t *timer, uint8_t enabled)
@@ -35,7 +43,7 @@ void basic_timer_set_running(hc32_basic_timer_register_t *timer, uint8_t enabled
     timer->control.timer_running = enabled;
 }
 
-void TIM0_Handler(void)
+void IRQ14_Handler (void)
 {
     debug_print("timer0_interrupt\n");
     if (__timer_handlers[0] != NULL)
@@ -45,7 +53,7 @@ void TIM0_Handler(void)
     HC32_TIMER0->interrupt_clear = 0;
     nvic_clear_interrupt(TIM0_IRQn);
 }
-void TIM1_Handler(void)
+void IRQ15_Handler (void)
 {
     debug_print("timer1_interrupt\n");
     if (__timer_handlers[1] != NULL)
@@ -55,7 +63,7 @@ void TIM1_Handler(void)
     HC32_TIMER1->interrupt_clear = 0;
     nvic_clear_interrupt(TIM1_IRQn);
 }
-void TIM2_Handler(void)
+void IRQ16_Handler (void)
 {
     debug_print("timer1_interrupt\n");
     if (__timer_handlers[2] != NULL)

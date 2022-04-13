@@ -143,7 +143,14 @@ void gpio_configure(const gpio_port_descriptor_t *port, gpio_port_config_t cfg)
     port->port->PD = ((port->port->PD & ~(1 << port->position)) | (cfg.pull_down << port->position));
     port->port->OD = ((port->port->OD & ~(1 << port->position)) | (cfg.gpio_mode << port->position));
     *(port->sel) = cfg.function;
-    nvic_configure_interrupt(port->irq, nvic_default_irq_priority, cfg.enable_interrupt);
+    
+    if(cfg.enable_interrupt){
+        nvic_set_interrupt_priority(port->irq, nvic_default_irq_priority);
+        nvic_enable_interrupt(port->irq);
+    }
+    else{
+        nvic_disable_interrupt(port->irq);
+    }
 }
 
 uint8_t gpio_digital_read(const gpio_port_descriptor_t *port)
@@ -200,26 +207,26 @@ void __handle_gpio_interrupt(uint32_t low, uint32_t high)
     }
 }
 
-// void IRQ00_Handler(void)
-// {
-//     __handle_gpio_interrupt(0, 2);
-//     nvic_clear_interrupt(PORT0_IRQn);
-// }
-// void IRQ01_Handler(void)
-// {
-//     __handle_gpio_interrupt(3, 4);
-//     nvic_clear_interrupt(PORT1_IRQn);
-// }
-// void IRQ02_Handler(void)
-// {
-//     __handle_gpio_interrupt(5, 9);
-//     nvic_clear_interrupt(PORT2_IRQn);
-// }
-// void IRQ03_Handler(void)
-// {
-//     __handle_gpio_interrupt(10, 15);
-//     nvic_clear_interrupt(PORT3_IRQn);
-// }
+void IRQ00_Handler(void)
+{
+    __handle_gpio_interrupt(0, 2);
+    nvic_clear_interrupt(PORT0_IRQn);
+}
+void IRQ01_Handler(void)
+{
+    __handle_gpio_interrupt(3, 4);
+    nvic_clear_interrupt(PORT1_IRQn);
+}
+void IRQ02_Handler(void)
+{
+    __handle_gpio_interrupt(5, 9);
+    nvic_clear_interrupt(PORT2_IRQn);
+}
+void IRQ03_Handler(void)
+{
+    __handle_gpio_interrupt(10, 15);
+    nvic_clear_interrupt(PORT3_IRQn);
+}
 void peripheral_enable_gpio()
 {
 

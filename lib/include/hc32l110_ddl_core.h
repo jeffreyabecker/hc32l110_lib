@@ -19,10 +19,10 @@ peripheral_t peripheral_get_enabled();
 
 
 
-void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled);
-void nvic_clear_interrupt(IRQn_Type IRQn);
-void nvic_enable_interrupt(IRQn_Type IRQn);
-void nvic_disable_interrupt(IRQn_Type IRQn);
+void nvic_clear_interrupt(IRQn_Type irq);
+void nvic_enable_interrupt(IRQn_Type irq);
+void nvic_disable_interrupt(IRQn_Type irq);
+void nvic_set_interrupt_priority(IRQn_Type irq, uint8_t priority);
 #define nvic_default_irq_priority 0x03
 
 

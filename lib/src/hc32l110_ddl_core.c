@@ -21,20 +21,8 @@ void nvic_disable_interrupt(IRQn_Type irq)
 {
     NVIC_DisableIRQ(irq);
 }
-
-void nvic_configure_interrupt(IRQn_Type irq, uint8_t priority, uint8_t enabled)
-{
-    nvic_clear_interrupt(irq);
+void nvic_set_interrupt_priority(IRQn_Type irq, uint8_t priority){
     NVIC_SetPriority(irq, priority);
-
-    if (enabled)
-    {
-        nvic_enable_interrupt(irq);
-    }
-    else
-    {
-        nvic_disable_interrupt(irq);
-    }
 }
 
 static void __systick_start()

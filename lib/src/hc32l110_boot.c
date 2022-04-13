@@ -141,6 +141,7 @@ __WEAK void SystemInit(void)
     // disable all the peripherals
     *((uint32_t *)0x40002000UL) = 0x00000000;
     SystemCoreClock = MHz_4;
+    PeripheralCoreClock = MHz_4;
 }
 
 void Dummy_Handler(void)
