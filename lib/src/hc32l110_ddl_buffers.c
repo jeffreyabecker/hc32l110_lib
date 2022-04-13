@@ -8,7 +8,13 @@ typedef struct
 } ring_buffer_header_t;
 #define buffer_header(BUFFER) ((ring_buffer_header_t *)BUFFER)
 #define buffer_data(BUFFER) ((uint8_t *)((uint32_t)BUFFER + 4))
-void buffer_init(buffer_t *b, uint16_t declared_length)
+uint8_t buffer_remaining(buffer_t b){
+    return buffer_header(b)->length;
+}
+uint8_t buffer_available(buffer_t b){
+    return buffer_header(b)->size - buffer_header(b)->length;
+}
+void buffer_init(buffer_t b, uint16_t declared_length)
 {
 
     buffer_header(b)->r = 0;
@@ -22,7 +28,7 @@ void buffer_init(buffer_t *b, uint16_t declared_length)
         data[i] = 0x00;
     }
 }
-uint8_t buffer_append_byte(buffer_t *b, const uint8_t byte)
+uint8_t buffer_append_byte(buffer_t b, const uint8_t byte)
 {
     if (buffer_header(b)->length == buffer_header(b)->size)
     {
@@ -37,7 +43,7 @@ uint8_t buffer_append_byte(buffer_t *b, const uint8_t byte)
     }
     return 1;
 }
-uint8_t buffer_write(buffer_t *b, const uint8_t *data, uint8_t data_length)
+uint8_t buffer_write(buffer_t b, const uint8_t *data, uint8_t data_length)
 {
     uint8_t bytes_written = 0;
 
@@ -57,7 +63,7 @@ uint8_t buffer_write(buffer_t *b, const uint8_t *data, uint8_t data_length)
     }
     return bytes_written;
 }
-uint8_t buffer_read(buffer_t *b, uint8_t *data, uint8_t data_length)
+uint8_t buffer_read(buffer_t b, uint8_t *data, uint8_t data_length)
 {
     uint8_t bytes_read = 0;
 
@@ -77,7 +83,7 @@ uint8_t buffer_read(buffer_t *b, uint8_t *data, uint8_t data_length)
     }
     return bytes_read;
 }
-uint8_t buffer_get_byte(buffer_t *b, uint8_t *byte)
+uint8_t buffer_get_byte(buffer_t b, uint8_t *byte)
 {
     uint8_t bytes_read = 0;
 

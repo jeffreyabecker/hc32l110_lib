@@ -50,6 +50,17 @@ void VC1_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void LVD_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void FLASH_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void CLK_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ04_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ05_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ09_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ11_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ13_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ25_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ29_Handler(void) WEAK_ALIAS(Dummy_Handler);
+
+
+
+
 void *vector_table[] __attribute__((used, section(".vectors"))) = {
     &__StackTop,
     Reset_Handler,
@@ -71,11 +82,16 @@ void *vector_table[] __attribute__((used, section(".vectors"))) = {
     PORT1_Handler,
     PORT2_Handler,
     PORT3_Handler,
+    IRQ04_Handler,
+    IRQ05_Handler,
     UART0_Handler,
     UART1_Handler,
     LPUART_Handler,
+    IRQ09_Handler,
     SPI_Handler,
+    IRQ11_Handler,
     I2C_Handler,
+    IRQ13_Handler,
     TIM0_Handler,
     TIM1_Handler,
     TIM2_Handler,
@@ -87,9 +103,11 @@ void *vector_table[] __attribute__((used, section(".vectors"))) = {
     WDT_Handler,
     RTC_Handler,
     ADC_Handler,
+    IRQ25_Handler,
     VC0_Handler,
     VC1_Handler,
     LVD_Handler,
+    IRQ29_Handler,
     FLASH_Handler,
     CLK_Handler,
 };

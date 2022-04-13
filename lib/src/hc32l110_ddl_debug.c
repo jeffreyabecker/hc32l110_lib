@@ -3,36 +3,111 @@
 #include "hc32l110_registers_gpio.h"
 #include "hc32l110_registers_uart.h"
 #include "hc32l110_registers_basic_timers.h"
+#include "hc32l110_registers_clock.h"
+#include <stdarg.h>
 #include <stddef.h>
 void debug_init_uart()
 {
-
-    // UART0_TXD/P35, 9600bps
-    HC32_GPIO_PORT3->ADS &= ~(1 << 6);
-    HC32_GPIO_PORT3->DIR &= ~(1 << 6);
+    HC32_CLOCK->peripheral_clock_enable = HC32_CLOCK->peripheral_clock_enable | peripheral_uart0 | peripheral_basetim;
+    // UART0_TXD/P35, 19200bps
+    HC32_GPIO_PORT3->ADS &= 0xCF;
+    HC32_GPIO_PORT3->DIR &= 0xCF;
     *HC32_GPIO_P35_SEL = port_p35_uart0_txd;
+    *HC32_GPIO_P36_SEL = port_p36_uart0_rxd;
 
     HC32_TIMER0->control.timer_running = 0;
     HC32_TIMER0->control.tick_source = 0;
     HC32_TIMER0->control.mode = 1;
-    HC32_TIMER0->control.enable_inverted_output;
-    HC32_TIMER0->auto_reload = 65536 - PeripheralCoreClock * 2 / 9600 / 32;
+    HC32_TIMER0->control.enable_inverted_output = 1;
+    HC32_TIMER0->auto_reload = 65536 - (PeripheralCoreClock / (9600 * 32));
     HC32_TIMER0->count_16 = HC32_TIMER0->auto_reload;
     HC32_TIMER0->control.timer_running = 1;
-    HC32_UART0->control.double_baud_rate = 1;
+    HC32_UART0->control.double_baud_rate = 0;
     HC32_UART0->control.mode = 1;
 }
-
-void debug_print(uint8_t *str)
+void debug_putchar(char c)
 {
-    HC32_UART0->control.rx_enabled = 0;
-    while(*str != NULL){
+    HC32_UART1->control.rx_enabled = 0;
+    HC32_UART0->interrupt_clear.tx_complete_flag = 0;
+    HC32_UART0->buffer = c;
+    while (!HC32_UART0->interrupt_flags.tx_complete_flag)
+    {
+        __NOP();
+    }
+    HC32_UART0->interrupt_clear.tx_complete_flag = 0;
+}
+
+void debug_print(const char *str)
+{
+    HC32_UART1->control.rx_enabled = 0;
+    while ((*str) != '\0')
+    {
         HC32_UART0->interrupt_clear.tx_complete_flag = 0;
         HC32_UART0->buffer = *str;
-        while(!HC32_UART0->interrupt_flags.tx_complete_flag){
+        while (!HC32_UART0->interrupt_flags.tx_complete_flag)
+        {
             __NOP();
         }
         str++;
     }
     HC32_UART0->interrupt_clear.tx_complete_flag = 0;
 }
+void debug_printstr(const char *str)
+{
+    HC32_UART1->control.rx_enabled = 0;
+    while ((*str) != '\0')
+    {
+        HC32_UART0->interrupt_clear.tx_complete_flag = 0;
+        HC32_UART0->buffer = *str;
+        while (!HC32_UART0->interrupt_flags.tx_complete_flag)
+        {
+            __NOP();
+        }
+        str++;
+    }
+    HC32_UART0->interrupt_clear.tx_complete_flag = 0;
+}
+
+
+__read_only_data char digits[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+void debug_print_uint32(uint32_t val)
+{
+    char formatted[11] = {'0', 'x', '0', '0', '0', '0', '0', '0', '0', '0','\0'};
+
+    for (uint8_t i = 32; i > 0; i -= 4)
+    {
+        formatted[(8 - (i >> 2)) + 2] = digits[((val >> (i - 4)) & 0xF)];
+    }
+    debug_print(&(formatted[0]));
+}
+
+//supports %c, %i, %u, %x, %p, %s
+
+// void debug_printf(const char *format, ...)
+// {
+//   va_list argp;
+//   va_start(argp, format);
+//   while (*format != '\0') {
+//     if (*format == '%') {
+//       format++;
+//       if (*format == '%') {
+//         debug_putchar('%');
+//       } else if (*format == 'c') {
+//         char char_to_print = va_arg(argp, int);
+//         debug_putchar(char_to_print);
+//       }
+//       else if (*format == 's'){
+//           char* inner = (char*)va_arg(argp, int);
+//           debug_printstr(inner);
+//       }
+//       else {
+//         debug_printstr("Not implemented: %");
+//         debug_putchar(*format);
+//       }
+//     } else {
+//       debug_putchar(*format);
+//     }
+//     format++;
+//   }
+//   va_end(argp);
+// }

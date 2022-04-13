@@ -67,8 +67,8 @@ typedef struct
         pca_iclr_field_t ICLR_f;
     };
 
-} HC32_PCA_TypeDef;
-#define HC32_PCA ((HC32_PCA_TypeDef *)0x40001000UL)
+} hc32_pca_register_t;
+#define HC32_PCA ((hc32_pca_register_t *)0x40001000UL)
 typedef struct
 {
     uint32_t H;

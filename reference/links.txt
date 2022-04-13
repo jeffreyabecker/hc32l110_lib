@@ -8,3 +8,17 @@ http://mariobadr.com/creating-a-header-only-library-with-cmake.html
 
 http://cs107e.github.io/guides/gcc/
 
+
+
+pyocd gdbserver --target hc32l110 -Oconnect_mode=pre-reset
+
+0   STM32 STLink   52FF6D067880565340222467
+
+
+
+PS C:\ode> cd
+PS C:\Users\Jeffrey Becker> cd \ode\hc32l110
+PS C:\ode\hc32l110> pyocd load blink.bin --target hc32l110
+
+
+picoprobe 4-5 to swd pins

@@ -5,14 +5,14 @@
 
 typedef enum
 {
-  timer_prescaler_1_to_1 = 0,
-  timer_prescaler_2_to_1 = 1,
-  timer_prescaler_4_to_1 = 2,
-  timer_prescaler_8_to_1 = 3,
-  timer_prescaler_16_to_1 = 4,
-  timer_prescaler_32_to_1 = 5,
-  timer_prescaler_64_to_1 = 6,
-  timer_prescaler_256_to_1 = 7,
+  basic_timer_prescaler_1_to_1 = 0,
+  basic_timer_prescaler_2_to_1 = 1,
+  basic_timer_prescaler_4_to_1 = 2,
+  basic_timer_prescaler_8_to_1 = 3,
+  basic_timer_prescaler_16_to_1 = 4,
+  basic_timer_prescaler_32_to_1 = 5,
+  basic_timer_prescaler_64_to_1 = 6,
+  basic_timer_prescaler_256_to_1 = 7,
 } basic_timer_prescaler_t;
 
 typedef enum

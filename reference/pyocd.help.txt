@@ -1,0 +1,56 @@
+usage: pyocd gdbserver [-h] [-v] [-q] [-L LOGGERS=LEVEL] [--color [{always,auto,never}]] [-j PATH] [--config PATH] [--no-config] [--script PATH] [-O OPTION=VALUE] [-da DAPARG [DAPARG ...]] [--pack PATH] [-u UNIQUE_ID] [-t TARGET] [-f FREQUENCY] [-W] [-M MODE] [-p PORT]
+                       [-T PORT] [-R PORT] [-r] [--allow-remote] [--persist] [--core CORE_LIST] [--elf PATH] [-e {auto,chip,sector}] [--trust-crc] [-C VECTOR_CATCH] [-S] [--step-into-interrupts] [-c CMD [CMD ...]]
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+logging:
+  -v, --verbose         Increase logging level. Can be specified multiple times.
+  -q, --quiet           Decrease logging level. Can be specified multiple times.
+  -L LOGGERS=LEVEL, --log-level LOGGERS=LEVEL
+                        Set log level of loggers whose name matches any of the comma-separated list of glob-style patterns. Log level must be one of (critical, error, warning, info, debug). Can be specified multiple times. Example: -L*.trace,pyocd.core.*=debug
+  --color [{always,auto,never}]
+                        Control color logging. Default is auto.
+
+configuration:
+  -j PATH, --project PATH, --dir PATH
+                        Set the project directory. Defaults to the directory where pyocd was run.
+  --config PATH         Specify YAML configuration file. Defaults to pyocd.yaml or pyocd.yml in the project directory.
+  --no-config           Do not use a configuration file.
+  --script PATH         Use the specified user script. Defaults to pyocd_user.py in the project directory.
+  -O OPTION=VALUE       Set named option.
+  -da DAPARG [DAPARG ...], --daparg DAPARG [DAPARG ...]
+                        (Deprecated) Send setting to DAPAccess layer.
+  --pack PATH           Path to the .pack file for a CMSIS Device Family Pack.
+
+connection:
+  -u UNIQUE_ID, --uid UNIQUE_ID, --probe UNIQUE_ID
+                        Select the debug probe by its full or partial unique ID. Optionally prefixed with '<probe-type>:' where <probe-type> is the name of a probe plugin.
+  -t TARGET, --target TARGET
+                        Set the target type. See available target types with 'pyocd list --targets'.
+  -f FREQUENCY, --frequency FREQUENCY
+                        SWD/JTAG clock frequency in Hz. Accepts a float or int with optional case-insensitive K/M suffix and optional Hz. Examples: "1000", "2.5khz", "10m".
+  -W, --no-wait         Do not wait for a probe to be connected if none are available.
+  -M MODE, --connect MODE
+                        Select connect mode from one of (halt, pre-reset, under-reset, attach).
+
+gdbserver options:
+  -p PORT, --port PORT  Set starting port number for the GDB server (default 3333). Additional cores will have a port number of this parameter plus the core number.
+  -T PORT, --telnet-port PORT
+                        Specify starting telnet port for semihosting (default 4444).
+  -R PORT, --probe-server-port PORT
+                        Specify the port for the probe server (default 5555).
+  -r, --probe-server    Enable the probe server in addition to the GDB server.
+  --allow-remote        Allow remote TCP/IP connections (default is no).
+  --persist             Keep GDB server running even after remote has detached.
+  --core CORE_LIST      Comma-separated list of core numbers for which gdbservers will be created. Default is all cores.
+  --elf PATH            Optionally specify ELF file being debugged.
+  -e {auto,chip,sector}, --erase {auto,chip,sector}
+                        Choose flash erase method. Default is sector.
+  --trust-crc           Use only the CRC of each page to determine if it already has the same data.
+  -C VECTOR_CATCH, --vector-catch VECTOR_CATCH
+                        Enable vector catch sources, one letter per enabled source in any order, or 'all' or 'none'. (b=bus fault, c=check err, e=secure fault, h=hard fault, i=irq err, m=mem fault, p=nocp, r=reset, s=state err, a=all, n=none). Default is hard fault.        
+  -S, --semihosting     Enable semihosting.
+  --step-into-interrupts
+                        Allow single stepping to step into interrupts.
+  -c CMD [CMD ...], --command CMD [CMD ...]

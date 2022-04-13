@@ -15,6 +15,11 @@
         "stdint-gcc.h": "c",
         "hc32l110_ddl_core.h": "c",
         "hc32l110_ddl_buffers.h": "c",
-        "hc32l110_ddl_uart.h": "c"
+        "hc32l110_ddl_uart.h": "c",
+        "hc32l110_registers_basic_timers.h": "c",
+        "hc32l110_ddl_debug.h": "c",
+        "stdarg.h": "c",
+        "cstdarg": "c",
+        "hc32l110_cmsis.h": "c"
     }
 }
