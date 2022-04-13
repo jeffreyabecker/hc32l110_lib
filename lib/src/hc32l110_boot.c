@@ -17,6 +17,7 @@ extern int main(void);
 extern void SystemInit(void);
 
 #define WEAK_ALIAS(x) __attribute__((weak, alias(#x)))
+void Dummy_Handler(void);
 
 void Reset_Handler(void);
 void NMI_Handler(void) WEAK_ALIAS(Dummy_Handler);
@@ -24,42 +25,39 @@ void HardFault_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void SVC_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void PendSV_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void SysTick_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void Dummy_Handler(void);
-void PORT0_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void PORT1_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void PORT2_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void PORT3_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void UART0_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void UART1_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void LPUART_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void SPI_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void I2C_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void TIM0_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void TIM1_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void TIM2_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void LPTIM_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void TIM4_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void TIM5_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void TIM6_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void PCA_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void WDT_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void RTC_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void ADC_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void VC0_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void VC1_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void LVD_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void FLASH_Handler(void) WEAK_ALIAS(Dummy_Handler);
-void CLK_Handler(void) WEAK_ALIAS(Dummy_Handler);
+
+void IRQ00_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ01_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ02_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ03_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void IRQ04_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void IRQ05_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ06_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ07_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ08_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void IRQ09_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ10_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void IRQ11_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ12_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void IRQ13_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ14_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ15_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ16_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ17_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ18_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ19_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ20_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ21_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ22_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ23_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ24_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void IRQ25_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ26_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ27_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ28_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void IRQ29_Handler(void) WEAK_ALIAS(Dummy_Handler);
-
-
-
+void IRQ30_Handler(void) WEAK_ALIAS(Dummy_Handler);
+void IRQ31_Handler(void) WEAK_ALIAS(Dummy_Handler);
 
 void *vector_table[] __attribute__((used, section(".vectors"))) = {
     &__StackTop,
@@ -78,39 +76,38 @@ void *vector_table[] __attribute__((used, section(".vectors"))) = {
     0,
     PendSV_Handler,
     SysTick_Handler,
-    PORT0_Handler,
-    PORT1_Handler,
-    PORT2_Handler,
-    PORT3_Handler,
+    IRQ00_Handler,
+    IRQ01_Handler,
+    IRQ02_Handler,
+    IRQ03_Handler,
     IRQ04_Handler,
     IRQ05_Handler,
-    UART0_Handler,
-    UART1_Handler,
-    LPUART_Handler,
+    IRQ06_Handler,
+    IRQ07_Handler,
+    IRQ08_Handler,
     IRQ09_Handler,
-    SPI_Handler,
+    IRQ10_Handler,
     IRQ11_Handler,
-    I2C_Handler,
+    IRQ12_Handler,
     IRQ13_Handler,
-    TIM0_Handler,
-    TIM1_Handler,
-    TIM2_Handler,
-    LPTIM_Handler,
-    TIM4_Handler,
-    TIM5_Handler,
-    TIM6_Handler,
-    PCA_Handler,
-    WDT_Handler,
-    RTC_Handler,
-    ADC_Handler,
+    IRQ14_Handler,
+    IRQ15_Handler,
+    IRQ16_Handler,
+    IRQ17_Handler,
+    IRQ18_Handler,
+    IRQ19_Handler,
+    IRQ20_Handler,
+    IRQ21_Handler,
+    IRQ22_Handler,
+    IRQ23_Handler,
+    IRQ24_Handler,
     IRQ25_Handler,
-    VC0_Handler,
-    VC1_Handler,
-    LVD_Handler,
+    IRQ26_Handler,
+    IRQ27_Handler,
+    IRQ28_Handler,
     IRQ29_Handler,
-    FLASH_Handler,
-    CLK_Handler,
-};
+    IRQ30_Handler,
+    IRQ31_Handler};
 __attribute__((used)) void Reset_Handler(void)
 {
     uint32_t *src, *dst;

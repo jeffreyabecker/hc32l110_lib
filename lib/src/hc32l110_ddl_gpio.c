@@ -200,26 +200,26 @@ void __handle_gpio_interrupt(uint32_t low, uint32_t high)
     }
 }
 
-void PORT0_Handler(void)
-{
-    __handle_gpio_interrupt(0, 2);
-    nvic_clear_interrupt(PORT0_IRQn);
-}
-void PORT1_Handler(void)
-{
-    __handle_gpio_interrupt(3, 4);
-    nvic_clear_interrupt(PORT1_IRQn);
-}
-void PORT2_Handler(void)
-{
-    __handle_gpio_interrupt(5, 9);
-    nvic_clear_interrupt(PORT2_IRQn);
-}
-void PORT3_Handler(void)
-{
-    __handle_gpio_interrupt(10, 15);
-    nvic_clear_interrupt(PORT3_IRQn);
-}
+// void IRQ00_Handler(void)
+// {
+//     __handle_gpio_interrupt(0, 2);
+//     nvic_clear_interrupt(PORT0_IRQn);
+// }
+// void IRQ01_Handler(void)
+// {
+//     __handle_gpio_interrupt(3, 4);
+//     nvic_clear_interrupt(PORT1_IRQn);
+// }
+// void IRQ02_Handler(void)
+// {
+//     __handle_gpio_interrupt(5, 9);
+//     nvic_clear_interrupt(PORT2_IRQn);
+// }
+// void IRQ03_Handler(void)
+// {
+//     __handle_gpio_interrupt(10, 15);
+//     nvic_clear_interrupt(PORT3_IRQn);
+// }
 void peripheral_enable_gpio()
 {
 
