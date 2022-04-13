@@ -55,6 +55,7 @@ int main()
     enable_systick(KHz_1);
     peripheral_enable_gpio();
     peripheral_set_enabled(peripheral_get_enabled() | peripheral_basetim);
+    nvic_configure_interrupt(TIM0_IRQn,nvic_default_irq_priority, 1);
 
     gpio_configure(gpio_port_p01, gpio_digital_output);
     gpio_configure(gpio_port_p02, gpio_digital_output);
