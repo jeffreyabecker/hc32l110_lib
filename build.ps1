@@ -22,7 +22,7 @@ arm-none-eabi-ar rcs .\lib\bin\libhc32l110_ddl_debug.a .\lib\bin\hc32l110_ddl_de
 
 remove-item .\lib\bin\*.o
 
-arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -ffreestanding -nostdlib -I.\lib\include  .\mcu\main.c -L.\lib\bin -lhc32l110_ddl_core -lhc32l110_ddl_gpio     -lgcc -T .\hc32l110x6.ld -o blink.elf
+arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -ffreestanding -nostdlib -I.\lib\include  .\mcu\main.c -L.\lib\bin -lhc32l110_ddl_core -lhc32l110_ddl_gpio -lhc32l110_ddl_basic_timers     -lgcc -T .\hc32l110x6.ld -o blink.elf
 
 arm-none-eabi-objcopy -O binary blink.elf blink.bin
 arm-none-eabi-objcopy -O ihex blink.elf blink.hex

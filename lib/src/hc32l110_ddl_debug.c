@@ -2,7 +2,7 @@
 #include "hc32l110_system.h"
 #include "hc32l110_registers_gpio.h"
 #include "hc32l110_registers_uart.h"
-#include "hc32l110_registers_basic_timers.h"
+#include "hc32l110_registers_bt.h"
 #include "hc32l110_registers_clock.h"
 #include <stdarg.h>
 #include <stddef.h>
@@ -15,13 +15,13 @@ void debug_init_uart()
     *HC32_GPIO_P35_SEL = port_p35_uart0_txd;
     *HC32_GPIO_P36_SEL = port_p36_uart0_rxd;
 
-    HC32_TIMER0->control.timer_running = 0;
-    HC32_TIMER0->control.tick_source = 0;
-    HC32_TIMER0->control.mode = 1;
-    HC32_TIMER0->control.enable_inverted_output = 1;
+    HC32_TIMER0->control_flags.timer_running = 0;
+    HC32_TIMER0->control_flags.clock_source = 0;
+    HC32_TIMER0->control_flags.mode = 1;
+    HC32_TIMER0->control_flags.toggle_enabled = 1;
     HC32_TIMER0->auto_reload = 65536 - (PeripheralCoreClock / (9600 * 32));
-    HC32_TIMER0->count_16 = HC32_TIMER0->auto_reload;
-    HC32_TIMER0->control.timer_running = 1;
+    HC32_TIMER0->count16 = HC32_TIMER0->auto_reload;
+    HC32_TIMER0->control_flags.timer_running = 1;
     HC32_UART0->control.double_baud_rate = 0;
     HC32_UART0->control.mode = 1;
 }

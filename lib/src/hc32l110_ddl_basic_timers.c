@@ -10,22 +10,23 @@ void basic_timer_configure(hc32_basic_timer_register_t *timer, const basic_timer
 {
     uint32_t index = __basic_timer_get_index(timer);
     __timer_handlers[index] = cfg->interrupt_enabled ? callback : NULL;
-    timer->control.mode = cfg->mode;
-    timer->control.prescaler = cfg->prescaler;
-    timer->control.tick_source = cfg->tick_source;
-    timer->control.enable_inverted_output = cfg->enable_inverted_output;
-    timer->control.enable_gate = cfg->enable_gate;
-    timer->control.gate_polarity = cfg->gate_polarity;
-    timer->control.interrupt_enabled = cfg->interrupt_enabled;
+
+    timer->control_flags.mode = cfg->mode;
+    timer->control_flags.prescaler = cfg->prescaler;
+    timer->control_flags.clock_source = cfg->tick_source;
+    timer->control_flags.toggle_enabled = cfg->enable_inverted_output;
+    timer->control_flags.gate_enabled = cfg->enable_gate;
+    timer->control_flags.gate_polarity = cfg->gate_polarity;
+    timer->control_flags.interrupt_enabled = cfg->interrupt_enabled;
     timer->interrupt_clear = 0;
     if (cfg->mode == basic_timer_mode_one_shot)
     {
-        timer->count_32 = cfg->reload;
+        timer->count32 = cfg->reload;
     }
     else
     {
         timer->auto_reload = cfg->reload;
-        timer->count_16 = cfg->reload;
+        timer->count16 = cfg->reload;
     }
     IRQn_Type irq = __basic_timer_get_irq(timer);
     if(cfg->interrupt_enabled){
@@ -40,12 +41,11 @@ void basic_timer_configure(hc32_basic_timer_register_t *timer, const basic_timer
 
 void basic_timer_set_running(hc32_basic_timer_register_t *timer, uint8_t enabled)
 {
-    timer->control.timer_running = enabled;
+    timer->control_flags.timer_running = enabled;
 }
 
 void IRQ14_Handler (void)
 {
-    debug_print("timer0_interrupt\n");
     if (__timer_handlers[0] != NULL)
     {
         (*__timer_handlers[0])(HC32_TIMER0);
@@ -55,7 +55,6 @@ void IRQ14_Handler (void)
 }
 void IRQ15_Handler (void)
 {
-    debug_print("timer1_interrupt\n");
     if (__timer_handlers[1] != NULL)
     {
         (*__timer_handlers[1])(HC32_TIMER1);
@@ -65,7 +64,6 @@ void IRQ15_Handler (void)
 }
 void IRQ16_Handler (void)
 {
-    debug_print("timer1_interrupt\n");
     if (__timer_handlers[2] != NULL)
     {
         (*__timer_handlers[2])(HC32_TIMER2);

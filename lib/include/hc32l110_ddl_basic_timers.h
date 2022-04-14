@@ -2,7 +2,7 @@
 #define __SYSTEM_HC32L110_DDL_BASIC_TIMERS_H__
 #include <stdint.h>
 #include <stddef.h>
-#include "hc32l110_registers_basic_timers.h"
+#include "hc32l110_registers_bt.h"
 typedef void (*basic_timer_handler_t)(hc32_basic_timer_register_t *timer);
 
 
