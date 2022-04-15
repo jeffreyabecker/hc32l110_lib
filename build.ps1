@@ -27,6 +27,7 @@ arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -ffreestanding -nostdlib -I.\lib\inclu
 arm-none-eabi-objcopy -O binary blink.elf blink.bin
 arm-none-eabi-objcopy -O ihex blink.elf blink.hex
 arm-none-eabi-objdump -S .\blink.elf > .\blink.elf.dump
+arm-none-eabi-readelf -a .\blink.elf > .\blink.elf.all
 
 C:\ode\HC32L.Download\HC32L.Download\bin\Debug\net6.0\hc32tool.exe download .\blink.elf COM7
 # C:\ode\HC32L.Download\HC32L.Download\bin\Debug\net6.0\hc32tool.exe download C:\ode\blinky2\Objects\blinky2.axf COM7

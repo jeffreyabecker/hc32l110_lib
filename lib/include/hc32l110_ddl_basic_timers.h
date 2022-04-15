@@ -8,7 +8,7 @@ typedef void (*basic_timer_handler_t)(hc32_basic_timer_register_t *timer);
 
 typedef struct
 {
-    basic_timer_type_t mode : 1;
+    basic_timer_mode_t mode : 1;
     basic_timer_source_t tick_source : 1;
     basic_timer_prescaler_t prescaler : 4;
     uint8_t enable_inverted_output : 1;

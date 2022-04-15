@@ -130,7 +130,7 @@ __attribute__((used)) void Reset_Handler(void)
     main();
     while (1)
     {
-        __asm volatile("wfi");
+        __NOP();
     }
 }
 
