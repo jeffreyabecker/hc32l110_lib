@@ -8,6 +8,8 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
+    __StackTop = ORIGIN(RAM) + LENGTH(RAM);
+
     .text :
     {
         KEEP(*(.vectors))
@@ -102,27 +104,6 @@ SECTIONS
         __HeapLimit = .;
     } > RAM
 
-    /* .stack_dummy section doesn't contains any symbols. It is only
-     * used for linker to calculate size of stack sections, and assign
-     * values to stack symbols later */
-    .stack_dummy (COPY):
-    {
-        KEEP(*(.stack*))
-    } > RAM
 
-    /* Set stack top to end of RAM, and stack limit move down by
-     * size of stack_dummy section */
-    __StackTop = ORIGIN(RAM) + LENGTH(RAM);
-    __StackLimit = __StackTop - SIZEOF(.stack_dummy);
-    PROVIDE(__stack = __StackTop);
-
-    /* Check if data + heap + stack exceeds RAM limit */
-    ASSERT(__StackLimit >= __HeapLimit, "region RAM overflowed with stack")
-    
-    /* Check if text sections + data exceeds FLASH limit */
-    DataInitFlashUsed = __bss_start__ - __data_start__;
-    CodeFlashUsed = __etext - ORIGIN(FLASH);
-    TotalFlashUsed = CodeFlashUsed + DataInitFlashUsed;
-    ASSERT(TotalFlashUsed <= LENGTH(FLASH), "region FLASH overflowed with .data and user data")
     
 }
