@@ -3,8 +3,11 @@
 #include "hc32l110_ddl_buffers.h"
 #include "hc32l110_ddl_gpio.h"
 #include "hc32l110_ddl_core.h"
-
-
+typedef enum
+{
+    i2c_operation_read = 1,
+    i2c_operation_write = 0,
+} i2c_operation_t;
 #define i2c_operation_complete() HC32_I2C->CR.SI
 #define i2c_get_status() HC32_I2C->status
 static uint8_t i2c_wait()
@@ -16,22 +19,12 @@ static uint8_t i2c_wait()
     return i2c_get_status();
 }
 
-__STATIC_FORCEINLINE i2c_controller_result_t i2c_controller_result(uint8_t status, uint8_t success, uint8_t recieved_ack, uint8_t bytes_processed)
-{
-    i2c_controller_result_t result = {
-        .recieved_ack = (recieved_ack ? 1 : 0),
-        .status = status,
-        .success = recieved_ack,
-        .bytes_processed = bytes_processed};
-    return result;
-}
-
 static i2c_controller_result_t i2c_controller_send_start()
 {
     HC32_I2C->CR.SI = 0;
     HC32_I2C->CR.STA = 1;
     uint8_t status = i2c_wait();
-    return i2c_controller_result(status, (status == 0x08 || status == 0x10), (status == 0x08 || status == 0x10), 0);
+    return (i2c_controller_result_t){status, (status == 0x08 || status == 0x10), (status == 0x08 || status == 0x10), 0};
 }
 static void i2c_controller_send_stop()
 {
@@ -47,11 +40,11 @@ static i2c_controller_result_t i2c_controller_send_address(uint8_t recipient, i2
     uint8_t status = i2c_wait();
     if (operation == i2c_operation_write)
     {
-        return i2c_controller_result(status, (status == 0x18 || status == 0x20), (status == 0x18), 0);
+        return (i2c_controller_result_t){status, (status == 0x18 || status == 0x20), (status == 0x18), 0};
     }
     else
     {
-        return i2c_controller_result(status, (status == 0x40 || status == 0x48), (status == 0x40), 0);
+        return (i2c_controller_result_t){status, (status == 0x40 || status == 0x48), (status == 0x40), 0};
     }
 }
 
@@ -74,7 +67,7 @@ i2c_controller_result_t i2c_controller_write(uint8_t peripheral, const uint8_t *
         HC32_I2C->DATA = data[i];
         HC32_I2C->CR.SI = 0;
         uint8_t status = i2c_wait();
-        result = i2c_controller_result(status, (status == 0x28 || status == 0x30), (status == 0x28), (status == 0x28) ? 1 : 0);
+        result = (i2c_controller_result_t){status, (status == 0x28 || status == 0x30), (status == 0x28), (status == 0x28) ? 1 : 0};
         if (!result.success || !result.recieved_ack)
         {
             result.success = 0;
@@ -112,7 +105,7 @@ i2c_controller_result_t i2c_controller_read(uint8_t peripheral, uint8_t *data, u
         HC32_I2C->CR.AA = (i < length - 1 ? 1 : 0);
         HC32_I2C->CR.SI = 0;
         uint8_t status = i2c_wait();
-        result = i2c_controller_result(status, (result.status == 0x50 || result.status == 0x58), HC32_I2C->CR.AA, bytes_processed);
+        result = (i2c_controller_result_t){status, (result.status == 0x50 || result.status == 0x58), HC32_I2C->CR.AA, bytes_processed};
         if (result.success)
         {
             bytes_processed++;
@@ -130,5 +123,4 @@ i2c_controller_result_t i2c_controller_read(uint8_t peripheral, uint8_t *data, u
     return result;
 }
 
-
-//TODO: this chip supports an i2c peripheral mode as well. It'd be neat to set up a ring-buffer & event driven api using the interrupt handlers
+// TODO: this chip supports an i2c peripheral mode as well. It'd be neat to set up a ring-buffer & event driven api using the interrupt handlers

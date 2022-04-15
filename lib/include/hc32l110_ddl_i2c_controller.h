@@ -4,15 +4,12 @@
 #include "hc32l110_system.h"
 #include "hc32l110_ddl_i2c_common.h"
 
-
-
-
 typedef struct
 {
-    uint8_t success : 1;
-    uint8_t recieved_ack : 1;
-    uint8_t status : 8;
-    uint8_t bytes_processed : 8;
+    uint8_t status;
+    uint8_t success;
+    uint8_t recieved_ack;
+    uint8_t bytes_processed;
 
 } i2c_controller_result_t;
 
