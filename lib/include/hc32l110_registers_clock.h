@@ -68,24 +68,24 @@ typedef struct
 typedef enum
 {
   peripheral_none = 0x00000000UL,
-peripheral_uart0 = 0x00000001, // 0
-peripheral_uart1 = 0x00000002, // 1
-peripheral_lpuart = 0x00000004, // 2
-peripheral_i2c = 0x00000010, // 4
-peripheral_spi = 0x00000040, // 6
-peripheral_basetim = 0x00000100, // 8
-peripheral_lptim = 0x00000200, // 9
-peripheral_advtim = 0x00000400, // 10
-peripheral_pca = 0x00004000, // 14
-peripheral_wdt = 0x00008000, // 15
-peripheral_adc = 0x00010000, // 16
-peripheral_vc = 0x00020000, // 17
-peripheral_rtc = 0x00100000, // 20
-peripheral_trim = 0x00200000, // 21
-peripheral_tick = 0x01000000, // 24
-peripheral_crc = 0x04000000, // 26
-peripheral_gpio = 0x10000000, // 28
-peripheral_flash = 0x80000000, // 31
+  peripheral_uart0 = 0x00000001,   // 0
+  peripheral_uart1 = 0x00000002,   // 1
+  peripheral_lpuart = 0x00000004,  // 2
+  peripheral_i2c = 0x00000010,     // 4
+  peripheral_spi = 0x00000040,     // 6
+  peripheral_basetim = 0x00000100, // 8
+  peripheral_lptim = 0x00000200,   // 9
+  peripheral_advtim = 0x00000400,  // 10
+  peripheral_pca = 0x00004000,     // 14
+  peripheral_wdt = 0x00008000,     // 15
+  peripheral_adc = 0x00010000,     // 16
+  peripheral_vc = 0x00020000,      // 17
+  peripheral_rtc = 0x00100000,     // 20
+  peripheral_trim = 0x00200000,    // 21
+  peripheral_tick = 0x01000000,    // 24
+  peripheral_crc = 0x04000000,     // 26
+  peripheral_gpio = 0x10000000,    // 28
+  peripheral_flash = 0x80000000,   // 31
 } peripheral_t;
 
 typedef struct
@@ -113,9 +113,10 @@ typedef struct
 
 typedef struct
 {
-  union{
-  clock_sysctrl0_field_t SYSCTRL0_f;
-  volatile uint32_t SYSCTRL0_r;
+  union
+  {
+    clock_sysctrl0_field_t SYSCTRL0_f;
+    volatile uint32_t SYSCTRL0_r;
   };
   clock_sysctrl1_field_t SYSCTRL1;
   volatile uint32_t SYSCTRL2;
@@ -130,6 +131,57 @@ typedef struct
   clock_debug_active_field_t DEBUG_ACTIVE_f;
 } HC32_CLOCK_TypeDef;
 #define HC32_CLOCK ((HC32_CLOCK_TypeDef *)0x40002000UL)
+
+typedef struct
+{
+  __IO uint32_t POR5V : 1;
+  __IO uint32_t POR15V : 1;
+  __IO uint32_t LVD : 1;
+  __IO uint32_t WDT : 1;
+  __IO uint32_t PCA : 1;
+  __IO uint32_t LOCKUP : 1;
+  __IO uint32_t SYSREQ : 1;
+  __IO uint32_t RSTB : 1;
+} stc_reset_reset_flag_field_t;
+
+typedef struct
+{
+  __IO uint32_t UART0 : 1;
+  __IO uint32_t UART1 : 1;
+  __IO uint32_t LPUART : 1;
+  uint32_t RESERVED3 : 1;
+  __IO uint32_t I2C : 1;
+  uint32_t RESERVED5 : 1;
+  __IO uint32_t SPI : 1;
+  uint32_t RESERVED7 : 1;
+  __IO uint32_t BASETIM : 1;
+  __IO uint32_t LPTIM : 1;
+  __IO uint32_t ADVTIM : 1;
+  uint32_t RESERVED11 : 3;
+  __IO uint32_t PCA : 1;
+  uint32_t RESERVED15 : 1;
+  __IO uint32_t ADC : 1;
+  __IO uint32_t VC : 1;
+  uint32_t RESERVED18 : 2;
+  __IO uint32_t RTC : 1;
+  __IO uint32_t TRIM : 1;
+  uint32_t RESERVED22 : 2;
+  __IO uint32_t TICK : 1;
+  uint32_t RESERVED25 : 1;
+  __IO uint32_t CRC : 1;
+  uint32_t RESERVED27 : 1;
+  __IO uint32_t GPIO : 1;
+} stc_reset_prei_reset_field_t;
+
+typedef struct
+{
+
+  stc_reset_reset_flag_field_t RESET_FLAG;
+  uint8_t RESERVED1[8];
+  stc_reset_prei_reset_field_t PREI_RESET;
+
+} hc32_reset_register_t;
+#define HC32_RESET ((hc32_reset_register_t *)0x4000201CUL)
 
 typedef struct
 {

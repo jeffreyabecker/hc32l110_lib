@@ -20,6 +20,7 @@
         "hc32l110_ddl_debug.h": "c",
         "stdarg.h": "c",
         "cstdarg": "c",
-        "hc32l110_cmsis.h": "c"
+        "hc32l110_cmsis.h": "c",
+        "hc32l110_ddl_i2c_common.h": "c"
     }
 }

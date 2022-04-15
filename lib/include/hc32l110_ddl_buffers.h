@@ -11,6 +11,7 @@ void buffer_init(buffer_t b, uint16_t declared_length);
 uint8_t buffer_write(buffer_t b, const uint8_t *data, uint8_t data_length);
 
 uint8_t buffer_read(buffer_t b, uint8_t *data, uint8_t data_length);
+uint8_t buffer_peek(buffer_t b, uint8_t *data, uint8_t data_length);
 uint8_t buffer_append_byte(buffer_t b, const uint8_t byte);
 uint8_t buffer_get_byte(buffer_t b, uint8_t *byte);
 uint8_t buffer_remaining(buffer_t b);

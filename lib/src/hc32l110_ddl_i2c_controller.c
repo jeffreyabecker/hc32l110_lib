@@ -1,49 +1,10 @@
-#include "hc32l110_ddl_i2c.h"
+#include "hc32l110_ddl_i2c_common.h"
+#include "hc32l110_ddl_i2c_controller.h"
 #include "hc32l110_ddl_buffers.h"
 #include "hc32l110_ddl_gpio.h"
 #include "hc32l110_ddl_core.h"
 
-typedef struct
-{
-    gpio_port_descriptor_t *sda;
-    gpio_port_descriptor_t *scl;
-    uint8_t function;
-} gpio_i2c_cfg_lookup_t;
 
-typedef enum
-{
-    i2c_operation_read = 1,
-    i2c_operation_write = 0,
-} i2c_operation_t;
-
-__read_only_data static gpio_i2c_cfg_lookup_t __port_configs[4] = {
-    {.sda = gpio_port_p01, .scl = gpio_port_p02, .function = 2},
-    {.sda = gpio_port_p15, .scl = gpio_port_p14, .function = 1},
-    {.sda = gpio_port_p25, .scl = gpio_port_p26, .function = 6},
-    {.sda = gpio_port_p35, .scl = gpio_port_p36, .function = 7},
-};
-__read_only_data static gpio_port_config_t i2c_port_setup = {
-    .direction = gpio_output,
-    .resolution = gpio_digital,
-    .drive_mode = gpio_drive_high,
-    .pull_up = gpio_pullup_enable,
-    .pull_down = gpio_pulldown_disable,
-    .gpio_mode = gpio_mode_open_drain,
-};
-void peripheral_enable_i2c(i2c_on_port_t on_port)
-{
-    if (on_port > 3)
-    {
-        return;
-    }
-    peripheral_set_enabled(peripheral_get_enabled() | peripheral_i2c);
-    gpio_port_config_t cfg = i2c_port_setup;
-    cfg.function = __port_configs[on_port].function;
-    gpio_configure(__port_configs[on_port].sda, cfg);
-    gpio_configure(__port_configs[on_port].scl, cfg);
-
-    HC32_I2C->CR.ENS = 1;
-}
 #define i2c_operation_complete() HC32_I2C->CR.SI
 #define i2c_get_status() HC32_I2C->status
 static uint8_t i2c_wait()
@@ -94,7 +55,7 @@ static i2c_controller_result_t i2c_controller_send_address(uint8_t recipient, i2
     }
 }
 
-i2c_controller_result_t i2c_controller_write(uint8_t recipient, const uint8_t *data, uint8_t length, uint8_t send_stop)
+i2c_controller_result_t i2c_controller_write(uint8_t peripheral, const uint8_t *data, uint8_t length, uint8_t send_stop)
 {
     i2c_controller_result_t result;
     uint8_t bytes_processed;
@@ -103,7 +64,7 @@ i2c_controller_result_t i2c_controller_write(uint8_t recipient, const uint8_t *d
     {
         return result;
     }
-    result = i2c_controller_send_address(recipient, i2c_operation_write);
+    result = i2c_controller_send_address(peripheral, i2c_operation_write);
     if (!result.success)
     {
         return result;
@@ -132,7 +93,7 @@ i2c_controller_result_t i2c_controller_write(uint8_t recipient, const uint8_t *d
     result.bytes_processed = bytes_processed;
     return result;
 }
-i2c_controller_result_t i2c_controller_read(uint8_t recipient, uint8_t *data, uint8_t length, uint8_t send_stop)
+i2c_controller_result_t i2c_controller_read(uint8_t peripheral, uint8_t *data, uint8_t length, uint8_t send_stop)
 {
     i2c_controller_result_t result;
     uint8_t bytes_processed;
@@ -141,7 +102,7 @@ i2c_controller_result_t i2c_controller_read(uint8_t recipient, uint8_t *data, ui
     {
         return result;
     }
-    result = i2c_controller_send_address(recipient, i2c_operation_read);
+    result = i2c_controller_send_address(peripheral, i2c_operation_read);
     if (!result.success)
     {
         return result;
