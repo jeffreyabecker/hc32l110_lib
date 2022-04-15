@@ -4,7 +4,7 @@
 extern uint32_t SystemCoreClock;
 extern uint32_t PeripheralCoreClock;
 
-extern uint32_t __etext;
+extern uint32_t __text_end__;
 extern uint32_t __StackTop;
 
 // defines start and end of .data section in RAM
@@ -110,21 +110,24 @@ void *vector_table[] __attribute__((used, section(".vectors"))) = {
     IRQ31_Handler};
 __attribute__((used)) void Reset_Handler(void)
 {
-    uint32_t *src, *dst;
+    uint8_t *src, *dst;
 
     // copy .data area
-    src = &__etext;
-    dst = &__data_start__;
-    while (dst < &__data_end__)
+    src = (uint8_t *)&__text_end__;
+    dst = (uint8_t *)&__data_start__;
+    while (dst < (uint8_t *)&__data_end__)
     {
-        *dst++ = *src++;
+        *dst = *src;
+        dst++;
+        src++;
     }
 
     // clear .bss area
-    dst = &__bss_start__;
-    while (dst < &__bss_end__)
+    dst = (uint8_t *)&__bss_start__;
+    while (dst < (uint8_t *)&__bss_end__)
     {
-        *dst++ = 0;
+        *dst = 0;
+        dst++;
     }
     SystemInit();
     main();

@@ -1,7 +1,7 @@
 #include "hc32l110_ddl_core.h"
 #include "hc32l110_ddl_gpio.h"
 #include "hc32l110_ddl_basic_timers.h"
-volatile uint32_t counter = 0x0000;//FFFF;
+volatile uint32_t counter = 0x0000FFFF; // FFFF;
 void handle_timer0_fired(hc32_basic_timer_register_t *timer)
 {
 
@@ -36,7 +36,7 @@ int main()
 
     while (1)
     {
-        if (counter < 0xFFFFFFFF)
+        if (counter > 0)
         {
             systick_delay(500);
             gpio_digital_write(gpio_port_p01, 1);

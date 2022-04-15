@@ -8,30 +8,29 @@ ELF Header:
   Type:                              EXEC (Executable file)
   Machine:                           ARM
   Version:                           0x1
-  Entry point address:               0xc1
+  Entry point address:               0x1b1
   Start of program headers:          52 (bytes into file)
-  Start of section headers:          73484 (bytes into file)
+  Start of section headers:          135680 (bytes into file)
   Flags:                             0x5000200, Version5 EABI, soft-float ABI
   Size of this header:               52 (bytes)
   Size of program headers:           32 (bytes)
   Number of program headers:         3
   Size of section headers:           40 (bytes)
-  Number of section headers:         11
-  Section header string table index: 10
+  Number of section headers:         10
+  Section header string table index: 9
 
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .text             PROGBITS        00000000 010000 000bd8 00  AX  0   0  4
-  [ 2] .rodata           PROGBITS        00000bd8 010bd8 00010e 00   A  0   0  4
-  [ 3] .bss              NOBITS          20000000 020000 000054 00  WA  0   0  4
-  [ 4] .stack            NOBITS          20000054 020054 000804 00  WA  0   0  1
-  [ 5] .comment          PROGBITS        00000000 010ce6 000049 01  MS  0   0  1
-  [ 6] .ARM.attributes   ARM_ATTRIBUTES  00000000 010d2f 00002c 00      0   0  1
-  [ 7] .debug_frame      PROGBITS        00000000 010d5c 000020 00      0   0  4
-  [ 8] .symtab           SYMTAB          00000000 010d7c 000b10 10      9  91  4
-  [ 9] .strtab           STRTAB          00000000 01188c 000622 00      0   0  1
-  [10] .shstrtab         STRTAB          00000000 011eae 00005b 00      0   0  1
+  [ 1] .text             PROGBITS        00000000 010000 000d3e 00  AX  0   0  4
+  [ 2] .data             PROGBITS        20000000 020000 000004 00  WA  0   0  4
+  [ 3] .bss              NOBITS          20000004 020004 000050 00  WA  0   0  4
+  [ 4] .comment          PROGBITS        00000000 020004 000049 01  MS  0   0  1
+  [ 5] .ARM.attributes   ARM_ATTRIBUTES  00000000 02004d 00002c 00      0   0  1
+  [ 6] .debug_frame      PROGBITS        00000000 02007c 000020 00      0   0  4
+  [ 7] .symtab           SYMTAB          00000000 02009c 000ae0 10      8  91  4
+  [ 8] .strtab           STRTAB          00000000 020b7c 00062f 00      0   0  1
+  [ 9] .shstrtab         STRTAB          00000000 0211ab 000052 00      0   0  1
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -42,14 +41,14 @@ There are no section groups in this file.
 
 Program Headers:
   Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
-  LOAD           0x010000 0x00000000 0x00000000 0x00ce6 0x00ce6 R E 0x10000
-  LOAD           0x000054 0x20000054 0x00000ce6 0x00000 0x00804 RW  0x10000
-  LOAD           0x000000 0x20000000 0x20000000 0x00000 0x00054 RW  0x10000
+  LOAD           0x010000 0x00000000 0x00000000 0x00d3e 0x00d3e R E 0x10000
+  LOAD           0x020000 0x20000000 0x00000d3e 0x00004 0x00004 RW  0x10000
+  LOAD           0x000004 0x20000004 0x00000d44 0x00000 0x00050 RW  0x10000
 
  Section to Segment mapping:
   Segment Sections...
-   00     .text .rodata 
-   01     .stack 
+   00     .text 
+   01     .data 
    02     .bss 
 
 There is no dynamic section in this file.
@@ -58,185 +57,182 @@ There are no relocations in this file.
 
 There are no unwind sections in this file.
 
-Symbol table '.symtab' contains 177 entries:
+Symbol table '.symtab' contains 174 entries:
    Num:    Value  Size Type    Bind   Vis      Ndx Name
      0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
      1: 00000000     0 SECTION LOCAL  DEFAULT    1 
-     2: 00000bd8     0 SECTION LOCAL  DEFAULT    2 
-     3: 20000000     0 SECTION LOCAL  DEFAULT    3 
-     4: 20000054     0 SECTION LOCAL  DEFAULT    4 
+     2: 20000000     0 SECTION LOCAL  DEFAULT    2 
+     3: 20000004     0 SECTION LOCAL  DEFAULT    3 
+     4: 00000000     0 SECTION LOCAL  DEFAULT    4 
      5: 00000000     0 SECTION LOCAL  DEFAULT    5 
      6: 00000000     0 SECTION LOCAL  DEFAULT    6 
-     7: 00000000     0 SECTION LOCAL  DEFAULT    7 
-     8: 00000000     0 FILE    LOCAL  DEFAULT  ABS hc32l110_boot.c
-     9: 00000000     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    10: 000000c0     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    11: 000000d0     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    12: 000000f8     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    13: 00000110     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    14: 00000000     0 FILE    LOCAL  DEFAULT  ABS hc32l110_ddl_core.c
-    15: 0000011c     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    16: 0000011d    52 FUNC    LOCAL  DEFAULT    1 __NVIC_EnableIRQ
-    17: 0000014c     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    18: 00000150     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    19: 00000151    68 FUNC    LOCAL  DEFAULT    1 __NVIC_DisableIRQ
-    20: 00000190     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    21: 00000194     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    22: 00000195    56 FUNC    LOCAL  DEFAULT    1 __NVIC_ClearPend[...]
-    23: 000001c8     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    24: 000001cc     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    25: 000001cd   220 FUNC    LOCAL  DEFAULT    1 __NVIC_SetPriority
-    26: 000002a0     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    27: 000002a8     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    28: 000002a9    72 FUNC    LOCAL  DEFAULT    1 SysTick_Config
-    29: 000002ec     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    30: 20000004     0 NOTYPE  LOCAL  DEFAULT    3 $d
-    31: 000002f0     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    32: 00000308     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    33: 0000030c     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    34: 0000031c     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    35: 00000320     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    36: 00000340     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    37: 00000360     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    38: 00000380     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    39: 000003ac     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    40: 000003ad    20 FUNC    LOCAL  DEFAULT    1 __systick_start
-    41: 000003bc     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    42: 000003c0     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    43: 000003c1    28 FUNC    LOCAL  DEFAULT    1 __systick_stop
-    44: 000003d8     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    45: 000003dc     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    46: 00000444     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    47: 2000000c     8 NOTYPE  LOCAL  DEFAULT    3 counter_list_head
-    48: 0000044c     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    49: 0000048c     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    50: 00000494     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    51: 000004a4     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    52: 000004a8     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    53: 000004f0     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    54: 000004f4     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    55: 00000508     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    56: 00000554     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    57: 00000558     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    58: 0000058a     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    59: 000005bc     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    60: 000005e8     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    61: 00000000     0 FILE    LOCAL  DEFAULT  ABS hc32l110_ddl_gpio.c
-    62: 00000be0     0 NOTYPE  LOCAL  DEFAULT    2 $d
-    63: 000005ec     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    64: 00000772     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    65: 00000796     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    66: 000007d4     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    67: 20000014     0 NOTYPE  LOCAL  DEFAULT    3 $d
-    68: 00000800     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    69: 00000868     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    70: 0000086c     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    71: 0000090c     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    72: 00000914     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    73: 0000092c     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    74: 00000944     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    75: 0000095c     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    76: 00000974     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    77: 000009c0     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    78: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
-    79: 20000000     0 NOTYPE  LOCAL  DEFAULT    3 $d
-    80: 000009d0     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    81: 000009ec     0 NOTYPE  LOCAL  DEFAULT    1 $d
-    82: 00000bd8     0 NOTYPE  LOCAL  DEFAULT    2 $d
-    83: 000009f0     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    84: 00000aac     0 NOTYPE  LOCAL  DEFAULT    1 $d
+     7: 00000000     0 FILE    LOCAL  DEFAULT  ABS hc32l110_boot.c
+     8: 00000000     0 NOTYPE  LOCAL  DEFAULT    1 $d
+     9: 000001b0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    10: 00000204     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    11: 00000218     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    12: 00000240     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    13: 00000258     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    14: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
+    15: 20000000     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    16: 000000c0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    17: 000000dc     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    18: 00000c30     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    19: 000000e0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    20: 0000019c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    21: 00000000     0 FILE    LOCAL  DEFAULT  ABS hc32l110_ddl_core.c
+    22: 00000264     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    23: 00000265    52 FUNC    LOCAL  DEFAULT    1 __NVIC_EnableIRQ
+    24: 00000294     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    25: 00000298     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    26: 00000299    68 FUNC    LOCAL  DEFAULT    1 __NVIC_DisableIRQ
+    27: 000002d8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    28: 000002dc     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    29: 000002dd    56 FUNC    LOCAL  DEFAULT    1 __NVIC_ClearPend[...]
+    30: 00000310     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    31: 00000314     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    32: 00000315   220 FUNC    LOCAL  DEFAULT    1 __NVIC_SetPriority
+    33: 000003e8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    34: 000003f0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    35: 000003f1    72 FUNC    LOCAL  DEFAULT    1 SysTick_Config
+    36: 00000434     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    37: 20000004     0 NOTYPE  LOCAL  DEFAULT    3 $d
+    38: 00000438     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    39: 00000450     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    40: 00000454     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    41: 00000464     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    42: 00000468     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    43: 00000488     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    44: 000004a8     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    45: 000004c8     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    46: 000004f4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    47: 000004f5    20 FUNC    LOCAL  DEFAULT    1 __systick_start
+    48: 00000504     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    49: 00000508     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    50: 00000509    28 FUNC    LOCAL  DEFAULT    1 __systick_stop
+    51: 00000520     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    52: 00000524     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    53: 0000058c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    54: 2000000c     8 NOTYPE  LOCAL  DEFAULT    3 counter_list_head
+    55: 00000594     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    56: 000005d4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    57: 000005dc     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    58: 000005ec     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    59: 000005f0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    60: 00000638     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    61: 0000063c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    62: 00000650     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    63: 0000069c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    64: 000006a0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    65: 000006d2     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    66: 00000704     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    67: 00000730     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    68: 00000000     0 FILE    LOCAL  DEFAULT  ABS hc32l110_ddl_gpio.c
+    69: 00000c38     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    70: 00000734     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    71: 000008ba     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    72: 000008de     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    73: 0000091c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    74: 20000014     0 NOTYPE  LOCAL  DEFAULT    3 $d
+    75: 00000948     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    76: 000009b0     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    77: 000009b4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    78: 00000a54     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    79: 00000a5c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    80: 00000a74     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    81: 00000a8c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    82: 00000aa4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    83: 00000abc     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    84: 00000b08     0 NOTYPE  LOCAL  DEFAULT    1 $d
     85: 00000000     0 FILE    LOCAL  DEFAULT  ABS _udivsi3.o
-    86: 00000ac0     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    87: 00000ac0     0 NOTYPE  LOCAL  DEFAULT    1 .udivsi3_skip_di[...]
-    88: 00000010     0 NOTYPE  LOCAL  DEFAULT    7 $d
+    86: 00000b18     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    87: 00000b18     0 NOTYPE  LOCAL  DEFAULT    1 .udivsi3_skip_di[...]
+    88: 00000010     0 NOTYPE  LOCAL  DEFAULT    6 $d
     89: 00000000     0 FILE    LOCAL  DEFAULT  ABS _dvmd_tls.o
-    90: 00000bd4     0 NOTYPE  LOCAL  DEFAULT    1 $t
-    91: 00000975    92 FUNC    GLOBAL DEFAULT    1 peripheral_enabl[...]
-    92: 00000800     0 NOTYPE  GLOBAL DEFAULT  ABS STACK_SIZE
-    93: 00000111    10 FUNC    WEAK   DEFAULT    1 HardFault_Handler
-    94: 000005bd    48 FUNC    GLOBAL DEFAULT    1 SysTick_Handler
-    95: 0000044d    72 FUNC    GLOBAL DEFAULT    1 systick_time_since
-    96: 00000111    10 FUNC    WEAK   DEFAULT    1 PendSV_Handler
-    97: 00000111    10 FUNC    WEAK   DEFAULT    1 NMI_Handler
-    98: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ16_Handler
-    99: 000009d0     0 NOTYPE  GLOBAL DEFAULT    1 _etext
-   100: 20000000     0 NOTYPE  GLOBAL DEFAULT    3 _sbss
-   101: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ25_Handler
-   102: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ23_Handler
-   103: 00000945    24 FUNC    GLOBAL DEFAULT    1 IRQ02_Handler
-   104: 000004a9    76 FUNC    GLOBAL DEFAULT    1 systick_counter_start
-   105: 20000004     4 OBJECT  GLOBAL DEFAULT    3 SystemCoreClock
-   106: 0000095d    24 FUNC    GLOBAL DEFAULT    1 IRQ03_Handler
-   107: 00000ac1   266 FUNC    GLOBAL HIDDEN     1 __udivsi3
-   108: 000004f5    20 FUNC    GLOBAL DEFAULT    1 systick_counter_[...]
-   109: 0000086d   168 FUNC    GLOBAL DEFAULT    1 __handle_gpio_in[...]
-   110: 20000054     0 NOTYPE  GLOBAL DEFAULT    4 _sdata
-   111: 20000008     4 OBJECT  GLOBAL DEFAULT    3 PeripheralCoreClock
-   112: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ22_Handler
-   113: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ06_Handler
-   114: 00000361    32 FUNC    GLOBAL DEFAULT    1 nvic_disable_int[...]
-   115: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ29_Handler
-   116: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ20_Handler
-   117: 000002f1    28 FUNC    GLOBAL DEFAULT    1 peripheral_set_e[...]
-   118: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ05_Handler
-   119: 00000797    62 FUNC    GLOBAL DEFAULT    1 gpio_digital_write
-   120: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ07_Handler
-   121: 000009d1    32 FUNC    GLOBAL DEFAULT    1 handle_timer0_fired
-   122: 000007d5    44 FUNC    GLOBAL DEFAULT    1 gpio_clear_interrupt
-   123: 20000014    64 OBJECT  GLOBAL DEFAULT    3 __port_handlers
-   124: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ13_Handler
-   125: 20000054     0 NOTYPE  GLOBAL DEFAULT    3 _ebss
-   126: 00000bd8     8 OBJECT  GLOBAL DEFAULT    2 timer0_config
-   127: 000000c1    16 FUNC    GLOBAL DEFAULT    1 Reset_Handler
-   128: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ30_Handler
-   129: 00000495    20 FUNC    GLOBAL DEFAULT    1 systick_current_value
-   130: 00000111    10 FUNC    GLOBAL DEFAULT    1 Dummy_Handler
-   131: 00000559    50 FUNC    GLOBAL DEFAULT    1 systick_delay
-   132: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ21_Handler
-   133: 00000000   192 OBJECT  GLOBAL DEFAULT    1 vector_table
-   134: 0000030d    20 FUNC    GLOBAL DEFAULT    1 peripheral_get_e[...]
-   135: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ31_Handler
-   136: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ28_Handler
-   137: 0000092d    24 FUNC    GLOBAL DEFAULT    1 IRQ01_Handler
-   138: 00000ce4     2 OBJECT  GLOBAL DEFAULT    2 gpio_digital_input
-   139: 00000381    44 FUNC    GLOBAL DEFAULT    1 nvic_set_interru[...]
-   140: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ10_Handler
-   141: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ09_Handler
-   142: 00000bd5     2 FUNC    WEAK   HIDDEN     1 __aeabi_ldiv0
-   143: 0000058b    48 FUNC    GLOBAL DEFAULT    1 systick_counter_delay
-   144: 20000000     4 OBJECT  GLOBAL DEFAULT    3 counter
-   145: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ24_Handler
-   146: 000009f1   208 FUNC    GLOBAL DEFAULT    1 main
-   147: 00000509    80 FUNC    GLOBAL DEFAULT    1 systick_counter_[...]
-   148: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ08_Handler
-   149: 00000ac1     0 FUNC    GLOBAL HIDDEN     1 __aeabi_uidiv
-   150: 00000111    10 FUNC    WEAK   DEFAULT    1 SVC_Handler
-   151: 00000321    32 FUNC    GLOBAL DEFAULT    1 nvic_clear_interrupt
-   152: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ19_Handler
-   153: 000003dd   112 FUNC    GLOBAL DEFAULT    1 enable_systick
-   154: 000000d1    64 FUNC    WEAK   DEFAULT    1 SystemInit
-   155: 00000801   108 FUNC    GLOBAL DEFAULT    1 gpio_set_interru[...]
-   156: 20000058     0 NOTYPE  GLOBAL DEFAULT    4 _sstack
-   157: 00000be0   256 OBJECT  GLOBAL DEFAULT    2 port_descriptors
-   158: 00000341    32 FUNC    GLOBAL DEFAULT    1 nvic_enable_interrupt
-   159: 00000773    36 FUNC    GLOBAL DEFAULT    1 gpio_digital_read
-   160: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ15_Handler
-   161: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ18_Handler
-   162: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ04_Handler
-   163: 20000858     0 NOTYPE  GLOBAL DEFAULT    4 _estack
-   164: 00000bcd     8 FUNC    GLOBAL HIDDEN     1 __aeabi_uidivmod
-   165: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ11_Handler
-   166: 000005ed   390 FUNC    GLOBAL DEFAULT    1 gpio_configure
-   167: 20000054     0 NOTYPE  GLOBAL DEFAULT    4 _edata
-   168: 20000858     0 NOTYPE  GLOBAL DEFAULT    4 _end
-   169: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ14_Handler
-   170: 00000ce0     2 OBJECT  GLOBAL DEFAULT    2 gpio_digital_output
-   171: 00000bd5     2 FUNC    WEAK   HIDDEN     1 __aeabi_idiv0
-   172: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ12_Handler
-   173: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ27_Handler
-   174: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ26_Handler
-   175: 00000111    10 FUNC    WEAK   DEFAULT    1 IRQ17_Handler
-   176: 00000915    24 FUNC    GLOBAL DEFAULT    1 IRQ00_Handler
+    90: 00000c2c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    91: 00000abd    92 FUNC    GLOBAL DEFAULT    1 peripheral_enabl[...]
+    92: 20000000     0 NOTYPE  GLOBAL DEFAULT    2 __data_start__
+    93: 00000259    10 FUNC    WEAK   DEFAULT    1 HardFault_Handler
+    94: 00000705    48 FUNC    GLOBAL DEFAULT    1 SysTick_Handler
+    95: 00000595    72 FUNC    GLOBAL DEFAULT    1 systick_time_since
+    96: 00000259    10 FUNC    WEAK   DEFAULT    1 PendSV_Handler
+    97: 00000259    10 FUNC    WEAK   DEFAULT    1 NMI_Handler
+    98: 00000d3e     0 NOTYPE  GLOBAL DEFAULT    1 __text_end__
+    99: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ16_Handler
+   100: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ25_Handler
+   101: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ23_Handler
+   102: 00000a8d    24 FUNC    GLOBAL DEFAULT    1 IRQ02_Handler
+   103: 000005f1    76 FUNC    GLOBAL DEFAULT    1 systick_counter_start
+   104: 20000004     4 OBJECT  GLOBAL DEFAULT    3 SystemCoreClock
+   105: 00000aa5    24 FUNC    GLOBAL DEFAULT    1 IRQ03_Handler
+   106: 00000b19   266 FUNC    GLOBAL HIDDEN     1 __udivsi3
+   107: 0000063d    20 FUNC    GLOBAL DEFAULT    1 systick_counter_[...]
+   108: 000009b5   168 FUNC    GLOBAL DEFAULT    1 __handle_gpio_in[...]
+   109: 20000004     0 NOTYPE  GLOBAL DEFAULT    3 __bss_start__
+   110: 20000008     4 OBJECT  GLOBAL DEFAULT    3 PeripheralCoreClock
+   111: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ22_Handler
+   112: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ06_Handler
+   113: 000004a9    32 FUNC    GLOBAL DEFAULT    1 nvic_disable_int[...]
+   114: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ29_Handler
+   115: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ20_Handler
+   116: 00000439    28 FUNC    GLOBAL DEFAULT    1 peripheral_set_e[...]
+   117: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ05_Handler
+   118: 000008df    62 FUNC    GLOBAL DEFAULT    1 gpio_digital_write
+   119: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ07_Handler
+   120: 000000c1    32 FUNC    GLOBAL DEFAULT    1 handle_timer0_fired
+   121: 0000091d    44 FUNC    GLOBAL DEFAULT    1 gpio_clear_interrupt
+   122: 20000014    64 OBJECT  GLOBAL DEFAULT    3 __port_handlers
+   123: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ13_Handler
+   124: 00000c30     8 OBJECT  GLOBAL DEFAULT    1 timer0_config
+   125: 000001b1   104 FUNC    GLOBAL DEFAULT    1 Reset_Handler
+   126: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ30_Handler
+   127: 000005dd    20 FUNC    GLOBAL DEFAULT    1 systick_current_value
+   128: 00000259    10 FUNC    GLOBAL DEFAULT    1 Dummy_Handler
+   129: 000006a1    50 FUNC    GLOBAL DEFAULT    1 systick_delay
+   130: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ21_Handler
+   131: 00000000   192 OBJECT  GLOBAL DEFAULT    1 vector_table
+   132: 00000455    20 FUNC    GLOBAL DEFAULT    1 peripheral_get_e[...]
+   133: 20000004     0 NOTYPE  GLOBAL DEFAULT    2 __data_end__
+   134: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ31_Handler
+   135: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ28_Handler
+   136: 00000a75    24 FUNC    GLOBAL DEFAULT    1 IRQ01_Handler
+   137: 20000054     0 NOTYPE  GLOBAL DEFAULT    3 __bss_end__
+   138: 00000d3c     2 OBJECT  GLOBAL DEFAULT    1 gpio_digital_input
+   139: 000004c9    44 FUNC    GLOBAL DEFAULT    1 nvic_set_interru[...]
+   140: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ10_Handler
+   141: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ09_Handler
+   142: 00000c2d     2 FUNC    WEAK   HIDDEN     1 __aeabi_ldiv0
+   143: 000006d3    48 FUNC    GLOBAL DEFAULT    1 systick_counter_delay
+   144: 20000000     4 OBJECT  GLOBAL DEFAULT    2 counter
+   145: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ24_Handler
+   146: 000000e1   208 FUNC    GLOBAL DEFAULT    1 main
+   147: 00000651    80 FUNC    GLOBAL DEFAULT    1 systick_counter_[...]
+   148: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ08_Handler
+   149: 00000b19     0 FUNC    GLOBAL HIDDEN     1 __aeabi_uidiv
+   150: 00000259    10 FUNC    WEAK   DEFAULT    1 SVC_Handler
+   151: 00000469    32 FUNC    GLOBAL DEFAULT    1 nvic_clear_interrupt
+   152: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ19_Handler
+   153: 00000525   112 FUNC    GLOBAL DEFAULT    1 enable_systick
+   154: 00000219    64 FUNC    WEAK   DEFAULT    1 SystemInit
+   155: 00000949   108 FUNC    GLOBAL DEFAULT    1 gpio_set_interru[...]
+   156: 00000c38   256 OBJECT  GLOBAL DEFAULT    1 port_descriptors
+   157: 00000489    32 FUNC    GLOBAL DEFAULT    1 nvic_enable_interrupt
+   158: 20001000     0 NOTYPE  GLOBAL DEFAULT    1 __StackTop
+   159: 000008bb    36 FUNC    GLOBAL DEFAULT    1 gpio_digital_read
+   160: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ15_Handler
+   161: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ18_Handler
+   162: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ04_Handler
+   163: 00000c25     8 FUNC    GLOBAL HIDDEN     1 __aeabi_uidivmod
+   164: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ11_Handler
+   165: 00000735   390 FUNC    GLOBAL DEFAULT    1 gpio_configure
+   166: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ14_Handler
+   167: 00000d38     2 OBJECT  GLOBAL DEFAULT    1 gpio_digital_output
+   168: 00000c2d     2 FUNC    WEAK   HIDDEN     1 __aeabi_idiv0
+   169: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ12_Handler
+   170: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ27_Handler
+   171: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ26_Handler
+   172: 00000259    10 FUNC    WEAK   DEFAULT    1 IRQ17_Handler
+   173: 00000a5d    24 FUNC    GLOBAL DEFAULT    1 IRQ00_Handler
 
 No version information found in this file.
 Attribute Section: aeabi
