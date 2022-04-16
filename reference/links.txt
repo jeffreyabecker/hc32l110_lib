@@ -8,7 +8,7 @@ http://mariobadr.com/creating-a-header-only-library-with-cmake.html
 
 http://cs107e.github.io/guides/gcc/
 
-bare metal C++
+bare metal C++ example
 https://github.com/cortexm/baremetal
 
 
