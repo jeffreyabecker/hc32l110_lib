@@ -1,5 +1,6 @@
 #include "hc32l110_cmsis.h"
 #include "hc32l110_registers_gpio.h"
+#include "hc32l110_system_registers.h"
 #include "hc32l110_ddl_core.h"
 #include "hc32l110_system.h"
 #include <stdint.h>
@@ -69,29 +70,59 @@ void peripheral_set_enabled(peripheral_t peripheral) { HC32_CLOCK->peripheral_cl
 peripheral_t peripheral_get_enabled() { return HC32_CLOCK->peripheral_clock_enable; }
 void nvic_clear_interrupt(IRQn_Type irq)
 {
-    NVIC_ClearPendingIRQ(irq);
+    if ((int32_t)(irq) >= 0)
+    {
+        HC32_NVIC->ICPR[0U] = (uint32_t)(1UL << (((uint32_t)irq) & 0x1FUL));
+    }
 }
 
 void nvic_enable_interrupt(IRQn_Type irq)
 {
-    NVIC_EnableIRQ(irq);
+    if ((int32_t)(irq) >= 0)
+    {
+        __asm volatile("" ::
+                           : "memory");
+        HC32_NVIC->ISER[0U] = (uint32_t)(1UL << (((uint32_t)irq) & 0x1FUL));
+        __asm volatile("" ::
+                           : "memory");
+    }
 }
 void nvic_disable_interrupt(IRQn_Type irq)
 {
-    NVIC_DisableIRQ(irq);
+    if ((int32_t)(irq) >= 0)
+    {
+        HC32_NVIC->ICER[0U] = (uint32_t)(1UL << (((uint32_t)irq) & 0x1FUL));
+        __DSB();
+        __ISB();
+    }
 }
+/* Interrupt Priorities are WORD accessible only under Armv6-M                  */
+/* The following MACROS handle generation of the register offset and byte masks */
+#define _BIT_SHIFT(IRQn) (((((uint32_t)(int32_t)(IRQn))) & 0x03UL) * 8UL)
+#define _SHP_IDX(IRQn) ((((((uint32_t)(int32_t)(IRQn)) & 0x0FUL) - 8UL) >> 2UL))
+#define _IP_IDX(IRQn) ((((uint32_t)(int32_t)(IRQn)) >> 2UL))
+
 void nvic_set_interrupt_priority(IRQn_Type irq, uint8_t priority)
 {
-    NVIC_SetPriority(irq, priority);
+    if ((int32_t)(irq) >= 0)
+    {
+        HC32_NVIC->IP[_IP_IDX(irq)] = ((uint32_t)(HC32_NVIC->IP[_IP_IDX(irq)] & ~(0xFFUL << _BIT_SHIFT(irq))) |
+                                       (((priority << (8U - 2)) & (uint32_t)0xFFUL) << _BIT_SHIFT(irq)));
+    }
+    else
+    {
+        HC32_CONTROL_BLOCK->SHP[_SHP_IDX(irq)] = ((uint32_t)(HC32_CONTROL_BLOCK->SHP[_SHP_IDX(irq)] & ~(0xFFUL << _BIT_SHIFT(irq))) |
+                                                  (((priority << (8U - 2)) & (uint32_t)0xFFUL) << _BIT_SHIFT(irq)));
+    }
 }
 
 static void __systick_start()
 {
-    SysTick->CTRL = SYSTICK_RUNNING_MASK;
+    HC32_SYSTICK->CTRL = SYSTICK_RUNNING_MASK;
 }
 static void __systick_stop()
 {
-    SysTick->CTRL &= ~(SYSTICK_RUNNING_MASK);
+    HC32_SYSTICK->CTRL &= ~(SYSTICK_RUNNING_MASK);
 }
 void enable_systick(uint32_t systick_frequency_hz)
 {
@@ -101,7 +132,7 @@ void enable_systick(uint32_t systick_frequency_hz)
         peripheral_set_enabled(peripheral_get_enabled() | peripheral_tick);
         uint32_t ticks = (PeripheralCoreClock) / systick_frequency_hz;
         SysTick_Config(ticks);
-        NVIC_SetPriority(SysTick_IRQn, nvic_default_irq_priority);
+        nvic_set_interrupt_priority(SysTick_IRQn, nvic_default_irq_priority);
         __systick_start();
     }
     else

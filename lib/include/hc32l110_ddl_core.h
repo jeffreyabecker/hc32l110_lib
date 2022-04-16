@@ -27,7 +27,7 @@ void nvic_set_interrupt_priority(IRQn_Type irq, uint8_t priority);
 
 
 #define SYSTICK_RUNNING_MASK 0x00000007
-#define systick_is_running() ((SysTick->CTRL & SYSTICK_RUNNING_MASK) == SYSTICK_RUNNING_MASK)
+#define systick_is_running() ((HC32_SYSTICK->CTRL & SYSTICK_RUNNING_MASK) == SYSTICK_RUNNING_MASK)
 void enable_systick(uint32_t systick_frequency_hz);
 uint32_t systick_current_value();
 uint32_t systick_time_since(uint32_t start);

@@ -4,8 +4,8 @@ MEMORY
     FLASH  (rx): ORIGIN = 0x00000000, LENGTH = 32K
     RAM   (rwx): ORIGIN = 0x20000000, LENGTH = 4K
 }
-ENTRY(Reset_Handler)
 
+ENTRY(Reset_Handler)
 SECTIONS
 {
     __StackTop = ORIGIN(RAM) + LENGTH(RAM);
@@ -37,6 +37,4 @@ SECTIONS
         __bss_end__ = .;
     } > RAM
 
-
-    
 }

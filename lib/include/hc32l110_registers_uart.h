@@ -49,8 +49,8 @@ typedef struct
 #define UART00_ADDRESS 0x40000000UL
 #define UART01_ADDRESS 0x40000100UL
 #define LPUART_ADDRESS 0x40000200UL
-#define HC32_UART0 ((hc32_uart_register_t *)0x40000000UL)
-#define HC32_UART1 ((hc32_uart_register_t *)0x40000100UL)
+#define HC32_UART0 ((hc32_uart_register_t *)UART00_ADDRESS)
+#define HC32_UART1 ((hc32_uart_register_t *)UART01_ADDRESS)
 #define HC32_LPUART ((hc32_uart_register_t *)LPUART_ADDRESS)
 
 #endif

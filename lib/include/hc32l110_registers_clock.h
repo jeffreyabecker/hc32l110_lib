@@ -183,24 +183,8 @@ typedef struct
 } hc32_reset_register_t;
 #define HC32_RESET ((hc32_reset_register_t *)0x4000201CUL)
 
-typedef struct
-{
-  volatile uint8_t enabled : 1;
-  volatile uint8_t interrupt_enabled : 1;
-  volatile uint8_t clock_source : 2;
-  uint16_t reserved1 : 12;
-  volatile uint8_t counter_overflow : 1;
-  uint16_t reserved2 : 16;
-} systick_ctrl_flags_t;
 
-typedef struct
-{
-  systick_ctrl_flags_t CTRL; /*!< Offset: 0x000 (R/W)  SysTick Control and Status Register */
-  volatile uint32_t LOAD;    /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register */
-  volatile uint32_t VAL;     /*!< Offset: 0x008 (R/W)  SysTick Current Value Register */
-  volatile uint32_t CALIB;   /*!< Offset: 0x00C (R/ )  SysTick Calibration Register */
-} hc32_systick_register_t;
-#define HC32_SYSTICK ((hc32_systick_register_t *)0xE000E010UL)
+
 
 #define CLOCK_TRIM_HIGH_24mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C00ul))))
 #define CLOCK_TRIM_HIGH_22_12mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C02ul))))
