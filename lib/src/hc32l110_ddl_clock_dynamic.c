@@ -19,43 +19,43 @@ static uint16_t __calculate_rch_trim(uint32_t clock_frequency_hz)
 {
     if (clock_frequency_hz < MHz_4)
     {
-        return CLOCK_TRIM_HIGH_4mhz - sub_4mhz_scale_factor * (MHz_4 - clock_frequency_hz);
+        return CLOCK_TRIM_HIGH_4mhz * 1000 - sub_4mhz_scale_factor * (MHz_4 - clock_frequency_hz);
     }
     if (MHz_4 <= clock_frequency_hz && clock_frequency_hz <= MHz_24)
     {
         if (MHz_4 == clock_frequency_hz)
         {
-            return CLOCK_TRIM_HIGH_4mhz;
+            return CLOCK_TRIM_HIGH_4mhz * 1000;
         }
         else if (clock_frequency_hz < MHz_8)
         {
-            return __clock_interpolate(clock_frequency_hz, MHz_4, MHz_8, CLOCK_TRIM_HIGH_4mhz, CLOCK_TRIM_HIGH_8mhz);
+            return __clock_interpolate(clock_frequency_hz, MHz_4, MHz_8, CLOCK_TRIM_HIGH_4mhz * 1000, CLOCK_TRIM_HIGH_8mhz * 1000);
         }
         else if (clock_frequency_hz == MHz_8)
         {
-            return CLOCK_TRIM_HIGH_8mhz;
+            return CLOCK_TRIM_HIGH_8mhz * 1000;
         }
         else if (clock_frequency_hz < MHz_16)
         {
-            return __clock_interpolate(clock_frequency_hz, MHz_8, MHz_16, CLOCK_TRIM_HIGH_8mhz, CLOCK_TRIM_HIGH_16mhz);
+            return __clock_interpolate(clock_frequency_hz, MHz_8, MHz_16, CLOCK_TRIM_HIGH_8mhz * 1000, CLOCK_TRIM_HIGH_16mhz * 1000);
         }
         else if (clock_frequency_hz == MHz_16)
         {
-            return CLOCK_TRIM_HIGH_16mhz;
+            return CLOCK_TRIM_HIGH_16mhz * 1000;
         }
         else if (clock_frequency_hz < MHz_22_12)
         {
-            return __clock_interpolate(clock_frequency_hz, MHz_16, MHz_22_12, CLOCK_TRIM_HIGH_16mhz, CLOCK_TRIM_HIGH_22_12mhz);
+            return __clock_interpolate(clock_frequency_hz, MHz_16, MHz_22_12, CLOCK_TRIM_HIGH_16mhz * 1000, CLOCK_TRIM_HIGH_22_12mhz * 1000);
         }
         else if (clock_frequency_hz == MHz_22_12)
         {
-            return CLOCK_TRIM_HIGH_22_12mhz;
+            return CLOCK_TRIM_HIGH_22_12mhz * 1000;
         }
         else if (clock_frequency_hz < MHz_24)
         {
-            return __clock_interpolate(clock_frequency_hz, MHz_22_12, MHz_24, CLOCK_TRIM_HIGH_22_12mhz, CLOCK_TRIM_HIGH_24mhz);
+            return __clock_interpolate(clock_frequency_hz, MHz_22_12, MHz_24, CLOCK_TRIM_HIGH_22_12mhz * 1000, CLOCK_TRIM_HIGH_24mhz * 1000);
         }
-        return CLOCK_TRIM_HIGH_22_12mhz;
+        return CLOCK_TRIM_HIGH_22_12mhz * 1000;
     }
     return 0;
 }
@@ -64,15 +64,15 @@ static uint16_t __calculate_rcl_trim(uint32_t clock_frequency_hz)
 {
     if (KHz_32_8 == clock_frequency_hz)
     {
-        return CLOCK_TRIM_LOW_32_8_khz;
+        return CLOCK_TRIM_LOW_32_8_khz * 1000;
     }
     if (KHz_38_4 == clock_frequency_hz)
     {
-        return CLOCK_TRIM_LOW_38_4_khz;
+        return CLOCK_TRIM_LOW_38_4_khz * 1000;
     }
     if (KHz_32_8 < clock_frequency_hz && clock_frequency_hz < KHz_38_4)
     {
-        return __clock_interpolate(clock_frequency_hz, KHz_32_8, KHz_38_4, CLOCK_TRIM_LOW_32_8_khz, CLOCK_TRIM_LOW_32_8_khz);
+        return __clock_interpolate(clock_frequency_hz, KHz_32_8, KHz_38_4, CLOCK_TRIM_LOW_32_8_khz * 1000, CLOCK_TRIM_LOW_32_8_khz * 1000);
     }
     return 0;
 }

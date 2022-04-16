@@ -139,10 +139,8 @@ __attribute__((used)) void Reset_Handler(void)
 
 __WEAK void SystemInit(void)
 {
-    // set the clock trim for highspeed internal to the trim value for 4mhz (default)
-    *((uint32_t *)0x4000200C) = (*((volatile uint16_t *)(0x00100C08)));
-    // disable all the peripherals
-    *((uint32_t *)0x40002000UL) = 0x00000000;
+    HC32_CLOCK->RCH_CR.TRIM = CLOCK_TRIM_HIGH_4mhz;
+    HC32_CLOCK->peripheral_clock_enable = peripheral_none;
     SystemCoreClock = MHz_4;
     PeripheralCoreClock = MHz_4;
 }

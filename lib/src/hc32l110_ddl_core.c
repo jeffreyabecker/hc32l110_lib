@@ -5,7 +5,11 @@
 #include <stdint.h>
 uint32_t SystemCoreClock;
 uint32_t PeripheralCoreClock;
-
+void clock_set_freq(uint32_t freqency_hz, uint16_t clock_trim){
+    HC32_CLOCK->RCH_CR.TRIM = clock_trim;
+    SystemCoreClock = freqency_hz;
+    PeripheralCoreClock = freqency_hz;
+}
 void peripheral_set_enabled(peripheral_t peripheral) { HC32_CLOCK->peripheral_clock_enable = peripheral; }
 peripheral_t peripheral_get_enabled() { return HC32_CLOCK->peripheral_clock_enable; }
 void nvic_clear_interrupt(IRQn_Type irq)

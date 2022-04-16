@@ -36,4 +36,5 @@ uint32_t systick_counter_elapsed(systick_counter_t *counter);
 void systick_counter_complete(systick_counter_t *counter);
 void systick_counter_delay(systick_counter_t *counter, uint32_t ticks);
 void systick_delay(uint32_t ticks);
+void clock_set_freq(uint32_t freqency_hz, uint16_t clock_trim);
 #endif
