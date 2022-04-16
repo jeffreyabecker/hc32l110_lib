@@ -34,7 +34,6 @@ void rtc_alarm_interrupt_enable(rtc_enabled_t enabled)
     HC32_RTC->control.alarm_interrupt_enabled = enabled;
 }
 
-
 #define __rtc2dec(x) (x.low_digit + (x.high_digit * 10))
 uint32_t rtc_now_bcd()
 {

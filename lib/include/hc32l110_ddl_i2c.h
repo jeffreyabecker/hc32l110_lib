@@ -49,6 +49,7 @@ i2c_event_t i2c_decode_event(uint8_t status, uint8_t data);
 #define i2c_has_irq() HC32_I2C->CR.SI
 #define i2c_clear_irq() HC32_I2C->CR.SI = 0
 void i2c_event_handler_set(i2c_event_handler_t handler, uint8_t enabled);
+void i2c_event_handler_set_enabled(uint8_t enabled);
 
 typedef struct
 {

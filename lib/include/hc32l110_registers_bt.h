@@ -14,8 +14,6 @@ typedef enum
   basic_timer_prescaler_256_to_1 = 7,
 } basic_timer_prescaler_t;
 
-
-
 typedef enum
 {
   basic_timer_source_internal = 0,
@@ -27,7 +25,6 @@ typedef enum
   basic_timer_mode_one_shot = 0,
   basic_timer_mode_periodic = 1,
 } basic_timer_mode_t;
-
 
 typedef struct
 {
@@ -62,7 +59,6 @@ typedef struct
 #define HC32_TIMER0 ((hc32_basic_timer_register_t *)TIMER_0_ADDRESS)
 #define HC32_TIMER1 ((hc32_basic_timer_register_t *)TIMER_1_ADDRESS)
 #define HC32_TIMER2 ((hc32_basic_timer_register_t *)TIMER_2_ADDRESS)
-
 
 typedef enum
 {

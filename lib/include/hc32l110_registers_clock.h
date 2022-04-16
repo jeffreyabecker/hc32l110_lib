@@ -129,8 +129,8 @@ typedef struct
   uint8_t RESERVED8[16];
   clock_systick_cr_field_t SYSTICK_CR;
   clock_debug_active_field_t DEBUG_ACTIVE_f;
-} HC32_CLOCK_TypeDef;
-#define HC32_CLOCK ((HC32_CLOCK_TypeDef *)0x40002000UL)
+} hc32_clock_register_t;
+#define HC32_CLOCK ((hc32_clock_register_t *)0x40002000UL)
 
 typedef struct
 {
@@ -199,12 +199,12 @@ typedef struct
   volatile uint32_t LOAD;    /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register */
   volatile uint32_t VAL;     /*!< Offset: 0x008 (R/W)  SysTick Current Value Register */
   volatile uint32_t CALIB;   /*!< Offset: 0x00C (R/ )  SysTick Calibration Register */
-} HC32_SYSTICK_TypeDef;
-#define HC32_SYSTICK ((HC32_SYSTICK_TypeDef *)0xE000E010UL)
+} hc32_systick_register_t;
+#define HC32_SYSTICK ((hc32_systick_register_t *)0xE000E010UL)
 
-#define CLOCK_TRIM_HIGH_24mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C00ul))) )
-#define CLOCK_TRIM_HIGH_22_12mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C02ul))) )
-#define CLOCK_TRIM_HIGH_16mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C04ul))) )
+#define CLOCK_TRIM_HIGH_24mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C00ul))))
+#define CLOCK_TRIM_HIGH_22_12mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C02ul))))
+#define CLOCK_TRIM_HIGH_16mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C04ul))))
 #define CLOCK_TRIM_HIGH_8mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C06ul))))
 #define CLOCK_TRIM_HIGH_4mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C08ul))))
 #define CLOCK_TRIM_LOW_38_4_khz ((uint32_t)(*((volatile uint16_t *)(0x00100C20ul))))

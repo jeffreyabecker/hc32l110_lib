@@ -12,7 +12,6 @@ endif()
 
 
 if("${HC32L_TOOLCHAIN_PATH}" STREQUAL "")
-
     find_program(
         TMP_COMPILER_CC "${TOOLCHAIN_PREFIX}gcc${TOOLCHAIN_EXT}"
         PATHS $ENV{PATH}

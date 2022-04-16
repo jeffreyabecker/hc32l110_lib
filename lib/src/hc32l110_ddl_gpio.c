@@ -229,7 +229,6 @@ void IRQ03_Handler(void)
 }
 void peripheral_enable_gpio()
 {
-
     HC32_GPIO_PORT0->DIR = 0xFF;
     HC32_GPIO_PORT1->DIR = 0xFF;
     HC32_GPIO_PORT2->DIR = 0xFF;

@@ -44,6 +44,33 @@ void peripheral_enable_i2c(i2c_on_port_t on_port, uint32_t bus_freqency_hz)
     HC32_I2C->CR.ENS = 1;
     HC32_I2C->enable_clock = 1;
 }
+i2c_event_handler_t i2c_interrupt_handler = NULL;
+void i2c_event_handler_set(i2c_event_handler_t handler, uint8_t enabled)
+{
+    i2c_interrupt_handler = handler;
+    i2c_event_handler_set_enabled(enabled);
+}
+void i2c_event_handler_set_enabled(uint8_t enabled)
+{
+    if (enabled)
+    {
+        nvic_set_interrupt_priority(I2C_IRQn, nvic_default_irq_priority);
+        nvic_enable_interrupt(I2C_IRQn);
+    }
+    else
+    {
+        nvic_disable_interrupt(I2C_IRQn);
+    }
+}
+void IRQ12_Handler(void)
+{
+    if (i2c_interrupt_handler != NULL)
+    {
+        i2c_interrupt_handler(i2c_get_event());
+    }
+    i2c_clear_irq();
+    nvic_clear_interrupt(I2C_IRQn);
+}
 
 i2c_event_t i2c_decode_event(uint8_t status, uint8_t data)
 {
@@ -108,11 +135,6 @@ typedef enum
     i2c_operation_read = 1,
     i2c_operation_write = 0,
 } i2c_operation_t;
-
-
-
-
-
 
 #define i2c_get_status() HC32_I2C->status
 static uint8_t i2c_wait()
