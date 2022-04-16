@@ -4,11 +4,7 @@
 #include "hc32l110_system.h"
 #include <stdint.h>
 
-__STATIC_FORCEINLINE void __clock_config_unlock(void)
-{
-    HC32_CLOCK->SYSCTRL2 = 0x5A5A;
-    HC32_CLOCK->SYSCTRL2 = 0xA5A5;
-}
+
 
 #define sub_4mhz_scale_factor 8000
 static uint32_t __clock_interpolate(uint32_t clock_frequency, uint32_t low_freqency, uint32_t high_frequency, uint32_t low_trim, uint32_t high_trim)
@@ -129,7 +125,6 @@ static void set_system_clock_internal_low(uint32_t clock_frequency_hz, system_cl
     uint16_t clock_trim = __calculate_rcl_trim(clock_frequency_hz);
 
     HC32_CLOCK->RCL_CR.TRIM = clock_trim;
-
     HC32_CLOCK->RCL_CR.STARTUP = 3;
     __clock_config_unlock();
     HC32_CLOCK->SYSCTRL0_f.RCL_EN = 1;
