@@ -8,6 +8,11 @@ http://mariobadr.com/creating-a-header-only-library-with-cmake.html
 
 http://cs107e.github.io/guides/gcc/
 
+bare metal C++
+https://github.com/cortexm/baremetal
+
+
+
 
 
 pyocd gdbserver --target hc32l110 -Oconnect_mode=pre-reset

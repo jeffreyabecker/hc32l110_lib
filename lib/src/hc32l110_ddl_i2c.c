@@ -6,7 +6,7 @@
 
 typedef struct
 {
-    gpio_port_descriptor_t *sda;
+    const gpio_port_descriptor_t *sda;
     gpio_port_descriptor_t *scl;
     uint8_t function;
 } gpio_i2c_cfg_lookup_t;

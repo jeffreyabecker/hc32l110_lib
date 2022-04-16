@@ -13,12 +13,16 @@ arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -ffreestanding -ffunction-sections -no
 arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -ffreestanding -ffunction-sections -nostdlib -I C:\ode\hc32l110\lib\include -c -o .\lib\bin\hc32l110_ddl_basic_timers.o .\lib\src\hc32l110_ddl_basic_timers.c
 arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -ffreestanding -ffunction-sections -nostdlib -I C:\ode\hc32l110\lib\include -c -o .\lib\bin\hc32l110_ddl_buffers.o .\lib\src\hc32l110_ddl_buffers.c
 arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -ffreestanding -ffunction-sections -nostdlib -I C:\ode\hc32l110\lib\include -c -o .\lib\bin\hc32l110_ddl_debug.o .\lib\src\hc32l110_ddl_debug.c
+arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -ffreestanding -ffunction-sections -nostdlib -I C:\ode\hc32l110\lib\include -c -o .\lib\bin\hc32l110_ddl_i2c.o .\lib\src\hc32l110_ddl_i2c.c
+
+
 arm-none-eabi-ar rcs .\lib\bin\libhc32l110_ddl_core.a .\lib\bin\hc32l110_boot.o .\lib\bin\hc32l110_ddl_core.o
 arm-none-eabi-ar rcs .\lib\bin\libhc32l110_ddl_gpio.a .\lib\bin\hc32l110_ddl_gpio.o
 arm-none-eabi-ar rcs .\lib\bin\libhc32l110_ddl_clock_dynamic.a .\lib\bin\hc32l110_ddl_clock_dynamic.o
 arm-none-eabi-ar rcs .\lib\bin\libhc32l110_ddl_basic_timers.a .\lib\bin\hc32l110_ddl_basic_timers.o
 arm-none-eabi-ar rcs .\lib\bin\libhc32l110_ddl_buffers.a .\lib\bin\hc32l110_ddl_buffers.o
 arm-none-eabi-ar rcs .\lib\bin\libhc32l110_ddl_debug.a .\lib\bin\hc32l110_ddl_debug.o
+arm-none-eabi-ar rcs .\lib\bin\libhc32l110_ddl_i2c.a .\lib\bin\hc32l110_ddl_i2c.o
 
 remove-item .\lib\bin\*.o
 
