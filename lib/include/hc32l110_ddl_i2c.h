@@ -1,5 +1,5 @@
-#ifndef __SYSTEM_HC32L110_DDL_I2C_COMMON_H__
-#define __SYSTEM_HC32L110_DDL_I2C_COMMON_H__
+#ifndef __SYSTEM_HC32L110_DDL_I2C_H__
+#define __SYSTEM_HC32L110_DDL_I2C_H__
 #include "hc32l110_cmsis.h"
 #include "hc32l110_system.h"
 #include "hc32l110_registers_i2c.h"
@@ -41,8 +41,24 @@ typedef struct
     uint8_t acked : 8;
     uint8_t data;
 } i2c_event_t;
-
+typedef void (*i2c_event_handler_t)(i2c_event_t event);
 void peripheral_enable_i2c(i2c_on_port_t on_port, uint32_t bus_freqency_hz);
 i2c_event_t i2c_decode_event(uint8_t status, uint8_t data);
 #define i2c_get_event() i2c_decode_event(HC32_I2C->status, HC32_I2C->DATA)
+
+#define i2c_has_irq() HC32_I2C->CR.SI
+#define i2c_clear_irq() HC32_I2C->CR.SI = 0
+void i2c_event_handler_set(i2c_event_handler_t handler, uint8_t enabled);
+
+typedef struct
+{
+    uint8_t status;
+    uint8_t success;
+    uint8_t recieved_ack;
+    uint8_t bytes_processed;
+
+} i2c_controller_result_t;
+
+i2c_controller_result_t i2c_controller_write(uint8_t peripheral, const uint8_t *data, uint8_t length, uint8_t send_stop);
+i2c_controller_result_t i2c_controller_read(uint8_t peripheral, uint8_t *data, uint8_t length, uint8_t send_stop);
 #endif
