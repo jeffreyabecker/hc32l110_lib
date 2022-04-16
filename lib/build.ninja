@@ -50,8 +50,6 @@ build CMakeFiles/hc32l110_ddl_core.dir/src/hc32l110_boot.c.obj: C_COMPILER__hc32
   INCLUDES = -IC:/ode/hc32l110/lib/include
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_core.dir
   OBJECT_FILE_DIR = CMakeFiles\hc32l110_ddl_core.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_core.dir\hc32l110_ddl_core.pdb
-  TARGET_PDB = bin\libhc32l110_ddl_core.pdb
 
 build CMakeFiles/hc32l110_ddl_core.dir/src/hc32l110_ddl_core.c.obj: C_COMPILER__hc32l110_ddl_core_ C$:/ode/hc32l110/lib/src/hc32l110_ddl_core.c || cmake_object_order_depends_target_hc32l110_ddl_core
   DEP_FILE = CMakeFiles\hc32l110_ddl_core.dir\src\hc32l110_ddl_core.c.obj.d
@@ -59,8 +57,6 @@ build CMakeFiles/hc32l110_ddl_core.dir/src/hc32l110_ddl_core.c.obj: C_COMPILER__
   INCLUDES = -IC:/ode/hc32l110/lib/include
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_core.dir
   OBJECT_FILE_DIR = CMakeFiles\hc32l110_ddl_core.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_core.dir\hc32l110_ddl_core.pdb
-  TARGET_PDB = bin\libhc32l110_ddl_core.pdb
 
 
 # =============================================================================
@@ -75,9 +71,8 @@ build bin/libhc32l110_ddl_core.a: C_STATIC_LIBRARY_LINKER__hc32l110_ddl_core_ CM
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_core.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_core.dir\hc32l110_ddl_core.pdb
   TARGET_FILE = bin\libhc32l110_ddl_core.a
-  TARGET_PDB = bin\libhc32l110_ddl_core.pdb
+  TARGET_PDB = hc32l110_ddl_core.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target hc32l110_ddl_gpio
@@ -94,8 +89,6 @@ build CMakeFiles/hc32l110_ddl_gpio.dir/src/hc32l110_ddl_gpio.c.obj: C_COMPILER__
   INCLUDES = -IC:/ode/hc32l110/lib/include
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_gpio.dir
   OBJECT_FILE_DIR = CMakeFiles\hc32l110_ddl_gpio.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_gpio.dir\hc32l110_ddl_gpio.pdb
-  TARGET_PDB = bin\libhc32l110_ddl_gpio.pdb
 
 
 # =============================================================================
@@ -110,9 +103,8 @@ build bin/libhc32l110_ddl_gpio.a: C_STATIC_LIBRARY_LINKER__hc32l110_ddl_gpio_ CM
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_gpio.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_gpio.dir\hc32l110_ddl_gpio.pdb
   TARGET_FILE = bin\libhc32l110_ddl_gpio.a
-  TARGET_PDB = bin\libhc32l110_ddl_gpio.pdb
+  TARGET_PDB = hc32l110_ddl_gpio.a.dbg
 
 
 #############################################
@@ -141,8 +133,6 @@ build CMakeFiles/hc32l110_ddl_basic_timers.dir/src/hc32l110_ddl_basic_timers.c.o
   INCLUDES = -IC:/ode/hc32l110/lib/include
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_basic_timers.dir
   OBJECT_FILE_DIR = CMakeFiles\hc32l110_ddl_basic_timers.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_basic_timers.dir\hc32l110_ddl_basic_timers.pdb
-  TARGET_PDB = bin\libhc32l110_ddl_basic_timers.pdb
 
 
 # =============================================================================
@@ -157,9 +147,8 @@ build bin/libhc32l110_ddl_basic_timers.a: C_STATIC_LIBRARY_LINKER__hc32l110_ddl_
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_basic_timers.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_basic_timers.dir\hc32l110_ddl_basic_timers.pdb
   TARGET_FILE = bin\libhc32l110_ddl_basic_timers.a
-  TARGET_PDB = bin\libhc32l110_ddl_basic_timers.pdb
+  TARGET_PDB = hc32l110_ddl_basic_timers.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target hc32l110_ddl_debug
@@ -176,8 +165,6 @@ build CMakeFiles/hc32l110_ddl_debug.dir/src/hc32l110_ddl_debug.c.obj: C_COMPILER
   INCLUDES = -IC:/ode/hc32l110/lib/include
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_debug.dir
   OBJECT_FILE_DIR = CMakeFiles\hc32l110_ddl_debug.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_debug.dir\hc32l110_ddl_debug.pdb
-  TARGET_PDB = bin\libhc32l110_ddl_debug.pdb
 
 
 # =============================================================================
@@ -192,9 +179,8 @@ build bin/libhc32l110_ddl_debug.a: C_STATIC_LIBRARY_LINKER__hc32l110_ddl_debug_ 
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_debug.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_debug.dir\hc32l110_ddl_debug.pdb
   TARGET_FILE = bin\libhc32l110_ddl_debug.a
-  TARGET_PDB = bin\libhc32l110_ddl_debug.pdb
+  TARGET_PDB = hc32l110_ddl_debug.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target hc32l110_ddl_clock_dynamic
@@ -211,8 +197,6 @@ build CMakeFiles/hc32l110_ddl_clock_dynamic.dir/src/hc32l110_ddl_clock_dynamic.c
   INCLUDES = -IC:/ode/hc32l110/lib/include
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_clock_dynamic.dir
   OBJECT_FILE_DIR = CMakeFiles\hc32l110_ddl_clock_dynamic.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_clock_dynamic.dir\hc32l110_ddl_clock_dynamic.pdb
-  TARGET_PDB = bin\libhc32l110_ddl_clock_dynamic.pdb
 
 
 # =============================================================================
@@ -227,9 +211,8 @@ build bin/libhc32l110_ddl_clock_dynamic.a: C_STATIC_LIBRARY_LINKER__hc32l110_ddl
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_clock_dynamic.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_clock_dynamic.dir\hc32l110_ddl_clock_dynamic.pdb
   TARGET_FILE = bin\libhc32l110_ddl_clock_dynamic.a
-  TARGET_PDB = bin\libhc32l110_ddl_clock_dynamic.pdb
+  TARGET_PDB = hc32l110_ddl_clock_dynamic.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target hc32l110_ddl_i2c
@@ -246,8 +229,6 @@ build CMakeFiles/hc32l110_ddl_i2c.dir/src/hc32l110_ddl_i2c.c.obj: C_COMPILER__hc
   INCLUDES = -IC:/ode/hc32l110/lib/include
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_i2c.dir
   OBJECT_FILE_DIR = CMakeFiles\hc32l110_ddl_i2c.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_i2c.dir\hc32l110_ddl_i2c.pdb
-  TARGET_PDB = bin\libhc32l110_ddl_i2c.pdb
 
 
 # =============================================================================
@@ -262,9 +243,8 @@ build bin/libhc32l110_ddl_i2c.a: C_STATIC_LIBRARY_LINKER__hc32l110_ddl_i2c_ CMak
   OBJECT_DIR = CMakeFiles\hc32l110_ddl_i2c.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\hc32l110_ddl_i2c.dir\hc32l110_ddl_i2c.pdb
   TARGET_FILE = bin\libhc32l110_ddl_i2c.a
-  TARGET_PDB = bin\libhc32l110_ddl_i2c.pdb
+  TARGET_PDB = hc32l110_ddl_i2c.a.dbg
 
 
 #############################################
@@ -322,14 +302,14 @@ build all: phony bin/libhc32l110_ddl_core.a bin/libhc32l110_ddl_gpio.a bin/libhc
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCCompilerABI.c C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCXXCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCompilerIdDetection.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCXXCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCompileFeatures.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCompilerABI.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCompilerId.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeFindBinUtils.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeNinjaFindMake.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeParseImplicitLinkInfo.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeParseLibraryArchitecture.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystem.cmake.in C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeTestCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeTestCXXCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeTestCompilerCommon.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-FindBinUtils.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/HP-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/ROCMClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/TI-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/XL-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Internal/FeatureTesting.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Platform/Generic.cmake CMakeCache.txt CMakeFiles/3.21.0-rc2/CMakeCCompiler.cmake CMakeFiles/3.21.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/3.21.0-rc2/CMakeSystem.cmake CMakeLists.txt gcc-arm-eabi.cmake
+build build.ninja: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Platform/Generic.cmake CMakeCache.txt CMakeFiles/3.21.0-rc2/CMakeCCompiler.cmake CMakeFiles/3.21.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/3.21.0-rc2/CMakeSystem.cmake CMakeLists.txt gcc-arm-eabi.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCCompilerABI.c C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCXXCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCompilerIdDetection.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCXXCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCompileFeatures.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCompilerABI.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineCompilerId.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeDetermineSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeFindBinUtils.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeNinjaFindMake.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeParseImplicitLinkInfo.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeParseLibraryArchitecture.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystem.cmake.in C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeTestCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeTestCXXCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeTestCompilerCommon.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-FindBinUtils.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/HP-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/ROCMClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/TI-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/XL-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Internal/FeatureTesting.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Platform/Generic.cmake CMakeCache.txt CMakeFiles/3.21.0-rc2/CMakeCCompiler.cmake CMakeFiles/3.21.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/3.21.0-rc2/CMakeSystem.cmake CMakeLists.txt gcc-arm-eabi.cmake: phony
+build C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.21/Modules/Platform/Generic.cmake CMakeCache.txt CMakeFiles/3.21.0-rc2/CMakeCCompiler.cmake CMakeFiles/3.21.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/3.21.0-rc2/CMakeSystem.cmake CMakeLists.txt gcc-arm-eabi.cmake: phony
 
 
 #############################################
