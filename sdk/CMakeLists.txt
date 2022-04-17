@@ -5,7 +5,7 @@ set (CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_LIST_DIR}/gcc-arm-eabi.cmake")
 set (LIB_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 project(hc32l110_ddl)
 include_directories("${CMAKE_CURRENT_LIST_DIR}/include")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
 add_library ("${CMAKE_PROJECT_NAME}_core" "${LIB_SOURCE_DIR}/hc32l110_boot.c" "${LIB_SOURCE_DIR}/hc32l110_ddl_core.c")
 add_library ("${CMAKE_PROJECT_NAME}_gpio" "${LIB_SOURCE_DIR}/hc32l110_ddl_gpio.c")

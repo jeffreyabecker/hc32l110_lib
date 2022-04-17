@@ -1,8 +1,0 @@
-C:/ode/hc32l110/lib/CMakeFiles/hc32l110_ddl_core.dir
-C:/ode/hc32l110/lib/CMakeFiles/hc32l110_ddl_gpio.dir
-C:/ode/hc32l110/lib/CMakeFiles/edit_cache.dir
-C:/ode/hc32l110/lib/CMakeFiles/hc32l110_ddl_basic_timers.dir
-C:/ode/hc32l110/lib/CMakeFiles/hc32l110_ddl_debug.dir
-C:/ode/hc32l110/lib/CMakeFiles/hc32l110_ddl_clock_dynamic.dir
-C:/ode/hc32l110/lib/CMakeFiles/hc32l110_ddl_i2c.dir
-C:/ode/hc32l110/lib/CMakeFiles/rebuild_cache.dir
