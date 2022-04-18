@@ -17,10 +17,10 @@ peripheral_t peripheral_get_enabled();
 #define peripheral_enable(peripheral) peripheral_set_enabled(peripheral_get_enabled() | peripheral);
 #define peripheral_disable(peripheral) peripheral_set_enabled(peripheral_get_enabled() & ~peripheral);
 
-void nvic_clear_interrupt(IRQn_Type irq);
-void nvic_enable_interrupt(IRQn_Type irq);
-void nvic_disable_interrupt(IRQn_Type irq);
-void nvic_set_interrupt_priority(IRQn_Type irq, uint8_t priority);
+void nvic_clear_interrupt(irq_t irq);
+void nvic_enable_interrupt(irq_t irq);
+void nvic_disable_interrupt(irq_t irq);
+void nvic_set_interrupt_priority(irq_t irq, uint8_t priority);
 #define nvic_default_irq_priority 0x03
 
 #define SYSTICK_RUNNING_MASK 0x00000007

@@ -5,7 +5,7 @@
 static basic_timer_handler_t __timer_handlers[3] = {NULL, NULL, NULL};
 
 #define __basic_timer_get_index(timer) ((((uint32_t)timer) - TIMER_0_ADDRESS) / 0x20)
-#define __basic_timer_get_irq(timer) (TIM0_IRQn + __basic_timer_get_index(timer))
+#define __basic_timer_get_irq(timer) (irq_timer_0 + __basic_timer_get_index(timer))
 void basic_timer_configure(hc32_basic_timer_register_t *timer, const basic_timer_config_t *cfg, const basic_timer_handler_t callback)
 {
     uint32_t index = __basic_timer_get_index(timer);
@@ -28,7 +28,7 @@ void basic_timer_configure(hc32_basic_timer_register_t *timer, const basic_timer
         timer->auto_reload = cfg->reload;
         timer->count16 = cfg->reload;
     }
-    IRQn_Type irq = __basic_timer_get_irq(timer);
+    irq_t irq = __basic_timer_get_irq(timer);
     if(cfg->interrupt_enabled){
         nvic_set_interrupt_priority(irq, nvic_default_irq_priority);
         nvic_enable_interrupt(irq);
@@ -51,7 +51,7 @@ void IRQ14_Handler (void)
         (*__timer_handlers[0])(HC32_TIMER0);
     }
     HC32_TIMER0->interrupt_clear = 0;
-    nvic_clear_interrupt(TIM0_IRQn);
+    nvic_clear_interrupt(irq_timer_0);
 }
 void IRQ15_Handler (void)
 {
@@ -60,7 +60,7 @@ void IRQ15_Handler (void)
         (*__timer_handlers[1])(HC32_TIMER1);
     }
     HC32_TIMER1->interrupt_clear = 0;
-    nvic_clear_interrupt(TIM1_IRQn);
+    nvic_clear_interrupt(irq_timer_1);
 }
 void IRQ16_Handler (void)
 {
@@ -69,7 +69,7 @@ void IRQ16_Handler (void)
         (*__timer_handlers[2])(HC32_TIMER2);
     }
     HC32_TIMER2->interrupt_clear = 0;
-    nvic_clear_interrupt(TIM2_IRQn);
+    nvic_clear_interrupt(irq_timer_2);
 }
 // void LpTimer_Handler(void)
 // {
@@ -78,5 +78,5 @@ void IRQ16_Handler (void)
 //         (*__timer_handlers[3])(HC32_LPTIMER);
 //     }
 //     HC32_LPTIMER->interrupt_clear = 0;
-//     nvic_clear_interrupt(LPTIM_IRQn);
+//     nvic_clear_interrupt(irq_lp_timer);
 // }

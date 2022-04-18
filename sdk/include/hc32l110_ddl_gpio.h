@@ -11,7 +11,7 @@ typedef struct
     gpio_port_interrupt_t *interrupt;
     uint8_t position;
     uint8_t index;
-    IRQn_Type irq;
+    irq_t irq;
 } gpio_port_descriptor_t;
 extern const gpio_port_descriptor_t port_descriptors[16];
 

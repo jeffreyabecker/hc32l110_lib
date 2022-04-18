@@ -54,12 +54,12 @@ void i2c_event_handler_set_enabled(uint8_t enabled)
 {
     if (enabled)
     {
-        nvic_set_interrupt_priority(I2C_IRQn, nvic_default_irq_priority);
-        nvic_enable_interrupt(I2C_IRQn);
+        nvic_set_interrupt_priority(irq_i2c, nvic_default_irq_priority);
+        nvic_enable_interrupt(irq_i2c);
     }
     else
     {
-        nvic_disable_interrupt(I2C_IRQn);
+        nvic_disable_interrupt(irq_i2c);
     }
 }
 void IRQ12_Handler(void)
@@ -69,7 +69,7 @@ void IRQ12_Handler(void)
         i2c_interrupt_handler(i2c_get_event());
     }
     i2c_clear_irq();
-    nvic_clear_interrupt(I2C_IRQn);
+    nvic_clear_interrupt(irq_i2c);
 }
 
 i2c_event_t i2c_decode_event(uint8_t status, uint8_t data)
