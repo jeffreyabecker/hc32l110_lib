@@ -6,20 +6,22 @@ else()
     set(TOOLCHAIN_EXT "" )
 endif()
 
-if(NOT "$ENV{HC32_TOOLCHAIN_PATH}" STREQUAL "")
-    set(HC32_TOOLCHAIN_PATH $ENV{HC32_TOOLCHAIN_PATH})
-endif()
+
 
 
 if("${HC32_TOOLCHAIN_PATH}" STREQUAL "")
-    find_program(
-        TMP_COMPILER_CC "${TOOLCHAIN_PREFIX}gcc${TOOLCHAIN_EXT}"
-        PATHS $ENV{PATH}
-        PATH_SUFFIXES bin
-        NO_DEFAULT_PATH
-    )
-    get_filename_component(TMP_COMPILER_DIR "${TMP_COMPILER_CC}" DIRECTORY)
-    get_filename_component(HC32_TOOLCHAIN_PATH "${TMP_COMPILER_DIR}" DIRECTORY)    
+    if(NOT "$ENV{HC32_TOOLCHAIN_PATH}" STREQUAL "")
+        set(HC32_TOOLCHAIN_PATH $ENV{HC32_TOOLCHAIN_PATH})
+    else()
+        find_program(
+            TMP_COMPILER_CC "${TOOLCHAIN_PREFIX}gcc${TOOLCHAIN_EXT}"
+            PATHS $ENV{PATH}
+            PATH_SUFFIXES bin
+            NO_DEFAULT_PATH
+        )
+        get_filename_component(TMP_COMPILER_DIR "${TMP_COMPILER_CC}" DIRECTORY)
+        get_filename_component(HC32_TOOLCHAIN_PATH "${TMP_COMPILER_DIR}" DIRECTORY)    
+    endif()    
 endif()
 set(CMAKE_AR                    "${HC32_TOOLCHAIN_PATH}/bin/${TOOLCHAIN_PREFIX}ar${TOOLCHAIN_EXT}")
 set(CMAKE_ASM_COMPILER          "${HC32_TOOLCHAIN_PATH}/bin/${TOOLCHAIN_PREFIX}as${TOOLCHAIN_EXT}")

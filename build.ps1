@@ -1,3 +1,4 @@
+ninja 
 arm-none-eabi-objcopy -O binary blinky.elf blinky.bin
 arm-none-eabi-objcopy -O ihex blinky.elf blinky.hex
 arm-none-eabi-objdump -S .\blinky.elf > .\blinky.elf.dump

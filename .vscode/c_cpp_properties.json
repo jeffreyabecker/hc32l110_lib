@@ -8,7 +8,12 @@
             "defines": [
                 "_DEBUG",
                 "UNICODE",
-                "_UNICODE"
+                "_UNICODE",
+                "HC32_USE_DDL_GPIO",
+                "HC32_USE_DDL_BASIC_TIMERS",
+                "HC32_USE_DDL_DEBUG",
+                "HC32_USE_DDL_I2C",
+                "HC32_USE_DDL_CLOCK_DYNAMIC"                
             ],
             "windowsSdkVersion": "10.0.19041.0",
             "compilerPath": "C:\\tools\\gcc-arm-none-eabi-10.3-2021.10-win32\\bin\\arm-none-eabi-gcc.exe",

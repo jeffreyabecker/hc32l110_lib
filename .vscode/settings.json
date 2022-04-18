@@ -1,27 +1,5 @@
 {
     "files.associations": {
-        "hc32l110_system.h": "c",
-        "hc32l110_ddl.h": "c",
-        "hc32l110_ddl_basic_timers.h": "c",
-        "hc32l110_registers.h": "c",
-        "stdint.h": "c",
-        "hc32l110_ddl_crc.h": "c",
-        "hc32l110_ddl_gpio.h": "c",
-        "hc32l110_registers_platform.h": "c",
-        "hc32l110_registers_clock.h": "c",
-        "cmsis_compiler.h": "c",
-        "hc32l110_registers_gpio.h": "c",
-        "cstdint": "c",
-        "stdint-gcc.h": "c",
-        "hc32l110_ddl_core.h": "c",
-        "hc32l110_ddl_buffers.h": "c",
-        "hc32l110_ddl_uart.h": "c",
-        "hc32l110_registers_basic_timers.h": "c",
-        "hc32l110_ddl_debug.h": "c",
-        "stdarg.h": "c",
-        "cstdarg": "c",
-        "hc32l110_cmsis.h": "c",
-        "hc32l110_ddl_i2c_common.h": "c",
-        "hc32l110_ddl_i2c_controller.h": "c"
+
     }
 }
