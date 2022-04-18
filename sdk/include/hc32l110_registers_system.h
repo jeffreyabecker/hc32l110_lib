@@ -56,4 +56,10 @@ typedef struct
 #define HC32_CONTROL_BLOCK ((hc32_control_block_register_t *)CONTROL_BLOCK_ADDRESS) /*!< SCB configuration struct */
 #define HC32_NVIC ((hc32_nvic_register_t *)NVIC_ADDRESS)
 #define HC32_SYSTICK ((hc32_systick_register_t *)SYSTICK_ADDRESS)
+
+#define __nop() __asm volatile ("nop")
+#define __wfi() __asm volatile ("wfi":::"memory")
+#define data_barrier() __asm volatile ("dsb 0xF":::"memory")
+#define instruction_barrier() __asm volatile ("isb 0xF":::"memory")
+#define __weak __attribute__((weak))
 #endif

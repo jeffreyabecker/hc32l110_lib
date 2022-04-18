@@ -1,5 +1,7 @@
 {
     "files.associations": {
-
+        "hc32l110_ddl_gpio.h": "c",
+        "hc32l110_system.h": "c",
+        "hc32l110_system.h": "c"
     }
 }

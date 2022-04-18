@@ -1,9 +1,9 @@
 
 #ifndef __SYSTEM_HC32L110_DDL_CORE_H__
 #define __SYSTEM_HC32L110_DDL_CORE_H__
-#include "hc32l110_cmsis.h"
 #include "hc32l110_system.h"
-#include "hc32l110_registers_clock.h"
+#include "hc32l110_system.h"
+#include "hc32l110_registers.h"
 #include <stddef.h>
 
 typedef struct systick_counter_type

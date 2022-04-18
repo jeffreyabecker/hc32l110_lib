@@ -1,9 +1,9 @@
 #ifndef __HC32L110_DDL_GPIO__H__
 #define __HC32L110_DDL_GPIO__H__
-#include "hc32l110_cmsis.h"
+#include "hc32l110_system.h"
 #include "hc32l110_system.h"
 #include "hc32l110_ddl_core.h"
-#include "hc32l110_registers_gpio.h"
+#include "hc32l110_registers.h"
 typedef struct
 {
     uint32_t *sel;

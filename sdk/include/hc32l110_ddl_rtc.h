@@ -1,8 +1,8 @@
 #ifndef __SYSTEM_HC32L110_DDL_RTC_H__
 #define __SYSTEM_HC32L110_DDL_RTC_H__
-#include "hc32l110_cmsis.h"
 #include "hc32l110_system.h"
-#include "hc32l110_registers_rtc_wdt.h"
+#include "hc32l110_system.h"
+#include "hc32l110_registers.h"
 typedef enum
 {
     rtc_period_half_second = 1,

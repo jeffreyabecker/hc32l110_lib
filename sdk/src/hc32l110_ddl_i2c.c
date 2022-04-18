@@ -1,5 +1,5 @@
+#include "hc32l110_registers.h"
 #include "hc32l110_ddl_i2c.h"
-#include "hc32l110_registers_clock.h"
 #include "hc32l110_ddl_buffers.h"
 #include "hc32l110_ddl_gpio.h"
 #include "hc32l110_ddl_core.h"
@@ -141,7 +141,7 @@ static uint8_t i2c_wait()
 {
     while (!i2c_has_irq())
     {
-        __NOP();
+        __nop();
     }
     return i2c_get_status();
 }
@@ -149,7 +149,7 @@ static i2c_event_t i2c_spin_wait()
 {
     while (!i2c_has_irq())
     {
-        __NOP();
+        __nop();
     }
     return i2c_decode_event(HC32_I2C->status, HC32_I2C->DATA);
 }

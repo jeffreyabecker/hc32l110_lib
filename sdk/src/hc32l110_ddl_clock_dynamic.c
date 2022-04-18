@@ -1,4 +1,4 @@
-#include "hc32l110_cmsis.h"
+#include "hc32l110_system.h"
 #include "hc32l110_registers_gpio.h"
 #include "hc32l110_ddl_clock_dynamic.h"
 #include "hc32l110_system.h"
@@ -7,7 +7,7 @@
 
 
 #define sub_4mhz_scale_factor 8000
-__STATIC_FORCEINLINE void __clock_config_unlock(void)
+__attribute__((always_inline)) static inline void __clock_config_unlock(void)
 {
     HC32_CLOCK->SYSCTRL2 = 0x5A5A;
     HC32_CLOCK->SYSCTRL2 = 0xA5A5;

@@ -1,9 +1,6 @@
 #include "hc32l110_ddl_debug.h"
 #include "hc32l110_system.h"
-#include "hc32l110_registers_gpio.h"
-#include "hc32l110_registers_uart.h"
-#include "hc32l110_registers_bt.h"
-#include "hc32l110_registers_clock.h"
+#include "hc32l110_registers.h"
 #include <stdarg.h>
 #include <stddef.h>
 void debug_init_uart()
@@ -32,7 +29,7 @@ void debug_putchar(char c)
     HC32_UART0->buffer = c;
     while (!HC32_UART0->interrupt_flags.tx_complete_flag)
     {
-        __NOP();
+        __nop();
     }
     HC32_UART0->interrupt_clear.tx_complete_flag = 0;
 }
@@ -46,7 +43,7 @@ void debug_print(const char *str)
         HC32_UART0->buffer = *str;
         while (!HC32_UART0->interrupt_flags.tx_complete_flag)
         {
-            __NOP();
+            __nop();
         }
         str++;
     }
@@ -61,7 +58,7 @@ void debug_printstr(const char *str)
         HC32_UART0->buffer = *str;
         while (!HC32_UART0->interrupt_flags.tx_complete_flag)
         {
-            __NOP();
+            __nop();
         }
         str++;
     }

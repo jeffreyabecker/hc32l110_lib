@@ -1,13 +1,13 @@
-#include "hc32l110_cmsis.h"
+#include "hc32l110_system.h"
 #include "hc32l110_registers_gpio.h"
-#include "hc32l110_system_registers.h"
+#include "hc32l110_registers_system.h"
 #include "hc32l110_ddl_core.h"
 #include "hc32l110_system.h"
 #include <stdint.h>
 uint32_t SystemCoreClock;
 uint32_t PeripheralCoreClock;
 
-__STATIC_FORCEINLINE void __clock_config_unlock(void)
+__attribute__((always_inline)) static inline void __clock_config_unlock(void)
 {
     HC32_CLOCK->SYSCTRL2 = 0x5A5A;
     HC32_CLOCK->SYSCTRL2 = 0xA5A5;
@@ -92,11 +92,13 @@ void nvic_disable_interrupt(IRQn_Type irq)
     if ((int32_t)(irq) >= 0)
     {
         HC32_NVIC->ICER[0U] = (uint32_t)(1UL << (((uint32_t)irq) & 0x1FUL));
-        __DSB();
-        __ISB();
+        data_barrier();
+        instruction_barrier();
     }
 }
-
+#define _BIT_SHIFT(IRQn)         (  ((((uint32_t)(int32_t)(IRQn))         )      &  0x03UL) * 8UL)
+#define _SHP_IDX(IRQn)           ( (((((uint32_t)(int32_t)(IRQn)) & 0x0FUL)-8UL) >>    2UL)      )
+#define _IP_IDX(IRQn)            (   (((uint32_t)(int32_t)(IRQn))                >>    2UL)      )
 
 void nvic_set_interrupt_priority(IRQn_Type irq, uint8_t priority)
 {
@@ -205,7 +207,7 @@ void systick_delay(uint32_t ticks)
     systick_counter_start(&counter);
     while (counter.count < ticks)
     {
-        __NOP();
+        __nop();
     }
     systick_counter_complete(&counter);
 }
@@ -214,7 +216,7 @@ void systick_counter_delay(systick_counter_t *counter, uint32_t ticks)
     systick_counter_start(counter);
     while (counter->count < ticks)
     {
-        __NOP();
+        __nop();
     }
     systick_counter_complete(counter);
 }

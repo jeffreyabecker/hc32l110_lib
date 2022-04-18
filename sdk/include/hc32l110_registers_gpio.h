@@ -2,7 +2,7 @@
 #define __HC32L110_REGISTERS_GPIO_H__
 
 #include <stdint.h>
-#include "cmsis_compiler.h"
+
 typedef enum
 {
   port_p01_gpio = 0,

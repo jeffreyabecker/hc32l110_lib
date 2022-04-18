@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "hc32l110_system.h"
 #include "hc32l110_registers_clock.h"
+#include "hc32l110_registers_system.h"
 extern uint32_t SystemCoreClock;
 extern uint32_t PeripheralCoreClock;
 
@@ -133,11 +134,11 @@ __attribute__((used)) void Reset_Handler(void)
     main();
     while (1)
     {
-        __NOP();
+        __nop();
     }
 }
 
-__WEAK void SystemInit(void)
+__weak void SystemInit(void)
 {
     HC32_CLOCK->RCH_CR.TRIM = CLOCK_TRIM_HIGH_4_mhz;
     HC32_CLOCK->peripheral_clock_enable = peripheral_none;
