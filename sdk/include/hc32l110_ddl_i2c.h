@@ -36,9 +36,10 @@ typedef enum
 } i2c_addressing_type_t;
 typedef struct
 {
+    uint8_t status;
     i2c_event_type_t type : 8;
-    i2c_addressing_type_t at_address : 8;
-    uint8_t acked : 8;
+    i2c_addressing_type_t at_address : 4;
+    uint8_t acked : 4;
     uint8_t data;
 } i2c_event_t;
 typedef void (*i2c_event_handler_t)(i2c_event_t event);

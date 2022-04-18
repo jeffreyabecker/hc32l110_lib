@@ -2,10 +2,9 @@ This repo is very much a work-in-progress.
 
 higher level goals: 
 
-boot code & ddl available as libs
-cmake build
-cmake project template
 visual studio project template
+C++ support
+C++ DLL 
 
 
 About the DDL:
@@ -16,3 +15,5 @@ Specifically the UART modules are a tough one. These modules are incredibly limi
 full/half duplex, parity bits, start/stop bits. They also lack transmit or recieve buffers and have a baud rate setting which is incredibly complex to calculate.
 at the same time they have a non-standard multi-party mode which would be fantastic to expose as its own DDL module.
 
+Why C++
+To put it bluntly -- I prefer C++. It would be especially helpful to have templates and classes for dealing with buffers in the uart, multi-party-uart, i2c and spi modules 

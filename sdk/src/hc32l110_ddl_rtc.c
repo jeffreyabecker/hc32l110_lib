@@ -39,16 +39,14 @@ uint32_t rtc_now_bcd()
 {
     HC32_RTC->control.WAIT = 1;
     uint32_t result = __rtc2dec(HC32_RTC->second) + (__rtc2dec(HC32_RTC->minute) * 100) + (__rtc2dec(HC32_RTC->hour) * 10000) + (__rtc2dec(HC32_RTC->day) * 1000000) + (HC32_RTC->month * 100000000) + (__rtc2dec(HC32_RTC->year) * 10000000000);
-
     HC32_RTC->control.WAIT = 0;
     return result;
 }
-uint32_t month_seconds_lookup[12] = {0UL, 2678400UL, 5097600UL, 7776000UL, 10368000UL, 13046400UL, 15638400UL, 18316800UL, 20995200UL, 23587200UL, 26265600UL, 28857600UL};
+__read_only_data uint32_t month_seconds_lookup[12] = {0UL, 2678400UL, 5097600UL, 7776000UL, 10368000UL, 13046400UL, 15638400UL, 18316800UL, 20995200UL, 23587200UL, 26265600UL, 28857600UL};
 uint32_t rtc_now_seconds()
 {
     HC32_RTC->control.WAIT = 1;
     uint32_t result = __rtc2dec(HC32_RTC->second) + (__rtc2dec(HC32_RTC->minute) * 60) + (__rtc2dec(HC32_RTC->hour) * 3600) + (__rtc2dec(HC32_RTC->day) * 86400) + (month_seconds_lookup[HC32_RTC->month]) + (__rtc2dec(HC32_RTC->year) * 31536000);
-
     HC32_RTC->control.WAIT = 0;
     return result;
 }
