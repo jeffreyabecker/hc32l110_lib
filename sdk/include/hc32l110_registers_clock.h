@@ -183,14 +183,11 @@ typedef struct
 } hc32_reset_register_t;
 #define HC32_RESET ((hc32_reset_register_t *)0x4000201CUL)
 
-
-
-
-#define CLOCK_TRIM_HIGH_24mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C00ul))))
-#define CLOCK_TRIM_HIGH_22_12mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C02ul))))
-#define CLOCK_TRIM_HIGH_16mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C04ul))))
-#define CLOCK_TRIM_HIGH_8mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C06ul))))
-#define CLOCK_TRIM_HIGH_4mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C08ul))))
+#define CLOCK_TRIM_HIGH_24_mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C00ul))))
+#define CLOCK_TRIM_HIGH_22_12_mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C02ul))))
+#define CLOCK_TRIM_HIGH_16_mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C04ul))))
+#define CLOCK_TRIM_HIGH_8_mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C06ul))))
+#define CLOCK_TRIM_HIGH_4_mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C08ul))))
 #define CLOCK_TRIM_LOW_38_4_khz ((uint32_t)(*((volatile uint16_t *)(0x00100C20ul))))
 #define CLOCK_TRIM_LOW_32_8_khz ((uint32_t)(*((volatile uint16_t *)(0x00100C22ul))))
 #define MAX_SYSTICK_VALUE 0x007FFFFFUL
@@ -202,5 +199,27 @@ typedef struct
 #define MHz_22_12 22120000
 #define MHz_24 24000000
 #define KHz_1 1000
+
+typedef struct
+{
+  volatile const uint16_t Mhz_24 : 16;
+  volatile const uint16_t Mhz_22_12 : 16;
+  volatile const uint16_t Mhz_16 : 16;
+  volatile const uint16_t Mhz_8 : 16;
+  volatile const uint16_t Mhz_4 : 16;
+  uint16_t unused : 16;
+} hc32_rch_trim_values_register_t;
+typedef struct
+{
+  volatile const uint16_t Khz_38_4 : 16;
+  volatile const uint16_t Khz_32_8 : 16;
+} hc32_rcl_trim_values_register_t;
+typedef struct
+{
+  hc32_rch_trim_values_register_t High;
+  uint8_t reserved[30];
+  hc32_rcl_trim_values_register_t Low;
+} hc32_clock_trim_values_register_t;
+#define HC32_CLOCK_TRIM ((hc32_clock_trim_values_register_t *)0x4000201CUL)
 
 #endif

@@ -139,7 +139,7 @@ __attribute__((used)) void Reset_Handler(void)
 
 __WEAK void SystemInit(void)
 {
-    HC32_CLOCK->RCH_CR.TRIM = CLOCK_TRIM_HIGH_4mhz;
+    HC32_CLOCK->RCH_CR.TRIM = CLOCK_TRIM_HIGH_4_mhz;
     HC32_CLOCK->peripheral_clock_enable = peripheral_none;
     SystemCoreClock = MHz_4;
     PeripheralCoreClock = MHz_4;

@@ -12,6 +12,7 @@ This repo is very much a work-in-progress.
 visual studio project template
 C++ support
 C++ DLL 
+Documentation
 eliminating CMSIS
 boot-only library -- the core library currently incldes more than just booting. mayebe people would want to skip that all together
 have cmake update the vscode `c_cpp_properties.json` file with the 
