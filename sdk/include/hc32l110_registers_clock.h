@@ -190,7 +190,9 @@ typedef struct
 #define CLOCK_TRIM_HIGH_4_mhz ((uint32_t)(*((volatile uint16_t *)(0x00100C08ul))))
 #define CLOCK_TRIM_LOW_38_4_khz ((uint32_t)(*((volatile uint16_t *)(0x00100C20ul))))
 #define CLOCK_TRIM_LOW_32_8_khz ((uint32_t)(*((volatile uint16_t *)(0x00100C22ul))))
+
 #define MAX_SYSTICK_VALUE 0x007FFFFFUL
+
 #define KHz_32_8 32800
 #define KHz_38_4 38400
 #define MHz_4 4000000
@@ -200,26 +202,5 @@ typedef struct
 #define MHz_24 24000000
 #define KHz_1 1000
 
-typedef struct
-{
-  volatile const uint16_t Mhz_24 : 16;
-  volatile const uint16_t Mhz_22_12 : 16;
-  volatile const uint16_t Mhz_16 : 16;
-  volatile const uint16_t Mhz_8 : 16;
-  volatile const uint16_t Mhz_4 : 16;
-  uint16_t unused : 16;
-} hc32_rch_trim_values_register_t;
-typedef struct
-{
-  volatile const uint16_t Khz_38_4 : 16;
-  volatile const uint16_t Khz_32_8 : 16;
-} hc32_rcl_trim_values_register_t;
-typedef struct
-{
-  hc32_rch_trim_values_register_t High;
-  uint8_t reserved[30];
-  hc32_rcl_trim_values_register_t Low;
-} hc32_clock_trim_values_register_t;
-#define HC32_CLOCK_TRIM ((hc32_clock_trim_values_register_t *)0x4000201CUL)
 
 #endif

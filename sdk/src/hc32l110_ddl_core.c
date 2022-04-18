@@ -127,8 +127,10 @@ void enable_systick(uint32_t systick_frequency_hz)
     {
         peripheral_set_enabled(peripheral_get_enabled() | peripheral_tick);
         uint32_t ticks = (PeripheralCoreClock) / systick_frequency_hz;
-        SysTick_Config(ticks);
+
+        HC32_SYSTICK->LOAD  = (uint32_t)(ticks - 1UL);                         /* set reload register */
         nvic_set_interrupt_priority(SysTick_IRQn, nvic_default_irq_priority);
+        HC32_SYSTICK->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
         __systick_start();
     }
     else

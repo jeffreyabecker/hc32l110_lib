@@ -55,5 +55,5 @@ typedef struct
 
 #define HC32_CONTROL_BLOCK ((hc32_control_block_register_t *)CONTROL_BLOCK_ADDRESS) /*!< SCB configuration struct */
 #define HC32_NVIC ((hc32_nvic_register_t *)NVIC_ADDRESS)
-#define HC32_SYSTICK ((hc32_systick_register_t *)NVIC_ADDRESS)
+#define HC32_SYSTICK ((hc32_systick_register_t *)SYSTICK_ADDRESS)
 #endif
