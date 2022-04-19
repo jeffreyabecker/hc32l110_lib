@@ -8,7 +8,7 @@ typedef struct
 } ring_buffer_header_t;
 #define buffer_header(BUFFER) ((ring_buffer_header_t *)BUFFER)
 #define buffer_data(BUFFER) ((uint8_t *)((uint32_t)BUFFER + 4))
-uint8_t buffer_remaining(buffer_t b)
+uint8_t buffer_length(buffer_t b)
 {
     return buffer_header(b)->length;
 }

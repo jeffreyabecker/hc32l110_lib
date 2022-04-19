@@ -40,7 +40,3 @@ if(HC32_USE_DDL_CLOCK_DYNAMIC)
     add_compile_definitions("HC32_USE_DDL_CLOCK_DYNAMIC")
 endif()
 link_libraries("gcc")
-
-
-#- .\template\main.c  
-#-T .\template\hc32l110x6.ld -o blink.elf

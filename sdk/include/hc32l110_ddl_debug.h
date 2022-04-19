@@ -3,6 +3,7 @@
 #include <stdint.h>
 void debug_init_uart();
 void debug_print(const char *str);
+void debug_print_uint32(uint32_t val);
 #define debug_breakpoint() __asm("bkpt 1")
 
 

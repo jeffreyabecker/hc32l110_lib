@@ -24,7 +24,7 @@ void debug_init_uart()
 }
 void debug_putchar(char c)
 {
-    HC32_UART1->control.rx_enabled = 0;
+    HC32_UART0->control.rx_enabled = 0;
     HC32_UART0->interrupt_clear.tx_complete_flag = 0;
     HC32_UART0->buffer = c;
     while (!HC32_UART0->interrupt_flags.tx_complete_flag)
@@ -78,33 +78,3 @@ void debug_print_uint32(uint32_t val)
     debug_print(&(formatted[0]));
 }
 
-//supports %c, %i, %u, %x, %p, %s
-
-// void debug_printf(const char *format, ...)
-// {
-//   va_list argp;
-//   va_start(argp, format);
-//   while (*format != '\0') {
-//     if (*format == '%') {
-//       format++;
-//       if (*format == '%') {
-//         debug_putchar('%');
-//       } else if (*format == 'c') {
-//         char char_to_print = va_arg(argp, int);
-//         debug_putchar(char_to_print);
-//       }
-//       else if (*format == 's'){
-//           char* inner = (char*)va_arg(argp, int);
-//           debug_printstr(inner);
-//       }
-//       else {
-//         debug_printstr("Not implemented: %");
-//         debug_putchar(*format);
-//       }
-//     } else {
-//       debug_putchar(*format);
-//     }
-//     format++;
-//   }
-//   va_end(argp);
-// }

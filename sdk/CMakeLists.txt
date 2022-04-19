@@ -13,3 +13,4 @@ add_library ("${CMAKE_PROJECT_NAME}_basic_timers" "${LIB_SOURCE_DIR}/hc32l110_dd
 add_library ("${CMAKE_PROJECT_NAME}_debug" "${LIB_SOURCE_DIR}/hc32l110_ddl_debug.c")
 add_library ("${CMAKE_PROJECT_NAME}_i2c" "${LIB_SOURCE_DIR}/hc32l110_ddl_i2c.c")
 add_library ("${CMAKE_PROJECT_NAME}_clock_dynamic" "${LIB_SOURCE_DIR}/hc32l110_ddl_clock_dynamic.c")
+add_library ("${CMAKE_PROJECT_NAME}_uart" "${LIB_SOURCE_DIR}/hc32l110_ddl_uart.c")
