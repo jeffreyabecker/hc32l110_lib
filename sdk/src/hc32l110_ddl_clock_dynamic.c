@@ -1,7 +1,7 @@
 #include "hc32l110_system.h"
 #include "hc32l110_registers_gpio.h"
 #include "hc32l110_ddl_clock_dynamic.h"
-#include "hc32l110_system.h"
+
 #include <stdint.h>
 
 

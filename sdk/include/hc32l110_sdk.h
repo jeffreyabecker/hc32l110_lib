@@ -26,6 +26,8 @@
 #ifdef HC32_USE_DDL_I2C
 #include "hc32l110_ddl_i2c.h"
 #endif
-
+#ifdef HC32_USE_DDL_UTIL
+#include "hc32l110_ddl_util.h"
+#endif
 
 #endif

@@ -15,6 +15,7 @@ set(HC32_USE_DDL_BASIC_TIMERS FALSE)
 set(HC32_USE_DDL_DEBUG FALSE)
 set(HC32_USE_DDL_I2C FALSE)
 set(HC32_USE_DDL_CLOCK_DYNAMIC FALSE)
+set(HC32_USE_DDL_UTIL FALSE)
 
 # If the toolchain isnt in your path it should be set as such
 # 1) set the HC32_TOOLCHAIN_PATH environment variable

@@ -13,7 +13,8 @@
                 "HC32_USE_DDL_BASIC_TIMERS",
                 "HC32_USE_DDL_DEBUG",
                 "HC32_USE_DDL_I2C",
-                "HC32_USE_DDL_CLOCK_DYNAMIC"                
+                "HC32_USE_DDL_CLOCK_DYNAMIC",
+                "HC32_USE_DDL_UTIL"                
             ],
             "windowsSdkVersion": "10.0.19041.0",
             "compilerPath": "C:\\tools\\gcc-arm-none-eabi-10.3-2021.10-win32\\bin\\arm-none-eabi-gcc.exe",

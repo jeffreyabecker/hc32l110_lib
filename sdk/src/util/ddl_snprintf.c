@@ -1,24 +1,8 @@
 #include <stdarg.h>
 #include <stddef.h>
 #include "hc32l110_system.h"
+#include "hc32l110_ddl_util.h"
 
-void *memset(void *mem, uint8_t value, size_t length)
-{
-    for (size_t i = 0; i < length; i++)
-    {
-        ((uint8_t *)mem)[i] = value;
-    }
-    return mem;
-}
-size_t strlen(const char *format)
-{
-    size_t len = 0;
-    while (*format != '\0')
-    {
-        len++;
-    }
-    return len;
-}
 __read_only_data char digits[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 void __hex_format_value(uint8_t *formatted, uint32_t val, uint8_t bits, uint8_t bits_per_digit)
 {
