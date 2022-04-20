@@ -2,18 +2,30 @@
 #include "hc32l110_system.h"
 #include "hc32l110_registers_clock.h"
 #include "hc32l110_registers_system.h"
+typedef void (*ptr_func_t)();
+
 extern uint32_t SystemCoreClock;
 extern uint32_t PeripheralCoreClock;
 
-extern uint32_t __text_end__;
-extern uint32_t __StackTop;
+extern uint32_t __data_start;
+extern uint32_t __data_end;
+extern uint32_t __data_load;
 
-// defines start and end of .data section in RAM
-extern uint32_t __data_start__;
-extern uint32_t __data_end__;
-// defines start and end of .bss section in RAM
-extern uint32_t __bss_start__;
-extern uint32_t __bss_end__;
+extern uint32_t __bss_start;
+extern uint32_t __bss_end;
+
+extern uint32_t __heap_start;
+extern uint32_t __stacktop;
+
+extern ptr_func_t __preinit_array_start[];
+extern ptr_func_t __preinit_array_end[];
+
+extern ptr_func_t __init_array_start[];
+extern ptr_func_t __init_array_end[];
+
+extern ptr_func_t __fini_array_start[];
+extern ptr_func_t __fini_array_end[];
+
 extern int main(void);
 extern void SystemInit(void);
 
@@ -60,8 +72,8 @@ void IRQ29_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void IRQ30_Handler(void) WEAK_ALIAS(Dummy_Handler);
 void IRQ31_Handler(void) WEAK_ALIAS(Dummy_Handler);
 
-void *vector_table[] __attribute__((used, section(".vectors"))) = {
-    &__StackTop,
+__attribute__((section(".stack"), used)) uint32_t *__stack_init = &__stacktop;
+__attribute__((section(".vectors"), used)) ptr_func_t vector_table[] = {
     Reset_Handler,
     NMI_Handler,
     HardFault_Handler,
@@ -109,29 +121,70 @@ void *vector_table[] __attribute__((used, section(".vectors"))) = {
     IRQ29_Handler,
     IRQ30_Handler,
     IRQ31_Handler};
+/** Copy default data to DATA section
+ */
+void copy_data()
+{
+    uint32_t *src = &__data_load;
+    uint32_t *dst = &__data_start;
+    while (dst < &__data_end)
+    {
+        *dst++ = *src++;
+    }
+}
+
+/** Erase BSS section
+ */
+void zero_bss()
+{
+    uint32_t *dst = &__bss_start;
+    while (dst < &__bss_end)
+    {
+        *dst++ = 0;
+    }
+}
+
+
+
+/** Call constructors for static objects
+ */
+void call_init_array()
+{
+    ptr_func_t array = &__preinit_array_start;
+    while (array < __preinit_array_end)
+    {
+        (*array)();
+        array++;
+    }
+
+    array = &__init_array_start;
+    while (array < __init_array_end)
+    {
+        (*array)();
+        array++;
+    }
+}
+
+/** Call destructors for static objects
+ */
+void call_fini_array()
+{
+    ptr_func_t array = &__fini_array_start;
+    while (array != __fini_array_end)
+    {
+        (*array)();
+        array++;
+    }
+}
 __attribute__((used)) void Reset_Handler(void)
 {
-    uint8_t *src, *dst;
-
-    // copy .data area
-    src = (uint8_t *)&__text_end__;
-    dst = (uint8_t *)&__data_start__;
-    while (dst < (uint8_t *)&__data_end__)
-    {
-        *dst = *src;
-        dst++;
-        src++;
-    }
-
-    // clear .bss area
-    dst = (uint8_t *)&__bss_start__;
-    while (dst < (uint8_t *)&__bss_end__)
-    {
-        *dst = 0;
-        dst++;
-    }
+    copy_data();
+    zero_bss();
     SystemInit();
+    call_init_array();
     main();
+    // call destructors for static instances
+    call_fini_array();
     while (1)
     {
         __nop();

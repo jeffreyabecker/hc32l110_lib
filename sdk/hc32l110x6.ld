@@ -8,33 +8,59 @@ MEMORY
 ENTRY(Reset_Handler)
 SECTIONS
 {
-    __StackTop = ORIGIN(RAM) + LENGTH(RAM);
-    
-    .text :
-    {
+   . = ORIGIN(FLASH);
+    .text : {
+        KEEP(*(.stack))
         KEEP(*(.vectors))
+        KEEP(*(.vectors*))
+        KEEP(*(.text))
+        . = ALIGN(4);
         *(.text*)
+        . = ALIGN(4);
+        KEEP(*(.rodata))
         *(.rodata*)
-    } > FLASH
+        . = ALIGN(4);
+    } >FLASH
 
-    __text_end__ = .;
+    .preinit_array ALIGN(4): {
+        __preinit_array_start = .;
+        KEEP(*(.preinit_array))
+        __preinit_array_end = .;
+    } >FLASH
 
-    .data : AT (__text_end__)
-    {
-        __data_start__ = .;
+    .init_array ALIGN(4): {
+        __init_array_start = .;
+        KEEP(*(.init_array))
+        __init_array_end = .;
+    } >FLASH
+
+    .fini_array ALIGN(4): {
+        __fini_array_start = .;
+        KEEP(*(.fini_array))
+        __fini_array_end = .;
+    } >FLASH
+    __stacktop = ORIGIN(RAM) + LENGTH(RAM);
+    __data_load = LOADADDR(.data);
+    . = ORIGIN(RAM);
+
+    .data ALIGN(4) : {
+        __data_start = .;
+        *(.data)
         *(.data*)
-        __data_end__ = .;
-
-    } > RAM
-
-    .bss :
-    {
         . = ALIGN(4);
-        __bss_start__ = .;
+        __data_end = .;
+    } >RAM AT >FLASH
+
+    .bss ALIGN(4) (NOLOAD) : {
+        __bss_start = .;
+        *(.bss)
         *(.bss*)
-        *(COMMON)
         . = ALIGN(4);
-        __bss_end__ = .;
-    } > RAM
+        __bss_end = .;
+        *(.noinit)
+        *(.noinit*)
+    } >RAM
 
+    . = ALIGN(4);
+    __heap_start = .;
 }
