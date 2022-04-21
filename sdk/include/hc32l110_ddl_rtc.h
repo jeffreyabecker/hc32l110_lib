@@ -1,6 +1,9 @@
-#ifndef __SYSTEM_HC32L110_DDL_RTC_H__
-#define __SYSTEM_HC32L110_DDL_RTC_H__
-#include "hc32l110_system.h"
+#ifndef __HC32L110_DDL_RTC_H__
+#define __HC32L110_DDL_RTC_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "hc32l110_system.h"
 #include "hc32l110_registers.h"
 typedef enum
@@ -70,5 +73,9 @@ void rtc_alarm_set(uint8_t hour, uint8_t minute, rtc_day_of_week_t days_of_week)
 void rtc_time_set(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);
 void rtc_set_running(rtc_enabled_t enabled);
 void rtc_alarm_interrupt_enable(rtc_enabled_t enabled);
+
 #define peripheral_enable_rtc peripheral_set_enabled(peripheral_get_enabled() | peripheral_rtc)
+#ifdef __cplusplus
+}
+#endif
 #endif

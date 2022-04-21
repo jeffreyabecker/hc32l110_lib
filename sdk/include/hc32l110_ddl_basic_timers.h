@@ -1,5 +1,9 @@
-#ifndef __SYSTEM_HC32L110_DDL_BASIC_TIMERS_H__
-#define __SYSTEM_HC32L110_DDL_BASIC_TIMERS_H__
+#ifndef __HC32L110_DDL_BASIC_TIMERS_H__
+#define __HC32L110_DDL_BASIC_TIMERS_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 #include <stddef.h>
 #include "hc32l110_registers.h"
@@ -23,5 +27,8 @@ void basic_timer_configure(hc32_basic_timer_register_t *timer, const basic_timer
 void basic_timer_set_running(hc32_basic_timer_register_t *timer, uint8_t enabled);
 #define peripheral_enable_basic_timer() peripheral_set_enabled(peripheral_get_enabled() | peripheral_basetim )
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif

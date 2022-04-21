@@ -1,6 +1,10 @@
 
-#ifndef __SYSTEM_HC32L110_DDL_CORE_H__
-#define __SYSTEM_HC32L110_DDL_CORE_H__
+#ifndef __HC32L110_DDL_CORE_H__
+#define __HC32L110_DDL_CORE_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "hc32l110_system.h"
 #include "hc32l110_system.h"
 #include "hc32l110_registers.h"
@@ -33,5 +37,9 @@ uint32_t systick_counter_elapsed(systick_counter_t *counter);
 void systick_counter_complete(systick_counter_t *counter);
 void systick_counter_delay(systick_counter_t *counter, uint32_t ticks);
 void systick_delay(uint32_t ticks);
+
 void clock_set_freq(uint32_t freqency_hz, uint16_t clock_trim);
+#ifdef __cplusplus
+}
+#endif
 #endif

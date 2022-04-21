@@ -1,5 +1,8 @@
 #ifndef __HC32L110_REGISTERS_GPIO_H__
 #define __HC32L110_REGISTERS_GPIO_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdint.h>
 
@@ -340,5 +343,8 @@ typedef struct
 // with other registers. Maybe this keeps the interrupts enabled
 // during deep sleep?
 #define HC32_GPIO_IESEL_ ((uint32_t *)GPIO_BASE_ADDRESS + 0x300)
+#ifdef __cplusplus
+}
+#endif
 
 #endif

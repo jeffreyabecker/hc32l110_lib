@@ -1,5 +1,8 @@
 #ifndef __HC32L110_REGISTERS_BT_H__
 #define __HC32L110_REGISTERS_BT_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdint.h>
 typedef enum
@@ -76,5 +79,9 @@ typedef struct
   basic_timer_gate_source_t timer_3 : 2;
 } basic_timer_gate_selection_t;
 
+
 #define HC32_BASIC_TIMER_GATE_CONTROL ((basic_timer_gate_selection_t *)0x40020F10)
+#ifdef __cplusplus
+}
+#endif
 #endif

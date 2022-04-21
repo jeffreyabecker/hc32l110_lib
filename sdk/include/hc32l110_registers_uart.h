@@ -1,5 +1,8 @@
 #ifndef __HC32L110_REGISTERS_UART_H__
 #define __HC32L110_REGISTERS_UART_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <stdint.h>
 typedef struct
 {
@@ -52,5 +55,8 @@ typedef struct
 #define HC32_UART0 ((hc32_uart_register_t *)UART00_ADDRESS)
 #define HC32_UART1 ((hc32_uart_register_t *)UART01_ADDRESS)
 #define HC32_LPUART ((hc32_uart_register_t *)LPUART_ADDRESS)
+#ifdef __cplusplus
+}
+#endif
 
 #endif

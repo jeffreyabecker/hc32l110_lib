@@ -1,7 +1,10 @@
 
-#ifndef __SYSTEM_HC32L110_DDL_CLOCK_DYNAMIC_H__
-#define __SYSTEM_HC32L110_DDL_CLOCK_DYNAMIC_H__
-#include "hc32l110_system.h"
+#ifndef __HC32L110_DDL_CLOCK_DYNAMIC_H__
+#define __HC32L110_DDL_CLOCK_DYNAMIC_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "hc32l110_system.h"
 #include "hc32l110_registers.h"
 #include <stddef.h>
@@ -35,5 +38,8 @@ typedef enum
 
 
 void set_system_clock(clock_source_t source, uint32_t clock_frequency_hz, system_clock_divider_t system_clock_prescaler, peripheral_clock_divider_t peripheral_clock_prescaler);
+#ifdef __cplusplus
+}
+#endif
 
 #endif

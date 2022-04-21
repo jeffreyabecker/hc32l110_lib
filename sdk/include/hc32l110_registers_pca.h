@@ -1,5 +1,8 @@
 #ifndef __HC32L110_REGISTERS_PCA_H__
 #define __HC32L110_REGISTERS_PCA_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdint.h>
 
@@ -93,5 +96,8 @@ typedef enum
 typedef pca_capture_source_t pca_capture_source_list_t[5];
 
 #define HC32_PCA_CAPTURE_SOURCE ((pca_capture_source_list_t *)0x40020F08UL)
+#ifdef __cplusplus
+}
+#endif
 
 #endif

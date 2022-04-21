@@ -1,6 +1,9 @@
-#ifndef __SYSTEM_HC32L110_DDL_I2C_H__
-#define __SYSTEM_HC32L110_DDL_I2C_H__
-#include "hc32l110_system.h"
+#ifndef __HC32L110_DDL_I2C_H__
+#define __HC32L110_DDL_I2C_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "hc32l110_system.h"
 #include "hc32l110_registers.h"
 
@@ -62,5 +65,9 @@ typedef struct
 } i2c_controller_result_t;
 
 i2c_controller_result_t i2c_controller_write(uint8_t peripheral, const uint8_t *data, uint8_t length, uint8_t send_stop);
+
 i2c_controller_result_t i2c_controller_read(uint8_t peripheral, uint8_t *data, uint8_t length, uint8_t send_stop);
+#ifdef __cplusplus
+}
+#endif
 #endif

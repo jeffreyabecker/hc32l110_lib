@@ -1,5 +1,8 @@
 #ifndef __HC32L110_REGISTERS_RTC_WDT_H__
 #define __HC32L110_REGISTERS_RTC_WDT_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdint.h>
 
@@ -110,5 +113,8 @@ typedef struct
 #define HC32_CRC ((HC32_CRC_TypeDef *)0x40020900UL)
 #define HC32_RTC ((HC32_RTC_TypeDef *)0x40001400UL)
 #define HC32_WDT ((HC32_WDT_TypeDef *)0x40000C00UL)
+#ifdef __cplusplus
+}
+#endif
 
 #endif

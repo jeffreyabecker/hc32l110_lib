@@ -8,5 +8,8 @@
 #include "hc32l110_registers_rtc_wdt.h"
 #include "hc32l110_registers_spi.h"
 #include "hc32l110_registers_system.h"
+#ifdef __cplusplus
+}
+#endif
 #include "hc32l110_registers_uart.h"
 #endif

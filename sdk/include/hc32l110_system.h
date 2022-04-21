@@ -1,14 +1,14 @@
 
 #ifndef __SYSTEM_HC32L110_SYSTEM_H__
 #define __SYSTEM_HC32L110_SYSTEM_H__
-
-#include <stdint.h>
-
-#include "hc32l110_system.h"
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+#include <stdint.h>
+
+#include "hc32l110_system.h"
+
 #define __MPU_PRESENT 0
 #define __NVIC_PRIO_BITS 2
 #define __Vendor_SysTickConfig 0
@@ -61,8 +61,10 @@ extern "C"
     extern uint32_t PeripheralCoreClock;
 
     void SystemInit(void);
+
 #ifdef __cplusplus
 }
 #endif
+
 
 #endif /* __SYSTEM_HC32L110_H__ */

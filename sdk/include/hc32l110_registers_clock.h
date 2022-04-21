@@ -1,5 +1,8 @@
 #ifndef __HC32L110_REGISTERS_CLOCK_H__
 #define __HC32L110_REGISTERS_CLOCK_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdint.h>
 
@@ -202,5 +205,8 @@ typedef struct
 #define MHz_24 24000000
 #define KHz_1 1000
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif

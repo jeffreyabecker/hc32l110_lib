@@ -1,5 +1,8 @@
 #ifndef __HC32L110_SYSTEM_REGISTERS_H__
 #define __HC32L110_SYSTEM_REGISTERS_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <stdint.h>
 typedef struct
 {
@@ -82,5 +85,11 @@ typedef struct
                                           : "memory")
 #define instruction_barrier() __asm volatile("isb 0xF" :: \
                                                  : "memory")
+#ifdef __cplusplus
+}
+#endif
 #define __weak __attribute__((weak))
+#ifdef __cplusplus
+}
+#endif
 #endif

@@ -1,5 +1,9 @@
-#ifndef __SYSTEM_HC32L110_DDL_BUFFER_H__
-#define __SYSTEM_HC32L110_DDL_BUFFER_H__
+#ifndef __HC32L110_DDL_BUFFER_H__
+#define __HC32L110_DDL_BUFFER_H__
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 /** \defgroup DDL buffers @{*/
 /** Statically allocates a buffer. This buffer must be passed to buffer_init prior to useage*/
@@ -16,5 +20,8 @@ uint8_t buffer_append_byte(buffer_t b, const uint8_t byte);
 uint8_t buffer_get_byte(buffer_t b, uint8_t *byte);
 uint8_t buffer_length(buffer_t b);
 uint8_t buffer_available(buffer_t b);
+#ifdef __cplusplus
+}
+#endif
 
 #endif

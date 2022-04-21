@@ -1,5 +1,8 @@
 #ifndef __HC32L110_DDL_GPIO__H__
 #define __HC32L110_DDL_GPIO__H__
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include "hc32l110_system.h"
 #include "hc32l110_system.h"
 #include "hc32l110_ddl_core.h"
@@ -61,5 +64,9 @@ typedef struct
 } gpio_interrupt_config_t;
 void gpio_set_interrupt_handler(const gpio_port_descriptor_t *port, gpio_interrupt_config_t cfg, gpio_port_handler_t handler);
 #define gpio_clear_interrupt_handler(port) gpio_set_interrupt_handler(port, (gpio_interrupt_config_t)NULL, NULL)
+
 void peripheral_enable_gpio();
+#ifdef __cplusplus
+}
+#endif
 #endif
