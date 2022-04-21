@@ -10,7 +10,7 @@
                 "UNICODE",
                 "_UNICODE",
                 "HC32_USE_DDL_GPIO",
-                "HC32_USE_DDL_BASIC_TIMERS",
+                "HC32_USE_DDL_TIMERS",
                 "HC32_USE_DDL_DEBUG",
                 "HC32_USE_DDL_I2C",
                 "HC32_USE_DDL_CLOCK_DYNAMIC",

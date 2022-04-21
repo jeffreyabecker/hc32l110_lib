@@ -14,8 +14,8 @@ extern "C" {
 
 #include "hc32l110_ddl_core.h"
 
-#ifdef HC32_USE_DDL_BASIC_TIMERS
-#include "hc32l110_ddl_basic_timers.h"
+#ifdef HC32_USE_DDL_TIMERS
+#include "hc32l110_ddl_timers.h"
 #endif
 #ifdef HC32_USE_DDL_CLOCK_DYNAMIC
 #include "hc32l110_ddl_clock_dynamic.h"
@@ -26,9 +26,9 @@ extern "C" {
 #ifdef HC32_USE_DDL_GPIO
 #include "hc32l110_ddl_gpio.h"
 #endif
-#ifdef HC32_USE_DDL_I2C
-#include "hc32l110_ddl_i2c.h"
-#endif
+// #ifdef HC32_USE_DDL_I2C
+// #include "hc32l110_ddl_i2c.h"
+// #endif
 #ifdef HC32_USE_DDL_UTIL
 #include "hc32l110_ddl_util.h"
 #endif
