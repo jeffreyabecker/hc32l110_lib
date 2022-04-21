@@ -85,9 +85,7 @@ typedef struct
                                           : "memory")
 #define instruction_barrier() __asm volatile("isb 0xF" :: \
                                                  : "memory")
-#ifdef __cplusplus
-}
-#endif
+
 #define __weak __attribute__((weak))
 #ifdef __cplusplus
 }

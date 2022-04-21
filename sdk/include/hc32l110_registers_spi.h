@@ -42,9 +42,7 @@ typedef struct
 
 } hc32_spi_register_t;
 
-#ifdef __cplusplus
-}
-#endif
+
 #define HC32_SPI ((hc32_spi_register_t *)0x40000800UL)
 #ifdef __cplusplus
 }
