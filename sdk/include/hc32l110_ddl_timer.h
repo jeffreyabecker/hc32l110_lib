@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include "hc32l110_registers.h"
 #include "hc32l110_system.h"
-#include "hc32l110_ddl_interrupt_callback.h"
+#include "hc32l110_ddl_interrupt_invocation_handler.h"
 
 class Timer
 {
@@ -46,6 +46,7 @@ public:
     virtual void set_interrupt_handler(InterruptInvocationHandler<Timer> *handler);
     virtual void invoke_interrupt(irq_t irq);
 };
+
 typedef struct
 {
     basic_timer_mode_t mode : 1;

@@ -1,4 +1,3 @@
-
 #ifndef __SYSTEM_HC32L110_SYSTEM_H__
 #define __SYSTEM_HC32L110_SYSTEM_H__
 #ifdef __cplusplus

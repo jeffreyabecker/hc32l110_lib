@@ -15,7 +15,7 @@ extern "C" {
 #include "hc32l110_ddl_core.h"
 
 #ifdef HC32_USE_DDL_TIMERS
-#include "hc32l110_ddl_timers.h"
+#include "hc32l110_ddl_timer.h"
 #endif
 #ifdef HC32_USE_DDL_CLOCK_DYNAMIC
 #include "hc32l110_ddl_clock_dynamic.h"
@@ -31,9 +31,6 @@ extern "C" {
 // #endif
 #ifdef HC32_USE_DDL_UTIL
 #include "hc32l110_ddl_util.h"
-#endif
-#ifdef __cplusplus
-}
 #endif
 
 #endif

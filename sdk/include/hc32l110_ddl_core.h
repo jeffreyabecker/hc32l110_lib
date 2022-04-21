@@ -25,6 +25,7 @@ void nvic_clear_interrupt(irq_t irq);
 void nvic_enable_interrupt(irq_t irq);
 void nvic_disable_interrupt(irq_t irq);
 void nvic_set_interrupt_priority(irq_t irq, uint8_t priority);
+uint8_t nvic_interrupt_enabled(irq_t irq);
 #define nvic_default_irq_priority 0x03
 
 #define SYSTICK_RUNNING_MASK 0x00000007

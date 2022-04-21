@@ -96,9 +96,21 @@ void nvic_disable_interrupt(irq_t irq)
         instruction_barrier();
     }
 }
-#define _BIT_SHIFT(IRQn)         (  ((((uint32_t)(int32_t)(IRQn))         )      &  0x03UL) * 8UL)
-#define _SHP_IDX(IRQn)           ( (((((uint32_t)(int32_t)(IRQn)) & 0x0FUL)-8UL) >>    2UL)      )
-#define _IP_IDX(IRQn)            (   (((uint32_t)(int32_t)(IRQn))                >>    2UL)      )
+uint8_t nvic_interrupt_enabled(irq_t irq)
+{
+    if ((int32_t)(irq) >= 0)
+    {
+        return ((uint32_t)(((HC32_NVIC->ISER[(((uint32_t)irq) >> 5UL)] & (1UL << (((uint32_t)irq) & 0x1FUL))) != 0UL) ? 1UL : 0UL));
+    }
+    else
+    {
+        return (0U);
+    }
+}
+
+#define _BIT_SHIFT(IRQn) (((((uint32_t)(int32_t)(IRQn))) & 0x03UL) * 8UL)
+#define _SHP_IDX(IRQn) ((((((uint32_t)(int32_t)(IRQn)) & 0x0FUL) - 8UL) >> 2UL))
+#define _IP_IDX(IRQn) ((((uint32_t)(int32_t)(IRQn)) >> 2UL))
 
 void nvic_set_interrupt_priority(irq_t irq, uint8_t priority)
 {
@@ -130,9 +142,9 @@ void enable_systick(uint32_t systick_frequency_hz)
         peripheral_set_enabled(peripheral_get_enabled() | peripheral_tick);
         uint32_t ticks = (PeripheralCoreClock) / systick_frequency_hz;
 
-        HC32_SYSTICK->LOAD  = (uint32_t)(ticks - 1UL);                         /* set reload register */
+        HC32_SYSTICK->LOAD = (uint32_t)(ticks - 1UL); /* set reload register */
         nvic_set_interrupt_priority(irq_sys_tick, nvic_default_irq_priority);
-        HC32_SYSTICK->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
+        HC32_SYSTICK->VAL = 0UL; /* Load the SysTick Counter Value */
         __systick_start();
     }
     else
