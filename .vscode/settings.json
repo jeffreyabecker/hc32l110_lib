@@ -1,9 +1,8 @@
 {
     "files.associations": {
         "hc32l110_ddl_gpio.h": "cpp",
-        "hc32l110_system.h": "c",
-        "hc32l110_ddl_util.h": "c",
-        "stddef.h": "c",
+        "hc32l110_system.h": "cpp",
+        "hc32l110_ddl_util.h": "cpp",
         "hc32l110_ddl_timer.h": "cpp"
     }
 }

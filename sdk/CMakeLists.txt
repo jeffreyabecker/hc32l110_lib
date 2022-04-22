@@ -14,4 +14,4 @@ add_library ("${CMAKE_PROJECT_NAME}_debug" "${LIB_SOURCE_DIR}/hc32l110_ddl_debug
 add_library ("${CMAKE_PROJECT_NAME}_clock_dynamic" "${LIB_SOURCE_DIR}/hc32l110_ddl_clock_dynamic.c")
 #add_library ("${CMAKE_PROJECT_NAME}_uart" "${LIB_SOURCE_DIR}/hc32l110_ddl_uart.c")
 add_library ("${CMAKE_PROJECT_NAME}_util" "${LIB_SOURCE_DIR}/util/ddl_rng.c" "${LIB_SOURCE_DIR}/util/ddl_memset.c" "${LIB_SOURCE_DIR}/util/ddl_strlen.c")
-add_library ("${CMAKE_PROJECT_NAME}_timers" "${LIB_SOURCE_DIR}/timers/hc32l110_basic_timer.cpp")
+add_library ("${CMAKE_PROJECT_NAME}_timers" "${LIB_SOURCE_DIR}/timers/basic_timer.cpp" "${LIB_SOURCE_DIR}/timers/lp_timer.cpp")

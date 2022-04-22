@@ -8,8 +8,8 @@
 basic_timer_mode_t BasicTimer::get_mode() { return this->timer->control_flags.mode; }
 void BasicTimer::set_mode(basic_timer_mode_t value) { this->timer->control_flags.mode = value; }
 
-basic_timer_source_t BasicTimer::get_tick_source() { return this->timer->control_flags.clock_source; }
-void BasicTimer::set_tick_source(basic_timer_source_t value) { this->timer->control_flags.clock_source = value; }
+timer_function_t BasicTimer::get_function() { return this->timer->control_flags.clock_source; }
+void BasicTimer::set_function(timer_function_t value) { this->timer->control_flags.clock_source = value; }
 
 basic_timer_prescaler_t BasicTimer::get_prescaler() { return this->timer->control_flags.prescaler; }
 void BasicTimer::set_prescaler(basic_timer_prescaler_t value) { this->timer->control_flags.prescaler = value; }
@@ -116,7 +116,7 @@ void BasicTimer::configure(const basic_timer_config_t *cfg)
 {
     this->set_mode(cfg->mode);
     this->set_prescaler(cfg->prescaler);
-    this->set_tick_source(cfg->tick_source);
+    this->set_function(cfg->function);
     this->set_enable_inverted_output(cfg->enable_inverted_output);
     this->set_enable_gate(cfg->enable_gate);
     this->set_gate_polarity(cfg->gate_polarity);
@@ -126,22 +126,22 @@ void BasicTimer::configure(const basic_timer_config_t *cfg)
     this->set_interrupt_enabled(cfg->interrupt_enabled);
 }
 
-BasicTimer HC32_DDL_TIMER0(HC32_TIMER0);
-BasicTimer HC32_DDL_TIMER1(HC32_TIMER1);
-BasicTimer HC32_DDL_TIMER2(HC32_TIMER2);
+BasicTimer timer_tim0(HC32_TIMER0);
+BasicTimer timer_tim1(HC32_TIMER1);
+BasicTimer timer_tim2(HC32_TIMER2);
 
 void IRQ14_Handler(void)
 {
-    HC32_DDL_TIMER0.invoke_interrupt(irq_timer_0);
+    timer_tim0.invoke_interrupt(irq_timer_0);
     nvic_clear_interrupt(irq_timer_0);
 }
 void IRQ15_Handler(void)
 {
-    HC32_DDL_TIMER0.invoke_interrupt(irq_timer_1);
+    timer_tim1.invoke_interrupt(irq_timer_1);
     nvic_clear_interrupt(irq_timer_1);
 }
 void IRQ16_Handler(void)
 {
-    HC32_DDL_TIMER0.invoke_interrupt(irq_timer_2);
+    timer_tim2.invoke_interrupt(irq_timer_2);
     nvic_clear_interrupt(irq_timer_2);
 }
