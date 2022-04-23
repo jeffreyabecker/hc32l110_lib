@@ -44,10 +44,26 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-set(ARM_GCC_COMMON_FLAGS "-mcpu=cortex-m0 -mthumb -ffreestanding -ffunction-sections -fdata-sections -nostdlib")
 
-foreach(LANG IN ITEMS C CXX ASM)
-    set(CMAKE_${LANG}_FLAGS_INIT "${ARM_GCC_COMMON_FLAGS}")
-    set(CMAKE_${LANG}_FLAGS_DEBUG_INIT "-Og")
-    set(CMAKE_${LANG}_LINK_FLAGS "-Wl,--build-id=none")
-endforeach()
+
+set(CMAKE_C_FLAGS_DEBUG "-Og -g -DDEBUG")
+set(CMAKE_CXX_FLAGS_DEBUG "-Og -g")
+set(CMAKE_C_FLAGS_RELEASE "-Os -flto")
+set(CMAKE_CXX_FLAGS_RELEASE "-Os -flto")
+
+set(ARM_GCC_COMMON_FLAGS "-mcpu=cortex-m0 -mthumb -ffreestanding -ffunction-sections -fdata-sections -nostdlib -nostart-files -fstrict-volatile-bitfields")
+
+set(CMAKE_C_FLAGS_INIT "${ARM_GCC_COMMON_FLAGS} -std=c11")
+set(CMAKE_C_FLAGS_DEBUG_INIT "-Og")
+set(CMAKE_C_LINK_FLAGS "-Wl,--build-id=none")
+
+set(CMAKE_ASM_FLAGS_INIT "${ARM_GCC_COMMON_FLAGS}")
+set(CMAKE_ASM_FLAGS_DEBUG_INIT "-Og")
+set(CMAKE_ASM_LINK_FLAGS "-Wl,--build-id=none")
+
+set(CMAKE_CXX_FLAGS_INIT "${ARM_GCC_COMMON_FLAGS} -fms-extensions -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -Wshadow -Wsuggest-override -Wsuggest-final-types -Wsuggest-final-methods")
+set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Og")
+set(CMAKE_CXX_LINK_FLAGS "-Wl,--build-id=none")
+
+
+add_compile_options(-fms-extensions -fno-exceptions -fno-rtti -fno-use-cxa-atexit -fno-threadsafe-statics -Wshadow -Wsuggest-override -Wsuggest-final-types -Wsuggest-final-methods)

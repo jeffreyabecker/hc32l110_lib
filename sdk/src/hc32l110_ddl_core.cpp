@@ -139,7 +139,7 @@ void enable_systick(uint32_t systick_frequency_hz)
 
     if (systick_frequency_hz > 0)
     {
-        peripheral_set_enabled(peripheral_get_enabled() | peripheral_tick);
+        peripheral_set_enabled((peripheral_t)( peripheral_get_enabled() | peripheral_tick));
         uint32_t ticks = (PeripheralCoreClock) / systick_frequency_hz;
 
         HC32_SYSTICK->LOAD = (uint32_t)(ticks - 1UL); /* set reload register */
@@ -150,7 +150,7 @@ void enable_systick(uint32_t systick_frequency_hz)
     else
     {
         __systick_stop();
-        peripheral_set_enabled(peripheral_get_enabled() & ~peripheral_tick);
+        peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() & ~peripheral_tick));
     }
 }
 

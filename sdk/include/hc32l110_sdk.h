@@ -11,7 +11,9 @@ extern "C" {
 #include "hc32l110_registers_rtc_wdt.h"
 #include "hc32l110_registers_spi.h"
 #include "hc32l110_registers_uart.h"
-
+#ifdef __cplusplus
+}
+#endif
 #include "hc32l110_ddl_core.h"
 
 #ifdef HC32_USE_DDL_TIMERS

@@ -11,9 +11,6 @@ void LowPowerTimer::set_mode(basic_timer_mode_t value) { this->timer->control_fl
 timer_function_t LowPowerTimer::get_function() { return this->timer->control_flags.clock_source; }
 void LowPowerTimer::set_function(timer_function_t value) { this->timer->control_flags.clock_source = value; }
 
-basic_timer_prescaler_t LowPowerTimer::get_prescaler() { return basic_timer_prescaler_1_to_1; }
-void LowPowerTimer::set_prescaler(basic_timer_prescaler_t value) {}
-
 uint8_t LowPowerTimer::get_enable_inverted_output() { return this->timer->control_flags.toggle_enabled; }
 void LowPowerTimer::set_enable_inverted_output(uint8_t value) { this->timer->control_flags.toggle_enabled = value; }
 
@@ -85,9 +82,9 @@ void LowPowerTimer::enable()
 {
     peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() | peripheral_basetim));
 }
-void LowPowerTimer::set_interrupt_handler(InterruptInvocationHandler<Timer> *handler)
+void LowPowerTimer::set_interrupt_handler(InterruptInvocationHandler<Timer> *h)
 {
-    this->handler = handler;
+    this->handler = h;
 }
 void LowPowerTimer::invoke_interrupt(irq_t irq)
 {
@@ -105,7 +102,7 @@ void LowPowerTimer::clear_interrupt() { this->timer->interrupt_clear = 0; }
 void LowPowerTimer::configure(const basic_timer_config_t *cfg)
 {
     this->set_mode(cfg->mode);
-    this->set_prescaler(cfg->prescaler);
+
     this->set_function(cfg->function);
     this->set_enable_inverted_output(cfg->enable_inverted_output);
     this->set_enable_gate(cfg->enable_gate);

@@ -95,9 +95,9 @@ void BasicTimer::enable()
 {
     peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() | peripheral_basetim));
 }
-void BasicTimer::set_interrupt_handler(InterruptInvocationHandler<Timer> *handler)
+void BasicTimer::set_interrupt_handler(InterruptInvocationHandler<Timer> *h)
 {
-    this->handler = handler;
+    this->handler = h;
 }
 void BasicTimer::invoke_interrupt(irq_t irq)
 {
