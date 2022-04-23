@@ -3,7 +3,7 @@
 #include "hc32l110_ddl_core.h"
 #include <stddef.h>
 
-__read_only_data gpio_port_config_t gpio_digital_output = {
+__attribute__((section(".rodata.gpio_digital_output_value"))) const static gpio_port_config_t gpio_digital_output_value = {
     .direction = gpio_output,
     .resolution = gpio_digital,
     .drive_mode = gpio_drive_high,
@@ -17,7 +17,8 @@ __read_only_data gpio_port_config_t gpio_digital_output = {
     .interrupt_rising = gpio_interrupt_rising_disable,
     .interrupt_falling = gpio_interrupt_falling_disable,
 };
-__read_only_data gpio_port_config_t gpio_digital_input = {
+const gpio_port_config_t *gpio_digital_output = &gpio_digital_output_value;
+__attribute__((section(".rodata.gpio_digital_input_value"))) const static gpio_port_config_t gpio_digital_input_value = {
     .direction = gpio_input,
     .resolution = gpio_digital,
     .drive_mode = gpio_drive_high,
@@ -30,6 +31,7 @@ __read_only_data gpio_port_config_t gpio_digital_input = {
     .interrupt_low = gpio_interrupt_low_disable,
     .interrupt_rising = gpio_interrupt_rising_disable,
     .interrupt_falling = gpio_interrupt_falling_disable};
+const gpio_port_config_t *gpio_digital_input = &gpio_digital_input_value;
 
 void GpioPort::enable_peripheral()
 {
@@ -120,7 +122,6 @@ gpio_interrupt_rising_t GpioPort::interrupt_rising() { return (gpio_interrupt_ri
 void GpioPort::interrupt_rising(gpio_interrupt_rising_t value) { this->_port->RIE = value; }
 gpio_interrupt_falling_t GpioPort::interrupt_falling() { return (gpio_interrupt_falling_t)this->_port->FIE; }
 void GpioPort::interrupt_falling(gpio_interrupt_falling_t value) { this->_port->FIE = value; }
-
 
 GpioPort gpio_port_p01(HC32_GPIO_P01_SEL, HC32_GPIO_PORT0, HC32_GPIO_PORT0_INTERRUPT, 1, irq_port_0);
 GpioPort gpio_port_p02(HC32_GPIO_P02_SEL, HC32_GPIO_PORT0, HC32_GPIO_PORT0_INTERRUPT, 2, irq_port_0);

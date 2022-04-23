@@ -7,7 +7,6 @@
 #include "hc32l110_registers.h"
 #include "hc32l110_ddl_interrupt_invocation_handler.h"
 
-
 typedef struct
 {
     gpio_direction_t direction : 1;
@@ -71,8 +70,8 @@ public:
     void interrupt_falling(gpio_interrupt_falling_t value);
 };
 
-extern const gpio_port_config_t gpio_digital_output;
-extern const gpio_port_config_t gpio_digital_input;
+extern const gpio_port_config_t *gpio_digital_output;
+extern const gpio_port_config_t *gpio_digital_input;
 
 extern GpioPort gpio_port_p01;
 extern GpioPort gpio_port_p02;
