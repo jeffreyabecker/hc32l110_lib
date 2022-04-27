@@ -1,6 +1,6 @@
 #include "hc32l110_ddl_debug.h"
 #include "hc32l110_system.h"
-#include "hc32l110_registers.h"
+
 #include "hc32l110_ddl_gpio.h"
 #include "hc32l110_ddl_buffers.h"
 #include "hc32l110_ddl_uart.h"

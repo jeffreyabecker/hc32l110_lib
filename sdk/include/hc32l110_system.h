@@ -6,8 +6,6 @@ extern "C"
 #endif
 #include <stdint.h>
 
-#include "hc32l110_system.h"
-
 #define __MPU_PRESENT 0
 #define __NVIC_PRIO_BITS 2
 #define __Vendor_SysTickConfig 0
@@ -56,11 +54,11 @@ extern "C"
 
 #define __read_only_data __attribute__((section(".rodata"))) const
 #define __used __attribute__((used))
-    extern uint32_t SystemCoreClock;
-    extern uint32_t PeripheralCoreClock;
+    // extern uint32_t SystemCoreClock;
+    // extern uint32_t PeripheralCoreClock;
 
-    void SystemInit(void);
-
+void SystemInit(void);
+#include "registers/registers.h"
 #ifdef __cplusplus
 }
 #endif

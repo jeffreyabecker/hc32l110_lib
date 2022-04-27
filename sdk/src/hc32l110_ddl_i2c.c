@@ -1,4 +1,4 @@
-#include "hc32l110_registers.h"
+#include "hc32l110_system.h"
 #include "hc32l110_ddl_i2c.h"
 #include "hc32l110_ddl_buffers.h"
 #include "hc32l110_ddl_gpio.h"

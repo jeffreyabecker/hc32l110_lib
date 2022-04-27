@@ -4,6 +4,9 @@
         "hc32l110_system.h": "cpp",
         "hc32l110_ddl_util.h": "cpp",
         "hc32l110_ddl_timer.h": "cpp",
-        "hc32l110_ddl_interrupt_invocation_handler.h":"cpp"
+        "hc32l110_ddl_interrupt_invocation_handler.h": "cpp",
+        "hc32l110_registers_system.h": "c",
+        "stdint.h": "c",
+        "utils.h": "c"
     }
 }
