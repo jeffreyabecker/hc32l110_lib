@@ -6,7 +6,7 @@ template <typename TDevice>
 class InterruptInvocationHandler
 {
 public:
-    virtual  void invoke(TDevice *device, irq_t irq);
+    virtual void invoke(TDevice *device, irq_t irq);
 };
 
 #endif

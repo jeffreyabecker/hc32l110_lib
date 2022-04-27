@@ -30,7 +30,7 @@ void LowPowerTimer::interrupt_enabled(uint8_t value)
     irq_t irq = __basic_timer_irq(this->timer);
     if (value)
     {
-        nvic_interrupt_priority(irq, nvic_default_irq_priority);
+        nvic_set_interrupt_priority(irq, nvic_default_irq_priority);
         nvic_enable_interrupt(irq);
     }
     else
@@ -80,7 +80,7 @@ void LowPowerTimer::count(uint32_t value)
 
 void LowPowerTimer::enable_peripheral()
 {
-    peripheral_enabled((peripheral_t)(peripheral_enabled() | peripheral_lptim));
+    peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() | peripheral_lptim));
 }
 void LowPowerTimer::interrupt_handler(InterruptInvocationHandler<Timer> *h)
 {
@@ -99,19 +99,7 @@ LowPowerTimer::LowPowerTimer(hc32_lp_timer_register_t *t) : timer(t), handler(NU
 uint8_t LowPowerTimer::has_interrupt() { return this->timer->interrupt_flag > 0 ? 1 : 0; }
 void LowPowerTimer::clear_interrupt() { this->timer->interrupt_clear = 0; }
 
-void LowPowerTimer::configure(const basic_timer_config_t *cfg)
-{
-    this->mode(cfg->mode);
 
-    this->function(cfg->function);
-    this->enable_inverted_output(cfg->enable_inverted_output);
-    this->enable_gate(cfg->enable_gate);
-    this->gate_polarity(cfg->gate_polarity);
-    this->reload(cfg->reload);
-    this->count(cfg->reload);
-    this->clear_interrupt();
-    this->interrupt_enabled(cfg->interrupt_enabled);
-}
 
 LowPowerTimer timer_lptim(HC32_LPTIMER);
 

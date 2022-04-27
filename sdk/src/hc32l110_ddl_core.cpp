@@ -126,119 +126,174 @@ void nvic_set_interrupt_priority(irq_t irq, uint8_t priority)
     }
 }
 
-static void __systick_start()
-{
-    HC32_SYSTICK->CTRL = SYSTICK_RUNNING_MASK;
-}
-static void __systick_stop()
-{
-    HC32_SYSTICK->CTRL &= ~(SYSTICK_RUNNING_MASK);
-}
-void enable_systick(uint32_t systick_frequency_hz)
-{
+// static void __systick_start()
+// {
+//     HC32_SYSTICK->CTRL = SYSTICK_RUNNING_MASK;
+// }
+// static void __systick_stop()
+// {
+//     HC32_SYSTICK->CTRL &= ~(SYSTICK_RUNNING_MASK);
+// }
+// void enable_systick(uint32_t systick_frequency_hz)
+// {
 
-    if (systick_frequency_hz > 0)
+//     if (systick_frequency_hz > 0)
+//     {
+//         peripheral_set_enabled((peripheral_t)( peripheral_get_enabled() | peripheral_tick));
+//         uint32_t ticks = (PeripheralCoreClock) / systick_frequency_hz;
+
+//         HC32_SYSTICK->LOAD = (uint32_t)(ticks - 1UL); /* set reload register */
+//         nvic_set_interrupt_priority(irq_sys_tick, nvic_default_irq_priority);
+//         HC32_SYSTICK->VAL = 0UL; /* Load the SysTick Counter Value */
+//         __systick_start();
+//     }
+//     else
+//     {
+//         __systick_stop();
+//         peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() & ~peripheral_tick));
+//     }
+// }
+
+// static systick_counter_t counter_list_head;
+// uint32_t systick_time_since(uint32_t start)
+// {
+//     if (!systick_is_running())
+//     {
+//         return 0;
+//     }
+//     uint32_t now = counter_list_head.count;
+//     if (now < start)
+//     {
+//         return now + (0xFFFFFFFF - start);
+//     }
+//     else
+//     {
+//         return now - start;
+//     }
+// }
+// uint32_t systick_current_value()
+// {
+//     return counter_list_head.count;
+// }
+// void systick_counter_start(systick_counter_t *counter)
+// {
+//     if (counter == &counter_list_head)
+//     {
+//         return;
+//     }
+//     counter->count = 0;
+//     counter->next = NULL;
+//     systick_counter_t *last = &counter_list_head;
+//     __systick_stop();
+//     while (last->next != NULL)
+//     {
+//         last = last->next;
+//     }
+//     last->next = counter;
+//     __systick_start();
+// }
+// uint32_t systick_counter_elapsed(systick_counter_t *counter)
+// {
+//     return counter->count;
+// }
+// void systick_counter_complete(systick_counter_t *counter)
+// {
+//     if (counter == &counter_list_head)
+//     {
+//         return;
+//     }
+//     systick_counter_t *last = &counter_list_head;
+//     __systick_stop();
+//     while (last->next != counter)
+//     {
+//         last = last->next;
+//     }
+//     last->next = counter->next;
+//     counter->next = NULL;
+//     counter->count = 0;
+//     __systick_start();
+// }
+// void systick_delay(uint32_t ticks)
+// {
+//     systick_counter_t counter;
+//     systick_counter_start(&counter);
+//     while (counter.count < ticks)
+//     {
+//         __nop();
+//     }
+//     systick_counter_complete(&counter);
+// }
+// void systick_counter_delay(systick_counter_t *counter, uint32_t ticks)
+// {
+//     systick_counter_start(counter);
+//     while (counter->count < ticks)
+//     {
+//         __nop();
+//     }
+//     systick_counter_complete(counter);
+// }
+
+// class SysTickPeripheral{
+//   private:
+//     uint32_t _counter;
+//   public:
+//     SysTickPeripheral();
+
+// };
+
+SysTickPeripheral::SysTickPeripheral(): _counter(0){}
+void SysTickPeripheral::configure(uint32_t frequency_hz){
+    if (frequency_hz > 0)
     {
         peripheral_set_enabled((peripheral_t)( peripheral_get_enabled() | peripheral_tick));
-        uint32_t ticks = (PeripheralCoreClock) / systick_frequency_hz;
+        uint32_t ticks = (PeripheralCoreClock) / frequency_hz;
 
         HC32_SYSTICK->LOAD = (uint32_t)(ticks - 1UL); /* set reload register */
         nvic_set_interrupt_priority(irq_sys_tick, nvic_default_irq_priority);
         HC32_SYSTICK->VAL = 0UL; /* Load the SysTick Counter Value */
-        __systick_start();
+        this->start();
     }
     else
     {
-        __systick_stop();
+        this->stop();
         peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() & ~peripheral_tick));
     }
 }
-
-static systick_counter_t counter_list_head;
-uint32_t systick_time_since(uint32_t start)
-{
-    if (!systick_is_running())
-    {
-        return 0;
-    }
-    uint32_t now = counter_list_head.count;
-    if (now < start)
-    {
-        return now + (0xFFFFFFFF - start);
-    }
-    else
-    {
-        return now - start;
-    }
+uint32_t SysTickPeripheral::current(){ return this->_counter;}
+uint32_t SysTickPeripheral::elapsed_since(uint32_t timestamp){
+    return this->_counter - timestamp;
 }
-uint32_t systick_current_value()
-{
-    return counter_list_head.count;
-}
-void systick_counter_start(systick_counter_t *counter)
-{
-    if (counter == &counter_list_head)
-    {
-        return;
-    }
-    counter->count = 0;
-    counter->next = NULL;
-    systick_counter_t *last = &counter_list_head;
-    __systick_stop();
-    while (last->next != NULL)
-    {
-        last = last->next;
-    }
-    last->next = counter;
-    __systick_start();
-}
-uint32_t systick_counter_elapsed(systick_counter_t *counter)
-{
-    return counter->count;
-}
-void systick_counter_complete(systick_counter_t *counter)
-{
-    if (counter == &counter_list_head)
-    {
-        return;
-    }
-    systick_counter_t *last = &counter_list_head;
-    __systick_stop();
-    while (last->next != counter)
-    {
-        last = last->next;
-    }
-    last->next = counter->next;
-    counter->next = NULL;
-    counter->count = 0;
-    __systick_start();
-}
-void systick_delay(uint32_t ticks)
-{
-    systick_counter_t counter;
-    systick_counter_start(&counter);
-    while (counter.count < ticks)
-    {
+uint32_t SysTickPeripheral::delay(uint32_t ticks){
+    uint32_t end = this->_counter + ticks;
+    while(this->_counter != end){
         __nop();
     }
-    systick_counter_complete(&counter);
 }
-void systick_counter_delay(systick_counter_t *counter, uint32_t ticks)
-{
-    systick_counter_start(counter);
-    while (counter->count < ticks)
-    {
-        __nop();
-    }
-    systick_counter_complete(counter);
+#define SYSTICK_RUNNING_MASK 0x00000007
+void SysTickPeripheral::start(){
+    this->_counter = 0;
+    HC32_SYSTICK->CTRL = SYSTICK_RUNNING_MASK;
+}
+void SysTickPeripheral::stop(){
+    HC32_SYSTICK->CTRL &= ~(SYSTICK_RUNNING_MASK);
+    this->_counter = 0;
 }
 
+void SysTickPeripheral::invoke_interrupt(){
+    this->_counter++;
+}
+uint8_t SysTickPeripheral::running(){
+    return ((HC32_SYSTICK->CTRL & SYSTICK_RUNNING_MASK) == SYSTICK_RUNNING_MASK);
+}
+SysTickPeripheral systick;
 void SysTick_Handler(void)
 {
-    systick_counter_t *last = &counter_list_head;
-    while (last != NULL)
-    {
-        last->count++;
-        last = last->next;
-    }
+    systick.invoke_interrupt();
+    // systick_counter_t *last = &counter_list_head;
+    // while (last != NULL)
+    // {
+    //     last->count++;
+    //     last = last->next;
+    // }
 }
+

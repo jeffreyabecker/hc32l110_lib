@@ -10,7 +10,7 @@ private:
     void (*_handler)(TDevice *, irq_t);
 public:
     constexpr InterruptInvocationWrapper(void (*h)(TDevice *, irq_t)) : _handler(h){}
-    virtual void invoke(TDevice *device, irq_t irq)  override {
+    void invoke(TDevice *device, irq_t irq)  override {
         if(this->_handler != NULL){
             this->_handler(device, irq);
         }

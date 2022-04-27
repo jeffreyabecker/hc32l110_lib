@@ -17,6 +17,11 @@ add_executable("${CMAKE_PROJECT_NAME}.elf"
     "${CMAKE_CURRENT_LIST_DIR}/../sdk/src/hc32l110_ddl_core.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/../sdk/src/hc32l110_ddl_gpio.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/../sdk/src/hc32l110_ddl_debug.c"
+    
+    "${CMAKE_CURRENT_LIST_DIR}/../sdk/src/timers/basic_timer.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/../sdk/src/timers/lp_timer.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/../sdk/src/timers/timer_counter.cpp"
+
     main.cpp
 )
 

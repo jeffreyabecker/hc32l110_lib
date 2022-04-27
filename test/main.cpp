@@ -5,7 +5,8 @@
 
 int main()
 {
-    enable_systick(KHz_1);
+    systick.configure(KHz_1);
+    
     GpioPort::enable_peripheral();
 
     gpio_port_p01.configure(gpio_digital_output);
@@ -14,9 +15,9 @@ int main()
     gpio_port_p02.digital_write(1);
     while (1)
     {
-        systick_delay(650);
+        systick.delay(650);
         gpio_port_p01.digital_write(0);
-        systick_delay(650);
+        systick.delay(650);
         gpio_port_p01.digital_write(1);
     }
 

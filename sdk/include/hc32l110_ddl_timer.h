@@ -105,7 +105,7 @@ public:
     LowPowerTimer(hc32_lp_timer_register_t *t);
 
     static void enable_peripheral();
-    void configure(const basic_timer_config_t *cfg);
+
 
     virtual basic_timer_mode_t mode() override;
     virtual void mode(basic_timer_mode_t value) override;
@@ -155,12 +155,12 @@ class TimerCounter : InterruptInvocationHandler<Timer>{
         Timer* _timer;
     public:
         TimerCounter(Timer* timer);
-        virtual void invoke(TDevice *device, irq_t irq) override;
+        virtual void invoke(Timer *device, irq_t irq) override;
         uint32_t elapsed();
         void start();
         void stop();
         void delay(uint32_t ticks);
-}
+};
 
 
 // uint32_t systick_current_value();

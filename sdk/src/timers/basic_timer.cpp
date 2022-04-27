@@ -1,6 +1,7 @@
-#include "hc32l110_ddl_timer.h"
-#include "hc32l110_registers.h"
 #include "hc32l110_ddl_core.h"
+
+#include "hc32l110_registers.h"
+#include "hc32l110_ddl_timer.h"
 
 #define __basic_timer_index(timer) ((((uint32_t)timer) - TIMER_0_ADDRESS) / 0x20)
 #define __basic_timer_irq(timer) (irq_t)(irq_timer_0 + __basic_timer_index(timer))
@@ -33,7 +34,7 @@ void BasicTimer::interrupt_enabled(uint8_t value)
     irq_t irq = __basic_timer_irq(this->timer);
     if (value)
     {
-        nvic_interrupt_priority(irq, nvic_default_irq_priority);
+        nvic_set_interrupt_priority(irq, nvic_default_irq_priority);
         nvic_enable_interrupt(irq);
     }
     else
@@ -93,7 +94,7 @@ void BasicTimer::count(uint32_t value)
 
 void BasicTimer::enable_peripheral()
 {
-    peripheral_enabled((peripheral_t)(peripheral_enabled() | peripheral_basetim));
+    peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() | peripheral_basetim));
 }
 void BasicTimer::interrupt_handler(InterruptInvocationHandler<Timer> *h)
 {

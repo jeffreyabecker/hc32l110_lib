@@ -3,7 +3,7 @@
 TimerCounter::TimerCounter(Timer* timer) : _count(0), _timer(timer){
     timer->interrupt_handler(this);
 }
-void TimerCounter::invoke(TDevice *device, irq_t irq){
+void TimerCounter::invoke(Timer *device, irq_t irq){
     this->_count++;
 }
 
@@ -19,9 +19,9 @@ void TimerCounter::stop(){
     this->_count = 0;
 }
 void TimerCounter::delay(uint32_t ticks){
-    uint32_t start = this->_count;
-    while(this->_count - start < ticks){
-        _nop();
+    uint32_t end = this->_count + start;
+    while(this->_count != end){
+        __nop();
     }
 }
 
