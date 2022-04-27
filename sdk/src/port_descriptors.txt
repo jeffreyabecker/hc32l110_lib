@@ -1,0 +1,255 @@
+
+
+
+__read_only_data gpio_port_descriptor_t port_descriptors[16] = {
+    /*port_p01*/
+    {
+        .sel = HC32_GPIO_P01_SEL,
+        .port = HC32_GPIO_PORT0,
+        .interrupt = HC32_GPIO_PORT0_INTERRUPT,
+        .position = 1,
+        .index = 0,
+        .irq = irq_port_0},
+    /*port_p02*/
+    {
+        .sel = HC32_GPIO_P02_SEL,
+        .port = HC32_GPIO_PORT0,
+        .interrupt = HC32_GPIO_PORT0_INTERRUPT,
+        .position = 2,
+        .index = 1,
+        .irq = irq_port_0},
+    /*port_p03*/
+    {
+        .sel = HC32_GPIO_P03_SEL,
+        .port = HC32_GPIO_PORT0,
+        .interrupt = HC32_GPIO_PORT0_INTERRUPT,
+        .position = 3,
+        .index = 2,
+        .irq = irq_port_0},
+
+    /*port_p14*/
+    {
+        .sel = HC32_GPIO_P14_SEL,
+        .port = HC32_GPIO_PORT1,
+        .interrupt = HC32_GPIO_PORT1_INTERRUPT,
+        .position = 4,
+        .index = 3,
+        .irq = irq_port_1},
+    /*port_p15*/
+    {
+        .sel = HC32_GPIO_P15_SEL,
+        .port = HC32_GPIO_PORT1,
+        .interrupt = HC32_GPIO_PORT1_INTERRUPT,
+        .position = 5,
+        .index = 4,
+        .irq = irq_port_1},
+
+    /*port_p23*/
+    {
+        .sel = HC32_GPIO_P23_SEL,
+        .port = HC32_GPIO_PORT2,
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
+        .position = 3,
+        .index = 5,
+        .irq = irq_port_2},
+    /*port_p24*/
+    {
+        .sel = HC32_GPIO_P24_SEL,
+        .port = HC32_GPIO_PORT2,
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
+        .position = 4,
+        .index = 6,
+        .irq = irq_port_2},
+    /*port_p25*/
+    {
+        .sel = HC32_GPIO_P25_SEL,
+        .port = HC32_GPIO_PORT2,
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
+        .position = 5,
+        .index = 7,
+        .irq = irq_port_2},
+    /*port_p26*/
+    {
+        .sel = HC32_GPIO_P26_SEL,
+        .port = HC32_GPIO_PORT2,
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
+        .position = 6,
+        .index = 8,
+        .irq = irq_port_2},
+    /*port_p27*/
+    {
+        .sel = HC32_GPIO_P27_SEL,
+        .port = HC32_GPIO_PORT2,
+        .interrupt = HC32_GPIO_PORT2_INTERRUPT,
+        .position = 7,
+        .index = 9,
+        .irq = irq_port_2},
+
+    /*port_p31*/
+    {
+        .sel = HC32_GPIO_P31_SEL,
+        .port = HC32_GPIO_PORT3,
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
+        .position = 1,
+        .index = 10,
+        .irq = irq_port_3},
+    /*port_p32*/
+    {
+        .sel = HC32_GPIO_P32_SEL,
+        .port = HC32_GPIO_PORT3,
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
+        .position = 2,
+        .index = 11,
+        .irq = irq_port_3},
+    /*port_p33*/
+    {
+        .sel = HC32_GPIO_P33_SEL,
+        .port = HC32_GPIO_PORT3,
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
+        .position = 3,
+        .index = 12,
+        .irq = irq_port_3},
+    /*port_p34*/
+    {
+        .sel = HC32_GPIO_P34_SEL,
+        .port = HC32_GPIO_PORT3,
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
+        .position = 4,
+        .index = 13,
+        .irq = irq_port_3},
+    /*port_p35*/
+    {
+        .sel = HC32_GPIO_P35_SEL,
+        .port = HC32_GPIO_PORT3,
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
+        .position = 5,
+        .index = 14,
+        .irq = irq_port_3},
+    /*port_p36*/
+    {
+        .sel = HC32_GPIO_P36_SEL,
+        .port = HC32_GPIO_PORT3,
+        .interrupt = HC32_GPIO_PORT3_INTERRUPT,
+        .position = 6,
+        .index = 15,
+        .irq = irq_port_3}};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p02 = {
+    .sel=HC32_GPIO_P02_SEL,
+    .port=HC32_GPIO_PORT0,
+    .interrupt=HC32_GPIO_PORT0_INTERRUPT,
+    .position=2,
+    .index=1,
+    .irq=irq_port_0
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p03 = {
+    .sel=HC32_GPIO_P03_SEL,
+    .port=HC32_GPIO_PORT0,
+    .interrupt=HC32_GPIO_PORT0_INTERRUPT,
+    .position=3,
+    .index=2,
+    .irq=irq_port_0
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p14 = {
+    .sel=HC32_GPIO_P14_SEL,
+    .port=HC32_GPIO_PORT1,
+    .interrupt=HC32_GPIO_PORT1_INTERRUPT,
+    .position=4,
+    .index=3,
+    .irq=irq_port_1
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p15 = {
+    .sel=HC32_GPIO_P15_SEL,
+    .port=HC32_GPIO_PORT1,
+    .interrupt=HC32_GPIO_PORT1_INTERRUPT,
+    .position=5,
+    .index=4,
+    .irq=irq_port_1
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p23 = {
+    .sel=HC32_GPIO_P23_SEL,
+    .port=HC32_GPIO_PORT2,
+    .interrupt=HC32_GPIO_PORT2_INTERRUPT,
+    .position=3,
+    .index=5,
+    .irq=irq_port_2
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p24 = {
+    .sel=HC32_GPIO_P24_SEL,
+    .port=HC32_GPIO_PORT2,
+    .interrupt=HC32_GPIO_PORT2_INTERRUPT,
+    .position=4,
+    .index=6,
+    .irq=irq_port_2
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p25 = {
+    .sel=HC32_GPIO_P25_SEL,
+    .port=HC32_GPIO_PORT2,
+    .interrupt=HC32_GPIO_PORT2_INTERRUPT,
+    .position=5,
+    .index=7,
+    .irq=irq_port_2
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p26 = {
+    .sel=HC32_GPIO_P26_SEL,
+    .port=HC32_GPIO_PORT2,
+    .interrupt=HC32_GPIO_PORT2_INTERRUPT,
+    .position=6,
+    .index=8,
+    .irq=irq_port_2
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p27 = {
+    .sel=HC32_GPIO_P27_SEL,
+    .port=HC32_GPIO_PORT2,
+    .interrupt=HC32_GPIO_PORT2_INTERRUPT,
+    .position=7,
+    .index=9,
+    .irq=irq_port_2
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p31 = {
+    .sel=HC32_GPIO_P31_SEL,
+    .port=HC32_GPIO_PORT3,
+    .interrupt=HC32_GPIO_PORT3_INTERRUPT,
+    .position=1,
+    .index=10,
+    .irq=irq_port_3
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p32 = {
+    .sel=HC32_GPIO_P32_SEL,
+    .port=HC32_GPIO_PORT3,
+    .interrupt=HC32_GPIO_PORT3_INTERRUPT,
+    .position=2,
+    .index=11,
+    .irq=irq_port_3
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p33 = {
+    .sel=HC32_GPIO_P33_SEL,
+    .port=HC32_GPIO_PORT3,
+    .interrupt=HC32_GPIO_PORT3_INTERRUPT,
+    .position=3,
+    .index=12,
+    .irq=irq_port_3
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p34 = {
+    .sel=HC32_GPIO_P34_SEL,
+    .port=HC32_GPIO_PORT3,
+    .interrupt=HC32_GPIO_PORT3_INTERRUPT,
+    .position=4,
+    .index=13,
+    .irq=irq_port_3
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p35 = {
+    .sel=HC32_GPIO_P35_SEL,
+    .port=HC32_GPIO_PORT3,
+    .interrupt=HC32_GPIO_PORT3_INTERRUPT,
+    .position=5,
+    .index=14,
+    .irq=irq_port_3
+};
+__attribute__((section(".rodata"))) static const gpio_port_descriptor_t  gpio_desc_port_p36 = {
+    .sel=HC32_GPIO_P36_SEL,
+    .port=HC32_GPIO_PORT3,
+    .interrupt=HC32_GPIO_PORT3_INTERRUPT,
+    .position=6,
+    .index=15,
+    .irq=irq_port_3
+};

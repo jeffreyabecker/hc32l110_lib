@@ -59,7 +59,7 @@
 25,2,pca_ch0
 25,3,tim5_cha
 25,4,lvd_out
-25,5,luuart_rxd
+25,5,lpuart_rxd
 25,6,i2c_sda
 25,7,tim1_gate
 26,0,gpio

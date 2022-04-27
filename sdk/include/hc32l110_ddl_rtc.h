@@ -40,6 +40,7 @@ typedef enum
     rtc_output_mode_normal = 0,
     rtc_output_mode_high_precision = 1,
 } rtc_output_mode_t;
+
 typedef enum
 {
     rtc_source_external_low = 0,

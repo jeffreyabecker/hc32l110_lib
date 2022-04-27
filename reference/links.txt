@@ -9,7 +9,8 @@ http://cs107e.github.io/guides/gcc/
 
 bare metal C++ example
 https://github.com/cortexm/baremetal
-
+https://arobenko.github.io/bare_metal_cpp/
+https://allthingsembedded.com/post/2019-01-03-arm-cortex-m-startup-code-for-c-and-c/
 
 
 

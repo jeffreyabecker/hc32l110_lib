@@ -1,0 +1,61 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C++ Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/test/test.elf",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false,
+            "debugServerArgs": "",
+            "serverLaunchTimeout": 20000,
+            "filterStderr": true,
+            "filterStdout": false,
+            "serverStarted": "GDB\\ server\\ started",
+ 
+            "setupCommands": [
+                { "text": "-target-select remote localhost:3333", "description": "connect to target", "ignoreFailures": false },
+                { "text": "-file-exec-and-symbols ${workspaceRoot}/test/test.elf", "description": "load file", "ignoreFailures": false},
+                { "text": "-interpreter-exec console \"monitor reset\"", "ignoreFailures": false },
+                { "text": "-interpreter-exec console \"monitor halt\"", "ignoreFailures": false }
+
+
+            ],
+            "logging": {
+                "moduleLoad": true,
+                "trace": true,
+                "engineLogging": true,
+                "programOutput": true,
+                "exceptions": true
+            },
+            "linux": {
+                "MIMode": "gdb",
+                "MIDebuggerPath": "arm-none-eabi-gdb",
+                "debugServerPath": "pyocd-gdbserver"
+            },
+            "osx": {
+                "MIMode": "gdb",
+                "MIDebuggerPath": "arm-none-eabi-gdb",
+                "debugServerPath": "pyocd-gdbserver"
+            },
+            "windows": {
+                
+                "MIMode": "gdb",
+                "MIDebuggerPath": "arm-none-eabi-gdb.exe",
+                "debugServerPath": "pyocd-gdbserver.exe",
+                "setupCommands": [
+                    { "text": "-environment-cd ${workspaceRoot}\\test" },
+                    { "text": "-target-select remote localhost:3333", "description": "connect to target", "ignoreFailures": false },
+                    { "text": "-file-exec-and-symbols test.elf", "description": "load file", "ignoreFailures": false},
+                    { "text": "-interpreter-exec console \"monitor reset\"", "ignoreFailures": false },
+                    { "text": "-interpreter-exec console \"monitor halt\"", "ignoreFailures": false },
+
+                ]
+            }
+        }
+    ]
+}

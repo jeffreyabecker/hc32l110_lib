@@ -3,6 +3,7 @@
         "hc32l110_ddl_gpio.h": "cpp",
         "hc32l110_system.h": "cpp",
         "hc32l110_ddl_util.h": "cpp",
-        "hc32l110_ddl_timer.h": "cpp"
+        "hc32l110_ddl_timer.h": "cpp",
+        "hc32l110_ddl_interrupt_invocation_handler.h":"cpp"
     }
 }

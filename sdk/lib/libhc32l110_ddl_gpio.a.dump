@@ -1,0 +1,447 @@
+In archive C:\ode\hc32l110\sdk\lib\libhc32l110_ddl_gpio.a:
+
+hc32l110_ddl_gpio.cpp.obj:     file format elf32-littlearm
+
+
+Disassembly of section .text._ZN8GpioPort17enable_peripheralEv:
+
+00000000 <_ZN8GpioPort17enable_peripheralEv>:
+   0:	b580      	push	{r7, lr}
+   2:	af00      	add	r7, sp, #0
+   4:	4b11      	ldr	r3, [pc, #68]	; (4c <_ZN8GpioPort17enable_peripheralEv+0x4c>)
+   6:	22ff      	movs	r2, #255	; 0xff
+   8:	601a      	str	r2, [r3, #0]
+   a:	4b11      	ldr	r3, [pc, #68]	; (50 <_ZN8GpioPort17enable_peripheralEv+0x50>)
+   c:	22ff      	movs	r2, #255	; 0xff
+   e:	601a      	str	r2, [r3, #0]
+  10:	4b10      	ldr	r3, [pc, #64]	; (54 <_ZN8GpioPort17enable_peripheralEv+0x54>)
+  12:	22ff      	movs	r2, #255	; 0xff
+  14:	601a      	str	r2, [r3, #0]
+  16:	4b10      	ldr	r3, [pc, #64]	; (58 <_ZN8GpioPort17enable_peripheralEv+0x58>)
+  18:	22ff      	movs	r2, #255	; 0xff
+  1a:	601a      	str	r2, [r3, #0]
+  1c:	4b0b      	ldr	r3, [pc, #44]	; (4c <_ZN8GpioPort17enable_peripheralEv+0x4c>)
+  1e:	2200      	movs	r2, #0
+  20:	62da      	str	r2, [r3, #44]	; 0x2c
+  22:	4b0b      	ldr	r3, [pc, #44]	; (50 <_ZN8GpioPort17enable_peripheralEv+0x50>)
+  24:	2200      	movs	r2, #0
+  26:	62da      	str	r2, [r3, #44]	; 0x2c
+  28:	4b0a      	ldr	r3, [pc, #40]	; (54 <_ZN8GpioPort17enable_peripheralEv+0x54>)
+  2a:	2200      	movs	r2, #0
+  2c:	62da      	str	r2, [r3, #44]	; 0x2c
+  2e:	4b0a      	ldr	r3, [pc, #40]	; (58 <_ZN8GpioPort17enable_peripheralEv+0x58>)
+  30:	2200      	movs	r2, #0
+  32:	62da      	str	r2, [r3, #44]	; 0x2c
+  34:	f7ff fffe 	bl	0 <peripheral_get_enabled>
+  38:	0002      	movs	r2, r0
+  3a:	2380      	movs	r3, #128	; 0x80
+  3c:	055b      	lsls	r3, r3, #21
+  3e:	4313      	orrs	r3, r2
+  40:	0018      	movs	r0, r3
+  42:	f7ff fffe 	bl	0 <peripheral_set_enabled>
+  46:	46c0      	nop			; (mov r8, r8)
+  48:	46bd      	mov	sp, r7
+  4a:	bd80      	pop	{r7, pc}
+  4c:	40020d00 	.word	0x40020d00
+  50:	40020d40 	.word	0x40020d40
+  54:	40020d80 	.word	0x40020d80
+  58:	40020dc0 	.word	0x40020dc0
+
+Disassembly of section .text._ZN8GpioPortC2EPmP15gpio_port_ctl_tP21gpio_port_interrupt_th5irq_t:
+
+00000000 <_ZN8GpioPortC1EPmP15gpio_port_ctl_tP21gpio_port_interrupt_th5irq_t>:
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	af00      	add	r7, sp, #0
+   6:	60f8      	str	r0, [r7, #12]
+   8:	60b9      	str	r1, [r7, #8]
+   a:	607a      	str	r2, [r7, #4]
+   c:	603b      	str	r3, [r7, #0]
+   e:	68fb      	ldr	r3, [r7, #12]
+  10:	68ba      	ldr	r2, [r7, #8]
+  12:	601a      	str	r2, [r3, #0]
+  14:	68fb      	ldr	r3, [r7, #12]
+  16:	687a      	ldr	r2, [r7, #4]
+  18:	605a      	str	r2, [r3, #4]
+  1a:	68fb      	ldr	r3, [r7, #12]
+  1c:	683a      	ldr	r2, [r7, #0]
+  1e:	609a      	str	r2, [r3, #8]
+  20:	68fa      	ldr	r2, [r7, #12]
+  22:	2318      	movs	r3, #24
+  24:	18fb      	adds	r3, r7, r3
+  26:	781b      	ldrb	r3, [r3, #0]
+  28:	7313      	strb	r3, [r2, #12]
+  2a:	68fb      	ldr	r3, [r7, #12]
+  2c:	221c      	movs	r2, #28
+  2e:	18ba      	adds	r2, r7, r2
+  30:	7812      	ldrb	r2, [r2, #0]
+  32:	735a      	strb	r2, [r3, #13]
+  34:	68fb      	ldr	r3, [r7, #12]
+  36:	0018      	movs	r0, r3
+  38:	46bd      	mov	sp, r7
+  3a:	b004      	add	sp, #16
+  3c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8GpioPort9configureEPK18gpio_port_config_t:
+
+00000000 <_ZN8GpioPort9configureEPK18gpio_port_config_t>:
+   0:	b580      	push	{r7, lr}
+   2:	b082      	sub	sp, #8
+   4:	af00      	add	r7, sp, #0
+   6:	6078      	str	r0, [r7, #4]
+   8:	6039      	str	r1, [r7, #0]
+   a:	687b      	ldr	r3, [r7, #4]
+   c:	685b      	ldr	r3, [r3, #4]
+   e:	681b      	ldr	r3, [r3, #0]
+  10:	687a      	ldr	r2, [r7, #4]
+  12:	7b12      	ldrb	r2, [r2, #12]
+  14:	0011      	movs	r1, r2
+  16:	2201      	movs	r2, #1
+  18:	408a      	lsls	r2, r1
+  1a:	43d2      	mvns	r2, r2
+  1c:	401a      	ands	r2, r3
+  1e:	683b      	ldr	r3, [r7, #0]
+  20:	781b      	ldrb	r3, [r3, #0]
+  22:	07db      	lsls	r3, r3, #31
+  24:	0fdb      	lsrs	r3, r3, #31
+  26:	b2db      	uxtb	r3, r3
+  28:	0019      	movs	r1, r3
+  2a:	687b      	ldr	r3, [r7, #4]
+  2c:	7b1b      	ldrb	r3, [r3, #12]
+  2e:	4099      	lsls	r1, r3
+  30:	000b      	movs	r3, r1
+  32:	0019      	movs	r1, r3
+  34:	687b      	ldr	r3, [r7, #4]
+  36:	685b      	ldr	r3, [r3, #4]
+  38:	430a      	orrs	r2, r1
+  3a:	601a      	str	r2, [r3, #0]
+  3c:	687b      	ldr	r3, [r7, #4]
+  3e:	685b      	ldr	r3, [r3, #4]
+  40:	68db      	ldr	r3, [r3, #12]
+  42:	687a      	ldr	r2, [r7, #4]
+  44:	7b12      	ldrb	r2, [r2, #12]
+  46:	0011      	movs	r1, r2
+  48:	2201      	movs	r2, #1
+  4a:	408a      	lsls	r2, r1
+  4c:	43d2      	mvns	r2, r2
+  4e:	401a      	ands	r2, r3
+  50:	683b      	ldr	r3, [r7, #0]
+  52:	781b      	ldrb	r3, [r3, #0]
+  54:	079b      	lsls	r3, r3, #30
+  56:	0fdb      	lsrs	r3, r3, #31
+  58:	b2db      	uxtb	r3, r3
+  5a:	0019      	movs	r1, r3
+  5c:	687b      	ldr	r3, [r7, #4]
+  5e:	7b1b      	ldrb	r3, [r3, #12]
+  60:	4099      	lsls	r1, r3
+  62:	000b      	movs	r3, r1
+  64:	0019      	movs	r1, r3
+  66:	687b      	ldr	r3, [r7, #4]
+  68:	685b      	ldr	r3, [r3, #4]
+  6a:	430a      	orrs	r2, r1
+  6c:	60da      	str	r2, [r3, #12]
+  6e:	687b      	ldr	r3, [r7, #4]
+  70:	685b      	ldr	r3, [r3, #4]
+  72:	69db      	ldr	r3, [r3, #28]
+  74:	687a      	ldr	r2, [r7, #4]
+  76:	7b12      	ldrb	r2, [r2, #12]
+  78:	0011      	movs	r1, r2
+  7a:	2201      	movs	r2, #1
+  7c:	408a      	lsls	r2, r1
+  7e:	43d2      	mvns	r2, r2
+  80:	401a      	ands	r2, r3
+  82:	683b      	ldr	r3, [r7, #0]
+  84:	781b      	ldrb	r3, [r3, #0]
+  86:	075b      	lsls	r3, r3, #29
+  88:	0fdb      	lsrs	r3, r3, #31
+  8a:	b2db      	uxtb	r3, r3
+  8c:	0019      	movs	r1, r3
+  8e:	687b      	ldr	r3, [r7, #4]
+  90:	7b1b      	ldrb	r3, [r3, #12]
+  92:	4099      	lsls	r1, r3
+  94:	000b      	movs	r3, r1
+  96:	0019      	movs	r1, r3
+  98:	687b      	ldr	r3, [r7, #4]
+  9a:	685b      	ldr	r3, [r3, #4]
+  9c:	430a      	orrs	r2, r1
+  9e:	61da      	str	r2, [r3, #28]
+  a0:	687b      	ldr	r3, [r7, #4]
+  a2:	685b      	ldr	r3, [r3, #4]
+  a4:	6a1b      	ldr	r3, [r3, #32]
+  a6:	687a      	ldr	r2, [r7, #4]
+  a8:	7b12      	ldrb	r2, [r2, #12]
+  aa:	0011      	movs	r1, r2
+  ac:	2201      	movs	r2, #1
+  ae:	408a      	lsls	r2, r1
+  b0:	43d2      	mvns	r2, r2
+  b2:	401a      	ands	r2, r3
+  b4:	683b      	ldr	r3, [r7, #0]
+  b6:	781b      	ldrb	r3, [r3, #0]
+  b8:	071b      	lsls	r3, r3, #28
+  ba:	0fdb      	lsrs	r3, r3, #31
+  bc:	b2db      	uxtb	r3, r3
+  be:	0019      	movs	r1, r3
+  c0:	687b      	ldr	r3, [r7, #4]
+  c2:	7b1b      	ldrb	r3, [r3, #12]
+  c4:	4099      	lsls	r1, r3
+  c6:	000b      	movs	r3, r1
+  c8:	0019      	movs	r1, r3
+  ca:	687b      	ldr	r3, [r7, #4]
+  cc:	685b      	ldr	r3, [r3, #4]
+  ce:	430a      	orrs	r2, r1
+  d0:	621a      	str	r2, [r3, #32]
+  d2:	687b      	ldr	r3, [r7, #4]
+  d4:	685b      	ldr	r3, [r3, #4]
+  d6:	6a5b      	ldr	r3, [r3, #36]	; 0x24
+  d8:	687a      	ldr	r2, [r7, #4]
+  da:	7b12      	ldrb	r2, [r2, #12]
+  dc:	0011      	movs	r1, r2
+  de:	2201      	movs	r2, #1
+  e0:	408a      	lsls	r2, r1
+  e2:	43d2      	mvns	r2, r2
+  e4:	401a      	ands	r2, r3
+  e6:	683b      	ldr	r3, [r7, #0]
+  e8:	781b      	ldrb	r3, [r3, #0]
+  ea:	06db      	lsls	r3, r3, #27
+  ec:	0fdb      	lsrs	r3, r3, #31
+  ee:	b2db      	uxtb	r3, r3
+  f0:	0019      	movs	r1, r3
+  f2:	687b      	ldr	r3, [r7, #4]
+  f4:	7b1b      	ldrb	r3, [r3, #12]
+  f6:	4099      	lsls	r1, r3
+  f8:	000b      	movs	r3, r1
+  fa:	0019      	movs	r1, r3
+  fc:	687b      	ldr	r3, [r7, #4]
+  fe:	685b      	ldr	r3, [r3, #4]
+ 100:	430a      	orrs	r2, r1
+ 102:	625a      	str	r2, [r3, #36]	; 0x24
+ 104:	687b      	ldr	r3, [r7, #4]
+ 106:	685b      	ldr	r3, [r3, #4]
+ 108:	6adb      	ldr	r3, [r3, #44]	; 0x2c
+ 10a:	687a      	ldr	r2, [r7, #4]
+ 10c:	7b12      	ldrb	r2, [r2, #12]
+ 10e:	0011      	movs	r1, r2
+ 110:	2201      	movs	r2, #1
+ 112:	408a      	lsls	r2, r1
+ 114:	43d2      	mvns	r2, r2
+ 116:	401a      	ands	r2, r3
+ 118:	683b      	ldr	r3, [r7, #0]
+ 11a:	781b      	ldrb	r3, [r3, #0]
+ 11c:	069b      	lsls	r3, r3, #26
+ 11e:	0fdb      	lsrs	r3, r3, #31
+ 120:	b2db      	uxtb	r3, r3
+ 122:	0019      	movs	r1, r3
+ 124:	687b      	ldr	r3, [r7, #4]
+ 126:	7b1b      	ldrb	r3, [r3, #12]
+ 128:	4099      	lsls	r1, r3
+ 12a:	000b      	movs	r3, r1
+ 12c:	0019      	movs	r1, r3
+ 12e:	687b      	ldr	r3, [r7, #4]
+ 130:	685b      	ldr	r3, [r3, #4]
+ 132:	430a      	orrs	r2, r1
+ 134:	62da      	str	r2, [r3, #44]	; 0x2c
+ 136:	683b      	ldr	r3, [r7, #0]
+ 138:	785b      	ldrb	r3, [r3, #1]
+ 13a:	075b      	lsls	r3, r3, #29
+ 13c:	0f5b      	lsrs	r3, r3, #29
+ 13e:	b2da      	uxtb	r2, r3
+ 140:	687b      	ldr	r3, [r7, #4]
+ 142:	681b      	ldr	r3, [r3, #0]
+ 144:	601a      	str	r2, [r3, #0]
+ 146:	683b      	ldr	r3, [r7, #0]
+ 148:	785b      	ldrb	r3, [r3, #1]
+ 14a:	2208      	movs	r2, #8
+ 14c:	4013      	ands	r3, r2
+ 14e:	b2db      	uxtb	r3, r3
+ 150:	2b00      	cmp	r3, #0
+ 152:	d00d      	beq.n	170 <_ZN8GpioPort9configureEPK18gpio_port_config_t+0x170>
+ 154:	687b      	ldr	r3, [r7, #4]
+ 156:	7b5b      	ldrb	r3, [r3, #13]
+ 158:	b25b      	sxtb	r3, r3
+ 15a:	2103      	movs	r1, #3
+ 15c:	0018      	movs	r0, r3
+ 15e:	f7ff fffe 	bl	0 <nvic_set_interrupt_priority>
+ 162:	687b      	ldr	r3, [r7, #4]
+ 164:	7b5b      	ldrb	r3, [r3, #13]
+ 166:	b25b      	sxtb	r3, r3
+ 168:	0018      	movs	r0, r3
+ 16a:	f7ff fffe 	bl	0 <nvic_enable_interrupt>
+ 16e:	e005      	b.n	17c <_ZN8GpioPort9configureEPK18gpio_port_config_t+0x17c>
+ 170:	687b      	ldr	r3, [r7, #4]
+ 172:	7b5b      	ldrb	r3, [r3, #13]
+ 174:	b25b      	sxtb	r3, r3
+ 176:	0018      	movs	r0, r3
+ 178:	f7ff fffe 	bl	0 <nvic_disable_interrupt>
+ 17c:	46c0      	nop			; (mov r8, r8)
+ 17e:	46bd      	mov	sp, r7
+ 180:	b002      	add	sp, #8
+ 182:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8GpioPort12digital_readEv:
+
+00000000 <_ZN8GpioPort12digital_readEv>:
+   0:	b580      	push	{r7, lr}
+   2:	b082      	sub	sp, #8
+   4:	af00      	add	r7, sp, #0
+   6:	6078      	str	r0, [r7, #4]
+   8:	687b      	ldr	r3, [r7, #4]
+   a:	685b      	ldr	r3, [r3, #4]
+   c:	685b      	ldr	r3, [r3, #4]
+   e:	687a      	ldr	r2, [r7, #4]
+  10:	7b12      	ldrb	r2, [r2, #12]
+  12:	40d3      	lsrs	r3, r2
+  14:	b2db      	uxtb	r3, r3
+  16:	2201      	movs	r2, #1
+  18:	4013      	ands	r3, r2
+  1a:	b2db      	uxtb	r3, r3
+  1c:	0018      	movs	r0, r3
+  1e:	46bd      	mov	sp, r7
+  20:	b002      	add	sp, #8
+  22:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8GpioPort13digital_writeEh:
+
+00000000 <_ZN8GpioPort13digital_writeEh>:
+   0:	b580      	push	{r7, lr}
+   2:	b082      	sub	sp, #8
+   4:	af00      	add	r7, sp, #0
+   6:	6078      	str	r0, [r7, #4]
+   8:	000a      	movs	r2, r1
+   a:	1cfb      	adds	r3, r7, #3
+   c:	701a      	strb	r2, [r3, #0]
+   e:	687b      	ldr	r3, [r7, #4]
+  10:	685b      	ldr	r3, [r3, #4]
+  12:	689b      	ldr	r3, [r3, #8]
+  14:	687a      	ldr	r2, [r7, #4]
+  16:	7b12      	ldrb	r2, [r2, #12]
+  18:	0011      	movs	r1, r2
+  1a:	2201      	movs	r2, #1
+  1c:	408a      	lsls	r2, r1
+  1e:	43d2      	mvns	r2, r2
+  20:	401a      	ands	r2, r3
+  22:	1cfb      	adds	r3, r7, #3
+  24:	781b      	ldrb	r3, [r3, #0]
+  26:	6879      	ldr	r1, [r7, #4]
+  28:	7b09      	ldrb	r1, [r1, #12]
+  2a:	408b      	lsls	r3, r1
+  2c:	0019      	movs	r1, r3
+  2e:	687b      	ldr	r3, [r7, #4]
+  30:	685b      	ldr	r3, [r3, #4]
+  32:	430a      	orrs	r2, r1
+  34:	609a      	str	r2, [r3, #8]
+  36:	46c0      	nop			; (mov r8, r8)
+  38:	46bd      	mov	sp, r7
+  3a:	b002      	add	sp, #8
+  3c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8GpioPort13has_interruptEv:
+
+00000000 <_ZN8GpioPort13has_interruptEv>:
+   0:	b580      	push	{r7, lr}
+   2:	b082      	sub	sp, #8
+   4:	af00      	add	r7, sp, #0
+   6:	6078      	str	r0, [r7, #4]
+   8:	687b      	ldr	r3, [r7, #4]
+   a:	689b      	ldr	r3, [r3, #8]
+   c:	681b      	ldr	r3, [r3, #0]
+   e:	687a      	ldr	r2, [r7, #4]
+  10:	7b12      	ldrb	r2, [r2, #12]
+  12:	0011      	movs	r1, r2
+  14:	2201      	movs	r2, #1
+  16:	408a      	lsls	r2, r1
+  18:	4013      	ands	r3, r2
+  1a:	d001      	beq.n	20 <_ZN8GpioPort13has_interruptEv+0x20>
+  1c:	2301      	movs	r3, #1
+  1e:	e000      	b.n	22 <_ZN8GpioPort13has_interruptEv+0x22>
+  20:	2300      	movs	r3, #0
+  22:	0018      	movs	r0, r3
+  24:	46bd      	mov	sp, r7
+  26:	b002      	add	sp, #8
+  28:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN8GpioPort15clear_interruptEv:
+
+00000000 <_ZN8GpioPort15clear_interruptEv>:
+   0:	b580      	push	{r7, lr}
+   2:	b082      	sub	sp, #8
+   4:	af00      	add	r7, sp, #0
+   6:	6078      	str	r0, [r7, #4]
+   8:	687b      	ldr	r3, [r7, #4]
+   a:	689b      	ldr	r3, [r3, #8]
+   c:	691a      	ldr	r2, [r3, #16]
+   e:	687b      	ldr	r3, [r7, #4]
+  10:	7b1b      	ldrb	r3, [r3, #12]
+  12:	0019      	movs	r1, r3
+  14:	2301      	movs	r3, #1
+  16:	408b      	lsls	r3, r1
+  18:	43db      	mvns	r3, r3
+  1a:	0019      	movs	r1, r3
+  1c:	687b      	ldr	r3, [r7, #4]
+  1e:	689b      	ldr	r3, [r3, #8]
+  20:	400a      	ands	r2, r1
+  22:	611a      	str	r2, [r3, #16]
+  24:	46c0      	nop			; (mov r8, r8)
+  26:	46bd      	mov	sp, r7
+  28:	b002      	add	sp, #8
+  2a:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._Z41__static_initialization_and_destruction_0ii:
+
+00000000 <_Z41__static_initialization_and_destruction_0ii>:
+   0:	b590      	push	{r4, r7, lr}
+   2:	b085      	sub	sp, #20
+   4:	af02      	add	r7, sp, #8
+   6:	6078      	str	r0, [r7, #4]
+   8:	6039      	str	r1, [r7, #0]
+   a:	687b      	ldr	r3, [r7, #4]
+   c:	2b01      	cmp	r3, #1
+   e:	d119      	bne.n	44 <_Z41__static_initialization_and_destruction_0ii+0x44>
+  10:	683b      	ldr	r3, [r7, #0]
+  12:	4a0e      	ldr	r2, [pc, #56]	; (4c <_Z41__static_initialization_and_destruction_0ii+0x4c>)
+  14:	4293      	cmp	r3, r2
+  16:	d115      	bne.n	44 <_Z41__static_initialization_and_destruction_0ii+0x44>
+  18:	4c0d      	ldr	r4, [pc, #52]	; (50 <_Z41__static_initialization_and_destruction_0ii+0x50>)
+  1a:	4a0e      	ldr	r2, [pc, #56]	; (54 <_Z41__static_initialization_and_destruction_0ii+0x54>)
+  1c:	490e      	ldr	r1, [pc, #56]	; (58 <_Z41__static_initialization_and_destruction_0ii+0x58>)
+  1e:	480f      	ldr	r0, [pc, #60]	; (5c <_Z41__static_initialization_and_destruction_0ii+0x5c>)
+  20:	2300      	movs	r3, #0
+  22:	9301      	str	r3, [sp, #4]
+  24:	2301      	movs	r3, #1
+  26:	9300      	str	r3, [sp, #0]
+  28:	0023      	movs	r3, r4
+  2a:	f7ff fffe 	bl	0 <_Z41__static_initialization_and_destruction_0ii>
+  2e:	4c08      	ldr	r4, [pc, #32]	; (50 <_Z41__static_initialization_and_destruction_0ii+0x50>)
+  30:	4a08      	ldr	r2, [pc, #32]	; (54 <_Z41__static_initialization_and_destruction_0ii+0x54>)
+  32:	490b      	ldr	r1, [pc, #44]	; (60 <_Z41__static_initialization_and_destruction_0ii+0x60>)
+  34:	480b      	ldr	r0, [pc, #44]	; (64 <_Z41__static_initialization_and_destruction_0ii+0x64>)
+  36:	2300      	movs	r3, #0
+  38:	9301      	str	r3, [sp, #4]
+  3a:	2302      	movs	r3, #2
+  3c:	9300      	str	r3, [sp, #0]
+  3e:	0023      	movs	r3, r4
+  40:	f7ff fffe 	bl	0 <_Z41__static_initialization_and_destruction_0ii>
+  44:	46c0      	nop			; (mov r8, r8)
+  46:	46bd      	mov	sp, r7
+  48:	b003      	add	sp, #12
+  4a:	bd90      	pop	{r4, r7, pc}
+  4c:	0000ffff 	.word	0x0000ffff
+  50:	40020e00 	.word	0x40020e00
+  54:	40020d00 	.word	0x40020d00
+  58:	40020c04 	.word	0x40020c04
+  5c:	00000000 	.word	0x00000000
+  60:	40020c08 	.word	0x40020c08
+  64:	00000000 	.word	0x00000000
+
+Disassembly of section .text._GLOBAL__sub_I__ZN8GpioPort17enable_peripheralEv:
+
+00000000 <_GLOBAL__sub_I__ZN8GpioPort17enable_peripheralEv>:
+   0:	b580      	push	{r7, lr}
+   2:	af00      	add	r7, sp, #0
+   4:	4b03      	ldr	r3, [pc, #12]	; (14 <_GLOBAL__sub_I__ZN8GpioPort17enable_peripheralEv+0x14>)
+   6:	0019      	movs	r1, r3
+   8:	2001      	movs	r0, #1
+   a:	f7ff fffe 	bl	0 <_GLOBAL__sub_I__ZN8GpioPort17enable_peripheralEv>
+   e:	46bd      	mov	sp, r7
+  10:	bd80      	pop	{r7, pc}
+  12:	46c0      	nop			; (mov r8, r8)
+  14:	0000ffff 	.word	0x0000ffff

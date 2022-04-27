@@ -1,0 +1,27 @@
+#include "hc32l110_ddl_timer.h"
+
+TimerCounter::TimerCounter(Timer* timer) : _count(0), _timer(timer){
+    timer->interrupt_handler(this);
+}
+void TimerCounter::invoke(TDevice *device, irq_t irq){
+    this->_count++;
+}
+
+uint32_t TimerCounter::elapsed(){ return _count;}
+void TimerCounter::start(){
+    this->_count = 0;
+    this->_timer->interrupt_enabled(1);
+    this->_timer->running(1);
+}
+void TimerCounter::stop(){
+    this->_timer->running(0);
+    this->_timer->interrupt_enabled(0);
+    this->_count = 0;
+}
+void TimerCounter::delay(uint32_t ticks){
+    uint32_t start = this->_count;
+    while(this->_count - start < ticks){
+        _nop();
+    }
+}
+

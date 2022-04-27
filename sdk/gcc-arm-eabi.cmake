@@ -51,7 +51,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Og -g")
 set(CMAKE_C_FLAGS_RELEASE "-Os -flto")
 set(CMAKE_CXX_FLAGS_RELEASE "-Os -flto")
 
-set(ARM_GCC_COMMON_FLAGS "-mcpu=cortex-m0 -mthumb -ffreestanding -ffunction-sections -fdata-sections -nostdlib -nostart-files -fstrict-volatile-bitfields")
+set(ARM_GCC_COMMON_FLAGS "-mcpu=cortex-m0 -mthumb -ffreestanding -ffunction-sections -fdata-sections -nostdlib -nostartfiles -fstrict-volatile-bitfields")
 
 set(CMAKE_C_FLAGS_INIT "${ARM_GCC_COMMON_FLAGS} -std=c11")
 set(CMAKE_C_FLAGS_DEBUG_INIT "-Og")

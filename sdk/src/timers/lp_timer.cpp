@@ -2,35 +2,35 @@
 #include "hc32l110_registers.h"
 #include "hc32l110_ddl_core.h"
 
-#define __basic_timer_get_index(timer) ((((uint32_t)timer) - TIMER_0_ADDRESS) / 0x20)
-#define __basic_timer_get_irq(timer) (irq_t)(irq_timer_0 + __basic_timer_get_index(timer))
+#define __basic_timer_index(timer) ((((uint32_t)timer) - TIMER_0_ADDRESS) / 0x20)
+#define __basic_timer_irq(timer) (irq_t)(irq_timer_0 + __basic_timer_index(timer))
 
-basic_timer_mode_t LowPowerTimer::get_mode() { return this->timer->control_flags.mode; }
-void LowPowerTimer::set_mode(basic_timer_mode_t value) { this->timer->control_flags.mode = value; }
+basic_timer_mode_t LowPowerTimer::mode() { return this->timer->control_flags.mode; }
+void LowPowerTimer::mode(basic_timer_mode_t value) { this->timer->control_flags.mode = value; }
 
-timer_function_t LowPowerTimer::get_function() { return this->timer->control_flags.clock_source; }
-void LowPowerTimer::set_function(timer_function_t value) { this->timer->control_flags.clock_source = value; }
+timer_function_t LowPowerTimer::function() { return this->timer->control_flags.clock_source; }
+void LowPowerTimer::function(timer_function_t value) { this->timer->control_flags.clock_source = value; }
 
-uint8_t LowPowerTimer::get_enable_inverted_output() { return this->timer->control_flags.toggle_enabled; }
-void LowPowerTimer::set_enable_inverted_output(uint8_t value) { this->timer->control_flags.toggle_enabled = value; }
+uint8_t LowPowerTimer::enable_inverted_output() { return this->timer->control_flags.toggle_enabled; }
+void LowPowerTimer::enable_inverted_output(uint8_t value) { this->timer->control_flags.toggle_enabled = value; }
 
-uint8_t LowPowerTimer::get_enable_gate() { return this->timer->control_flags.gate_enabled; }
-void LowPowerTimer::set_enable_gate(uint8_t value) { this->timer->control_flags.gate_enabled = value; }
+uint8_t LowPowerTimer::enable_gate() { return this->timer->control_flags.gate_enabled; }
+void LowPowerTimer::enable_gate(uint8_t value) { this->timer->control_flags.gate_enabled = value; }
 
-uint8_t LowPowerTimer::get_gate_polarity() { return this->timer->control_flags.gate_polarity; }
-void LowPowerTimer::set_gate_polarity(uint8_t value) { this->timer->control_flags.gate_polarity = value; }
+uint8_t LowPowerTimer::gate_polarity() { return this->timer->control_flags.gate_polarity; }
+void LowPowerTimer::gate_polarity(uint8_t value) { this->timer->control_flags.gate_polarity = value; }
 
-uint8_t LowPowerTimer::get_interrupt_enabled()
+uint8_t LowPowerTimer::interrupt_enabled()
 {
     return this->timer->control_flags.interrupt_enabled;
 }
-void LowPowerTimer::set_interrupt_enabled(uint8_t value)
+void LowPowerTimer::interrupt_enabled(uint8_t value)
 {
     this->timer->control_flags.interrupt_enabled = value;
-    irq_t irq = __basic_timer_get_irq(this->timer);
+    irq_t irq = __basic_timer_irq(this->timer);
     if (value)
     {
-        nvic_set_interrupt_priority(irq, nvic_default_irq_priority);
+        nvic_interrupt_priority(irq, nvic_default_irq_priority);
         nvic_enable_interrupt(irq);
     }
     else
@@ -38,15 +38,15 @@ void LowPowerTimer::set_interrupt_enabled(uint8_t value)
         nvic_disable_interrupt(irq);
     }
 }
-void LowPowerTimer::set_running(uint8_t enabled)
+void LowPowerTimer::running(uint8_t enabled)
 {
     this->timer->control_flags.timer_running = enabled;
 }
-uint8_t LowPowerTimer::get_running()
+uint8_t LowPowerTimer::running()
 {
     return this->timer->control_flags.timer_running;
 }
-uint32_t LowPowerTimer::get_reload()
+uint32_t LowPowerTimer::reload()
 {
     if (this->timer->control_flags.mode == basic_timer_mode_periodic)
     {
@@ -57,7 +57,7 @@ uint32_t LowPowerTimer::get_reload()
         return 0;
     }
 }
-void LowPowerTimer::set_reload(uint32_t value)
+void LowPowerTimer::reload(uint32_t value)
 {
     if (this->timer->control_flags.mode == basic_timer_mode_periodic)
     {
@@ -69,20 +69,20 @@ void LowPowerTimer::set_reload(uint32_t value)
     }
 }
 
-uint32_t LowPowerTimer::get_count()
+uint32_t LowPowerTimer::count()
 {
     return this->timer->count16;
 }
-void LowPowerTimer::set_count(uint32_t value)
+void LowPowerTimer::count(uint32_t value)
 {
     this->timer->count16 = value;
 }
 
-void LowPowerTimer::enable()
+void LowPowerTimer::enable_peripheral()
 {
-    peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() | peripheral_basetim));
+    peripheral_enabled((peripheral_t)(peripheral_enabled() | peripheral_lptim));
 }
-void LowPowerTimer::set_interrupt_handler(InterruptInvocationHandler<Timer> *h)
+void LowPowerTimer::interrupt_handler(InterruptInvocationHandler<Timer> *h)
 {
     this->handler = h;
 }
@@ -101,32 +101,23 @@ void LowPowerTimer::clear_interrupt() { this->timer->interrupt_clear = 0; }
 
 void LowPowerTimer::configure(const basic_timer_config_t *cfg)
 {
-    this->set_mode(cfg->mode);
+    this->mode(cfg->mode);
 
-    this->set_function(cfg->function);
-    this->set_enable_inverted_output(cfg->enable_inverted_output);
-    this->set_enable_gate(cfg->enable_gate);
-    this->set_gate_polarity(cfg->gate_polarity);
-    this->set_reload(cfg->reload);
-    this->set_count(cfg->reload);
+    this->function(cfg->function);
+    this->enable_inverted_output(cfg->enable_inverted_output);
+    this->enable_gate(cfg->enable_gate);
+    this->gate_polarity(cfg->gate_polarity);
+    this->reload(cfg->reload);
+    this->count(cfg->reload);
     this->clear_interrupt();
-    this->set_interrupt_enabled(cfg->interrupt_enabled);
+    this->interrupt_enabled(cfg->interrupt_enabled);
 }
 
 LowPowerTimer timer_lptim(HC32_LPTIMER);
 
-void IRQ14_Handler(void)
+
+void IRQ17_Handler(void)
 {
-    timer_tim0.invoke_interrupt(irq_timer_0);
-    nvic_clear_interrupt(irq_timer_0);
-}
-void IRQ15_Handler(void)
-{
-    timer_tim1.invoke_interrupt(irq_timer_1);
-    nvic_clear_interrupt(irq_timer_1);
-}
-void IRQ16_Handler(void)
-{
-    timer_tim2.invoke_interrupt(irq_timer_2);
-    nvic_clear_interrupt(irq_timer_2);
+    timer_lptim.invoke_interrupt(irq_lp_timer);
+    nvic_clear_interrupt(irq_lp_timer);
 }

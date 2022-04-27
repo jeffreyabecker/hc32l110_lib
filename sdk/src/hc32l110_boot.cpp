@@ -1,27 +1,29 @@
-#include <stdint.h>
+
 #include "hc32l110_system.h"
 #include "hc32l110_registers_clock.h"
 #include "hc32l110_registers_system.h"
+#include <cstddef>
+#include <cstdint>
 typedef void (*ptr_func_t)();
 
 extern uint32_t SystemCoreClock;
 extern uint32_t PeripheralCoreClock;
 
-extern uint32_t __data_start;
-extern uint32_t __data_end;
-extern uint32_t __data_load;
+extern uint8_t __data_start;
+extern uint8_t __data_end;
+extern uint8_t __data_load;
 
-extern uint32_t __bss_start;
-extern uint32_t __bss_end;
+extern uint8_t __bss_start;
+extern uint8_t __bss_end;
 
 extern uint32_t __heap_start;
 extern uint32_t __stacktop;
 
-extern ptr_func_t __preinit_array_start[];
-extern ptr_func_t __preinit_array_end[];
+extern ptr_func_t __preinit_array_start;
+extern ptr_func_t __preinit_array_end;
 
-extern ptr_func_t __init_array_start[];
-extern ptr_func_t __init_array_end[];
+extern ptr_func_t __init_array_start;
+extern ptr_func_t __init_array_end;
 
 extern ptr_func_t __fini_array_start[];
 extern ptr_func_t __fini_array_end[];
@@ -126,11 +128,12 @@ __attribute__((section(".vectors"), used)) ptr_func_t vector_table[] = {
  */
 void copy_data()
 {
-    uint32_t *src = &__data_load;
-    uint32_t *dst = &__data_start;
-    while (dst < &__data_end)
+    uint8_t *src = &__data_load;
+    uint8_t *dst = &__data_start;
+    uint32_t count = (&__data_end) - dst;
+    for (uint32_t i = 0; i < count; i++)
     {
-        *dst++ = *src++;
+        dst[i] = src[i];
     }
 }
 
@@ -138,31 +141,15 @@ void copy_data()
  */
 void zero_bss()
 {
-    uint32_t *dst = &__bss_start;
-    while (dst < &__bss_end)
+    uint8_t *dst = &__bss_start;
+    uint32_t count = (&__bss_end) - dst;
+    for (uint32_t i = 0; i < count; i++)
     {
-        *dst++ = 0;
+        dst[i] = 0;
     }
 }
 
-/** Call constructors for static objects
- */
-void call_init_array()
-{
-    auto array = __preinit_array_start;
-    while (array < __preinit_array_end)
-    {
-        (*array)();
-        array++;
-    }
 
-    array = __init_array_start;
-    while (array < __init_array_end)
-    {
-        (*array)();
-        array++;
-    }
-}
 
 /** Call destructors for static objects
  */
@@ -181,10 +168,20 @@ extern "C" __attribute__((used)) void Reset_Handler(void)
     copy_data();
     zero_bss();
     SystemInit();
-    call_init_array();
+    ptr_func_t *init;
+    init = (&__preinit_array_start);
+    while(init != &(__preinit_array_end)){
+        (*init)();
+        init++;
+    }
+    init = (&__init_array_start);
+    while(init != &(__init_array_end)){
+        (*init)();
+        init++;
+    }
     main();
     // call destructors for static instances
-    call_fini_array();
+    // call_fini_array();
     while (1)
     {
         __nop();
@@ -199,4 +196,43 @@ __weak void SystemInit(void)
     PeripheralCoreClock = MHz_4;
 }
 
-extern "C" void __cxa_pure_virtual() { while (1); }
+extern "C" void __cxa_pure_virtual()
+{
+    while (1) ;
+}
+extern "C"
+int memcmp( const void* lhs, const void* rhs, size_t count )
+{
+    auto lhsPtr = reinterpret_cast<const char*>(lhs);
+    auto rhsPtr = reinterpret_cast<const char*>(rhs);
+    int diffSum = 0;
+    while (0 < count) {
+        diffSum += static_cast<int>(*lhsPtr) - static_cast<int>(*rhsPtr);
+        if (diffSum != 0) {
+            break;
+        }
+        --count;
+        ++lhsPtr;
+        ++rhsPtr;
+    }
+    return diffSum;
+}
+
+extern "C"
+void* memset(void* dest, int ch, size_t count)
+{
+    auto destPtr = reinterpret_cast<unsigned char*>(dest);
+    auto castedCh = static_cast<unsigned char>(ch);
+    while (0 < count) {
+        *destPtr = castedCh;
+        ++destPtr;
+        --count;
+    }
+
+    return dest;
+}
+
+void operator delete(void*)
+{
+    while (true) {}
+}
