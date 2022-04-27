@@ -1,7 +1,14 @@
 #include "hc32l110_ddl_timer.h"
 
 TimerCounter::TimerCounter(Timer* timer) : _count(0), _timer(timer){
-    timer->interrupt_handler(this);
+    if(NULL != timer){
+        timer->interrupt.add(this);
+    }
+}
+TimerCounter :: ~TimerCounter(){
+    if(NULL != this->_timer){
+        this->_timer->interrupt.add(this);
+    }
 }
 void TimerCounter::invoke(Timer *device, irq_t irq){
     this->_count++;

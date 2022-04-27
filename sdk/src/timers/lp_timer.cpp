@@ -80,20 +80,10 @@ void LowPowerTimer::count(uint32_t value)
 
 void LowPowerTimer::enable_peripheral()
 {
-    peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() | peripheral_lptim));
+    Device::enable(peripheral_lptim);
 }
-void LowPowerTimer::interrupt_handler(InterruptInvocationHandler<Timer> *h)
-{
-    this->handler = h;
-}
-void LowPowerTimer::invoke_interrupt(irq_t irq)
-{
-    if (this->handler != NULL)
-    {
-        this->handler->invoke(this, irq);
-    }
-}
-LowPowerTimer::LowPowerTimer(hc32_lp_timer_register_t *t) : timer(t), handler(NULL)
+
+LowPowerTimer::LowPowerTimer(hc32_lp_timer_register_t *t) : timer(t)
 {
 }
 uint8_t LowPowerTimer::has_interrupt() { return this->timer->interrupt_flag > 0 ? 1 : 0; }
@@ -106,6 +96,6 @@ LowPowerTimer timer_lptim(HC32_LPTIMER);
 
 void IRQ17_Handler(void)
 {
-    timer_lptim.invoke_interrupt(irq_lp_timer);
+    timer_lptim.interrupt.invoke(irq_lp_timer);
     Nvic::clear(irq_lp_timer);
 }

@@ -35,25 +35,20 @@ __attribute__((section(".rodata"))) const gpio_port_config_t gpio_digital_input_
 
 
 
-void GpioPort::enable_peripheral()
+void GpioPort::enable()
 {
-    HC32_GPIO_PORT0->DIR = 0xFF;
-    HC32_GPIO_PORT1->DIR = 0xFF;
-    HC32_GPIO_PORT2->DIR = 0xFF;
-    HC32_GPIO_PORT3->DIR = 0xFF;
-    HC32_GPIO_PORT0->OD = 0x00;
-    HC32_GPIO_PORT1->OD = 0x00;
-    HC32_GPIO_PORT2->OD = 0x00;
-    HC32_GPIO_PORT3->OD = 0x00;
-    peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() | peripheral_gpio));
+    Device::enable( peripheral_gpio);
 }
-constexpr GpioPort::GpioPort(uint32_t *sel, gpio_port_ctl_t *port, gpio_port_interrupt_t *interrupt, uint8_t position, irq_t irq)
+void GpioPort::disable()
+{
+    Device::disable( peripheral_gpio);
+}
+GpioPort::GpioPort(uint32_t *sel, gpio_port_ctl_t *port, gpio_port_interrupt_t *i, uint8_t position, irq_t irq)
     : _sel{sel},
     _port{port},
-    _interrupt{interrupt},
+    _interrupt{i},
     _position{position},
-    _irq{irq},
-    _handler{NULL}
+    _irq{irq}
 { }
 
 
@@ -88,17 +83,7 @@ void GpioPort::clear_interrupt()
 {
     this->_interrupt->ICLR = (this->_interrupt->ICLR & ~(1 << this->_position));
 }
-void GpioPort::set_interrupt_handler(InterruptInvocationHandler<GpioPort> *handler)
-{
-    this->_handler = handler;
-}
-void GpioPort::invoke_interrupt(irq_t irq)
-{
-    if (this->has_interrupt() && this->_handler != NULL)
-    {
-        this->_handler->invoke(this, irq);
-    }
-}
+
 uint8_t GpioPort::function() { return (uint8_t) * (this->_sel); }
 void GpioPort::function(uint8_t value) { *(this->_sel) = value; }
 
@@ -156,37 +141,37 @@ GpioPort gpio_port_p36(HC32_GPIO_P36_SEL, HC32_GPIO_PORT3, HC32_GPIO_PORT3_INTER
 
 void IRQ00_Handler(void)
 {
-    gpio_port_p01.invoke_interrupt(irq_port_0);
-    gpio_port_p02.invoke_interrupt(irq_port_0);
-    gpio_port_p03.invoke_interrupt(irq_port_0);
+    gpio_port_p01.interrupt.invoke(irq_port_0);
+    gpio_port_p02.interrupt.invoke(irq_port_0);
+    gpio_port_p03.interrupt.invoke(irq_port_0);
     HC32_GPIO_PORT0_INTERRUPT->ICLR = 0;
     Nvic::clear(irq_port_0);
 }
 void IRQ01_Handler(void)
 {
-    gpio_port_p14.invoke_interrupt(irq_port_1);
-    gpio_port_p15.invoke_interrupt(irq_port_1);
+    gpio_port_p14.interrupt.invoke(irq_port_1);
+    gpio_port_p15.interrupt.invoke(irq_port_1);
     HC32_GPIO_PORT1_INTERRUPT->ICLR = 0;
     Nvic::clear(irq_port_1);
 }
 void IRQ02_Handler(void)
 {
-    gpio_port_p23.invoke_interrupt(irq_port_2);
-    gpio_port_p24.invoke_interrupt(irq_port_2);
-    gpio_port_p25.invoke_interrupt(irq_port_2);
-    gpio_port_p26.invoke_interrupt(irq_port_2);
-    gpio_port_p27.invoke_interrupt(irq_port_2);
+    gpio_port_p23.interrupt.invoke(irq_port_2);
+    gpio_port_p24.interrupt.invoke(irq_port_2);
+    gpio_port_p25.interrupt.invoke(irq_port_2);
+    gpio_port_p26.interrupt.invoke(irq_port_2);
+    gpio_port_p27.interrupt.invoke(irq_port_2);
     HC32_GPIO_PORT2_INTERRUPT->ICLR = 0;
     Nvic::clear(irq_port_2);
 }
 void IRQ03_Handler(void)
 {
-    gpio_port_p31.invoke_interrupt(irq_port_3);
-    gpio_port_p32.invoke_interrupt(irq_port_3);
-    gpio_port_p33.invoke_interrupt(irq_port_3);
-    gpio_port_p34.invoke_interrupt(irq_port_3);
-    gpio_port_p35.invoke_interrupt(irq_port_3);
-    gpio_port_p36.invoke_interrupt(irq_port_3);
+    gpio_port_p31.interrupt.invoke(irq_port_3);
+    gpio_port_p32.interrupt.invoke(irq_port_3);
+    gpio_port_p33.interrupt.invoke(irq_port_3);
+    gpio_port_p34.interrupt.invoke(irq_port_3);
+    gpio_port_p35.interrupt.invoke(irq_port_3);
+    gpio_port_p36.interrupt.invoke(irq_port_3);
     HC32_GPIO_PORT3_INTERRUPT->ICLR = 0;
     Nvic::clear(irq_port_3);
 }

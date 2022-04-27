@@ -12,8 +12,6 @@ extern "C" {
 #include <stddef.h>
 
 
-void peripheral_set_enabled(peripheral_t peripheral);
-peripheral_t peripheral_get_enabled();
 
 class Nvic{
   public:
@@ -35,9 +33,26 @@ class InterruptHandler
     void add(InterruptHandler* handler);
     void remove(InterruptHandler* handler);
 };
+
+class InterruptFunctionWrapper : public InterruptHandler
+{
+private:
+    void (*_handler)(irq_t irq);
+public:
+    InterruptFunctionWrapper(void (*h)(irq_t irq));
+    virtual void invoke(irq_t irq) override;
+};
+
+
+
+
 class Device {
   public:
     InterruptHandler interrupt;
+    static void enabled(peripheral_t peripheral);
+    static peripheral_t enabled();
+    static enable(peripheral_t peripheral);
+    static disable(peripheral_t peripheral);
 };
 
 

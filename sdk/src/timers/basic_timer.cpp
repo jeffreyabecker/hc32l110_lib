@@ -94,20 +94,10 @@ void BasicTimer::count(uint32_t value)
 
 void BasicTimer::enable_peripheral()
 {
-    peripheral_set_enabled((peripheral_t)(peripheral_get_enabled() | peripheral_basetim));
+    Device::enable(peripheral_basetim);
 }
-void BasicTimer::interrupt_handler(InterruptInvocationHandler<Timer> *h)
-{
-    this->handler = h;
-}
-void BasicTimer::invoke_interrupt(irq_t irq)
-{
-    if (this->handler != NULL)
-    {
-        this->handler->invoke(this, irq);
-    }
-}
-BasicTimer::BasicTimer(hc32_basic_timer_register_t *t) : timer(t), handler(NULL)
+
+BasicTimer::BasicTimer(hc32_basic_timer_register_t *t) : timer(t)
 {
 }
 uint8_t BasicTimer::has_interrupt() { return this->timer->interrupt_flag > 0 ? 1 : 0; }
@@ -120,16 +110,16 @@ BasicTimer timer_tim2(HC32_TIMER2);
 
 void IRQ14_Handler(void)
 {
-    timer_tim0.invoke_interrupt(irq_timer_0);
+    timer_tim0.interrupt.invoke(irq_timer_0);
     Nvic::clear(irq_timer_0);
 }
 void IRQ15_Handler(void)
 {
-    timer_tim1.invoke_interrupt(irq_timer_1);
+    timer_tim1.interrupt.invoke(irq_timer_1);
     Nvic::clear(irq_timer_1);
 }
 void IRQ16_Handler(void)
 {
-    timer_tim2.invoke_interrupt(irq_timer_2);
+    timer_tim2.interrupt.invoke(irq_timer_2);
     Nvic::clear(irq_timer_2);
 }

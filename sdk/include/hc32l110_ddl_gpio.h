@@ -5,7 +5,7 @@
 
 #include "hc32l110_ddl_core.h"
 #include "hc32l110_registers.h"
-#include "hc32l110_ddl_interrupt_invocation_handler.h"
+
 
 typedef struct
 {
@@ -34,7 +34,7 @@ typedef struct
 } gpio_port_descriptor_t;
 ;
 
-class GpioPort
+class GpioPort : public Device
 {
 private:
     uint32_t *_sel;
@@ -42,18 +42,17 @@ private:
     gpio_port_interrupt_t *_interrupt;
     uint8_t _position;
     irq_t _irq;
-    InterruptInvocationHandler<GpioPort>* _handler;
+
 public:
-    static void enable_peripheral();
-    //GpioPort(uint8_t port_index);
-    constexpr GpioPort(uint32_t *sel, gpio_port_ctl_t *port, gpio_port_interrupt_t *interrupt, uint8_t position, irq_t irq);
+    static void enable();
+    static void disable();
+    GpioPort(uint32_t *sel, gpio_port_ctl_t *port, gpio_port_interrupt_t *i, uint8_t position, irq_t irq);
     void configure(const gpio_port_config_t *cfg);
     uint8_t digital_read();
     void digital_write(uint8_t bit);
     uint8_t has_interrupt();
     void clear_interrupt();
-    void set_interrupt_handler(InterruptInvocationHandler<GpioPort> *handler);
-    void invoke_interrupt(irq_t irq);
+
 
     gpio_direction_t direction();
     void direction(gpio_direction_t value);
