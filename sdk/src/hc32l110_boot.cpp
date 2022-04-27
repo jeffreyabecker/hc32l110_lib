@@ -25,8 +25,8 @@ extern ptr_func_t __preinit_array_end;
 extern ptr_func_t __init_array_start;
 extern ptr_func_t __init_array_end;
 
-extern ptr_func_t __fini_array_start[];
-extern ptr_func_t __fini_array_end[];
+extern ptr_func_t __fini_array_start;
+extern ptr_func_t __fini_array_end;
 
 extern int main(void);
 extern void SystemInit(void);
@@ -155,8 +155,8 @@ void zero_bss()
  */
 void call_fini_array()
 {
-    auto array = __fini_array_start;
-    while (array < __fini_array_end)
+    ptr_func_t * array = &__fini_array_start;
+    while (array != &(__fini_array_end))
     {
         (*array)();
         array++;
@@ -181,7 +181,7 @@ extern "C" __attribute__((used)) void Reset_Handler(void)
     }
     main();
     // call destructors for static instances
-    // call_fini_array();
+    call_fini_array();
     while (1)
     {
         __nop();

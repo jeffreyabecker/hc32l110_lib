@@ -4,7 +4,7 @@
 #include "hc32l110_ddl_interrupt_invocation_handler.h"
 
 template <typename TDevice>
-class InterruptInvocationWrapper : InterruptInvocationHandler<TDevice>
+class InterruptInvocationWrapper : public InterruptInvocationHandler<TDevice>
 {
 private:
     void (*_handler)(TDevice *, irq_t);

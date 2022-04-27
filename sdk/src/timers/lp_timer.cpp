@@ -30,12 +30,12 @@ void LowPowerTimer::interrupt_enabled(uint8_t value)
     irq_t irq = __basic_timer_irq(this->timer);
     if (value)
     {
-        nvic_set_interrupt_priority(irq, nvic_default_irq_priority);
-        nvic_enable_interrupt(irq);
+        Nvic::set_priority(irq, Nvic::default_priority);
+        Nvic::enable(irq);
     }
     else
     {
-        nvic_disable_interrupt(irq);
+        Nvic::disable(irq);
     }
 }
 void LowPowerTimer::running(uint8_t enabled)
@@ -107,5 +107,5 @@ LowPowerTimer timer_lptim(HC32_LPTIMER);
 void IRQ17_Handler(void)
 {
     timer_lptim.invoke_interrupt(irq_lp_timer);
-    nvic_clear_interrupt(irq_lp_timer);
+    Nvic::clear(irq_lp_timer);
 }

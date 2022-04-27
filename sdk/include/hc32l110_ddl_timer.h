@@ -46,7 +46,7 @@ public:
 
 
 
-class BasicTimer : Timer
+class BasicTimer : public Timer
 {
 private:
     hc32_basic_timer_register_t *timer;
@@ -95,7 +95,7 @@ public:
     virtual void invoke_interrupt(irq_t irq) override;
 };
 
-class LowPowerTimer : Timer
+class LowPowerTimer : public Timer
 {
 private:
     hc32_lp_timer_register_t *timer;

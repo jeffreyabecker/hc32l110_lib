@@ -34,12 +34,12 @@ void BasicTimer::interrupt_enabled(uint8_t value)
     irq_t irq = __basic_timer_irq(this->timer);
     if (value)
     {
-        nvic_set_interrupt_priority(irq, nvic_default_irq_priority);
-        nvic_enable_interrupt(irq);
+        Nvic::set_priority(irq, Nvic::default_priority);
+        Nvic::enable(irq);
     }
     else
     {
-        nvic_disable_interrupt(irq);
+        Nvic::disable(irq);
     }
 }
 void BasicTimer::running(uint8_t enabled)
@@ -121,15 +121,15 @@ BasicTimer timer_tim2(HC32_TIMER2);
 void IRQ14_Handler(void)
 {
     timer_tim0.invoke_interrupt(irq_timer_0);
-    nvic_clear_interrupt(irq_timer_0);
+    Nvic::clear(irq_timer_0);
 }
 void IRQ15_Handler(void)
 {
     timer_tim1.invoke_interrupt(irq_timer_1);
-    nvic_clear_interrupt(irq_timer_1);
+    Nvic::clear(irq_timer_1);
 }
 void IRQ16_Handler(void)
 {
     timer_tim2.invoke_interrupt(irq_timer_2);
-    nvic_clear_interrupt(irq_timer_2);
+    Nvic::clear(irq_timer_2);
 }
